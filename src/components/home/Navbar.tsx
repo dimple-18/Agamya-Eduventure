@@ -1,10 +1,32 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 import { navigationItems } from "./content";
 
 export default function Navbar() {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 14);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-50 border-b border-[var(--line)] bg-[rgba(255,255,255,0.94)] px-4 py-4 backdrop-blur-sm sm:px-6 lg:px-8">
+    <header
+      className={`sticky top-0 z-50 border-b border-[var(--line)] px-4 backdrop-blur-sm transition-all duration-300 sm:px-6 lg:px-8 ${
+        isScrolled
+          ? "bg-[rgba(255,255,255,0.97)] py-3 shadow-[0_6px_22px_rgba(15,23,42,0.06)]"
+          : "bg-[rgba(255,255,255,0.94)] py-4"
+      }`}
+    >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-6">
         <Link href="/" className="flex min-w-0 items-center gap-3">
           <span className="flex h-11 w-11 items-center justify-center border border-[var(--line-strong)] bg-[var(--surface-soft)] text-sm font-semibold tracking-[0.22em] text-[var(--brand)]">
@@ -34,12 +56,12 @@ export default function Navbar() {
 
         <div className="hidden items-center gap-3 lg:flex">
           <Link
-            href="/#contact"
+            href="/contact"
             className="text-sm font-semibold text-[var(--brand)] transition hover:text-[var(--brand-dark)]"
           >
             Request Info
           </Link>
-          <Link href="/#contact" className="button-primary">
+          <Link href="/contact" className="button-primary">
             Enquire Now
           </Link>
         </div>
@@ -68,7 +90,7 @@ export default function Navbar() {
             </nav>
 
             <div className="mt-4 border-t border-[var(--line)] pt-4">
-              <Link href="/#contact" className="button-primary w-full text-center">
+              <Link href="/contact" className="button-primary w-full text-center">
                 Enquire Now
               </Link>
             </div>

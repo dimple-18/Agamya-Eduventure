@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+
+import MotionEffects from "../components/home/MotionEffects";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -14,7 +16,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full antialiased">
-      <body className="min-h-full">{children}</body>
+      <body className="min-h-full">
+        <MotionEffects />
+        {children}
+      </body>
     </html>
   );
 }

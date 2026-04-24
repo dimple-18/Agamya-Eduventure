@@ -149,6 +149,12 @@ summary::-webkit-details-marker {
   transform: translateY(-1px);
 }
 
+.button-primary:active,
+.button-secondary:active,
+.button-micro:active {
+  transform: translateY(0) scale(0.985);
+}
+
 .button-primary {
   border: 1px solid var(--brand);
   background: var(--brand);
@@ -172,6 +178,73 @@ summary::-webkit-details-marker {
 .surface-card {
   border: 1px solid var(--line);
   background: var(--surface);
+}
+
+.motion-reveal-ready {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 520ms ease,
+    transform 620ms cubic-bezier(0.2, 0.7, 0, 1);
+}
+
+.motion-reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.motion-card {
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    border-color 220ms ease;
+}
+
+.lite-splash-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.lite-splash-card::before {
+  content: "";
+  position: absolute;
+  top: -3.25rem;
+  left: -3.25rem;
+  z-index: 0;
+  height: 7.5rem;
+  width: 7.5rem;
+  border-radius: 999px;
+  background: radial-gradient(
+    circle,
+    rgba(29, 95, 93, 0.18) 0%,
+    rgba(23, 63, 75, 0.12) 45%,
+    rgba(29, 95, 93, 0.02) 100%
+  );
+  transform: scale(1);
+  transition:
+    transform 480ms cubic-bezier(0.2, 0.7, 0, 1),
+    opacity 360ms ease;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.lite-splash-content {
+  position: relative;
+  z-index: 1;
+}
+
+@media (hover: hover) {
+  .motion-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 36px rgba(15, 23, 42, 0.08);
+    border-color: var(--line-strong);
+  }
+
+  .lite-splash-card:hover::before {
+    transform: scale(5.8);
+    opacity: 1;
+  }
 }
 
 .form-input {
@@ -236,5 +309,20 @@ summary::-webkit-details-marker {
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .motion-reveal-ready,
+  .motion-reveal-visible {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .motion-card:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  .lite-splash-card::before {
+    display: none !important;
   }
 }

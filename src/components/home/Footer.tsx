@@ -68,7 +68,7 @@ export default function Footer() {
                 WhatsApp: 7004704078
               </a>
               <Link
-                href="/#contact"
+                href="/contact"
                 className="text-sm font-semibold text-[var(--brand)] transition hover:text-[var(--brand-dark)]"
               >
                 Request information

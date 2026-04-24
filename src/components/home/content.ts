@@ -34,13 +34,21 @@ type ContactDetail = {
   href?: string;
 };
 
+type GalleryEvent = {
+  title: string;
+  label: string;
+  description: string;
+  photos: readonly string[];
+};
+
 export const navigationItems: readonly NavItem[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Programs", href: "/programs" },
+  { label: "Gallery", href: "/gallery" },
   { label: "Outcomes", href: "/#outcomes" },
   { label: "Testimonials", href: "/#testimonials" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Contact", href: "/contact" },
 ] as const;
 
 export const heroStats: readonly HeroStat[] = [
@@ -109,6 +117,15 @@ export const programCards: readonly ProgramCard[] = [
     image: "/hero/christopher-gower-m_HRfLhgABo-unsplash.jpg",
     projects: "Build basic logic exercises and foundational coding tasks with support.",
     mentoring: "Extra attention for beginners who need clarity before moving ahead.",
+  },
+  {
+    title: "DCA (Diploma in Computer Applications)",
+    description:
+      "A structured computer applications program covering office tools, internet usage, digital workflow, and practical computer fundamentals.",
+    meta: "Core track",
+    image: "/hero/christopher-gower-m_HRfLhgABo-unsplash.jpg",
+    projects: "Complete practical assignments in documentation, spreadsheets, presentations, and digital productivity.",
+    mentoring: "Guided support for foundational computer literacy and confident day-to-day application usage.",
   },
   {
     title: "Database & SQL",
@@ -227,5 +244,74 @@ export const contactDetails: readonly ContactDetail[] = [
     label: "Programs",
     value:
       "Web Development, Java, Python, Database, Internship, Certification, Projects",
+  },
+] as const;
+
+export const galleryEvents: readonly GalleryEvent[] = [
+  {
+    title: "Coding Workshop Session",
+    label: "Workshop",
+    description:
+      "Hands-on teaching moments from practical coding sessions and concept-building classes.",
+    photos: [
+      "/hero/programming-background-with-person-working-with-codes-computer.jpg",
+      "/hero/christopher-gower-m_HRfLhgABo-unsplash.jpg",
+      "/hero/html-css-collage-concept-with-person.jpg",
+    ],
+  },
+  {
+    title: "Student Practice Lab",
+    label: "Practice Session",
+    description:
+      "Practice-focused learning environment where students work through guided exercises.",
+    photos: [
+      "/hero/christopher-gower-m_HRfLhgABo-unsplash.jpg",
+      "/hero/programming-background-with-person-working-with-codes-computer.jpg",
+      "/hero/html-css-collage-concept-with-person.jpg",
+    ],
+  },
+  {
+    title: "Project Mentoring Day",
+    label: "Mentoring",
+    description:
+      "Snapshots from project discussions, review sessions, and guided implementation work.",
+    photos: [
+      "/hero/html-css-collage-concept-with-person.jpg",
+      "/hero/christopher-gower-m_HRfLhgABo-unsplash.jpg",
+      "/hero/programming-background-with-person-working-with-codes-computer.jpg",
+    ],
+  },
+  {
+    title: "Learning Milestones",
+    label: "Student Moments",
+    description:
+      "Celebrating progress, confidence, and steady improvement through regular mentoring.",
+    photos: [
+      "/hero/christopher-gower-m_HRfLhgABo-unsplash.jpg",
+      "/hero/html-css-collage-concept-with-person.jpg",
+      "/hero/programming-background-with-person-working-with-codes-computer.jpg",
+    ],
+  },
+  {
+    title: "Institute Events",
+    label: "Occasions",
+    description:
+      "Photos from institute occasions, student gatherings, and meaningful learning moments.",
+    photos: [
+      "/hero/programming-background-with-person-working-with-codes-computer.jpg",
+      "/hero/christopher-gower-m_HRfLhgABo-unsplash.jpg",
+      "/hero/html-css-collage-concept-with-person.jpg",
+    ],
+  },
+  {
+    title: "Project Presentation",
+    label: "Presentation",
+    description:
+      "Students presenting work, sharing outcomes, and gaining confidence through feedback.",
+    photos: [
+      "/hero/html-css-collage-concept-with-person.jpg",
+      "/hero/programming-background-with-person-working-with-codes-computer.jpg",
+      "/hero/christopher-gower-m_HRfLhgABo-unsplash.jpg",
+    ],
   },
 ] as const;
