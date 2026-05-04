@@ -110,11 +110,13 @@ export default function Hero() {
             ))}
           </div>
 
-          <div className="hero-overlay-card">
-            <p className="text-[2rem] font-semibold tracking-[-0.05em] text-[var(--brand)] sm:text-[2.35rem]">
-              Coding Programs
+          <div className="hero-overlay-copy">
+            <p className="hero-overlay-eyebrow">Agamya Eduventure</p>
+            <p className="text-[2.7rem] font-semibold leading-[1] tracking-[-0.055em] text-white sm:text-[3.8rem] lg:text-[4.6rem]">
+              ISO-certified computer education with personality development and
+              interview preparation.
             </p>
-            <p className="mt-2 text-base leading-7 text-[var(--text-secondary)]">
+            <p className="mt-3 max-w-xl text-base leading-7 text-white/88">
               Learn with structure, mentoring, and practical guidance from the
               beginning.
             </p>
