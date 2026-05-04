@@ -101,7 +101,7 @@ export const programCards: readonly ProgramCard[] = [
     mentoring: "Concept clarity and step-by-step support while building confidence.",
   },
   {
-    title: "Java & OOP",
+    title: "Java Programming",
     description:
       "Core programming fundamentals with object-oriented thinking and disciplined coding practice.",
     meta: "Language track",
@@ -186,6 +186,108 @@ export const appliedPrograms: readonly ProgramCard[] = [
   },
 ] as const;
 
+export const enterprisePrograms: readonly ProgramCard[] = [
+  {
+    title: "Basic Computers",
+    description:
+      "Beginner computer literacy training covering system usage, internet basics, and essential productivity tools.",
+    meta: "Foundation module",
+    image: "/hero/christopher-gower-m_HRfLhgABo-unsplash.jpg",
+    projects: "Practice-based tasks in typing, file handling, and everyday computer workflows.",
+    mentoring: "Step-by-step mentor support for first-time learners.",
+  },
+  {
+    title: "C++ Programming",
+    description:
+      "Structured C++ training focused on syntax, logic-building, and practical coding fundamentals.",
+    meta: "Language track",
+    image: "/hero/programming-background-with-person-working-with-codes-computer.jpg",
+    projects: "Solve programming exercises and build mini console-based applications.",
+    mentoring: "Concept-first support to strengthen coding confidence.",
+  },
+  {
+    title: "Dot NET",
+    description:
+      "Focused .NET learning path for building application development understanding with practical implementation.",
+    meta: "Technical stack",
+    image: "/hero/html-css-collage-concept-with-person.jpg",
+    projects: "Build guided .NET practice tasks and structured assignments.",
+    mentoring: "Regular mentor review to improve implementation quality.",
+  },
+  {
+    title: "PHP Programming",
+    description:
+      "Backend programming basics in PHP with real-use concepts and practical coding flow.",
+    meta: "Language track",
+    image: "/hero/programming-background-with-person-working-with-codes-computer.jpg",
+    projects: "Hands-on scripting and backend workflow exercises.",
+    mentoring: "Personalized guidance for clean code and logical structure.",
+  },
+  {
+    title: "Enterprise Microsoft IT Skill Development",
+    description:
+      "Corporate-focused Microsoft tools training to improve workplace productivity and execution quality.",
+    meta: "Corporate training",
+    image: "/hero/christopher-gower-m_HRfLhgABo-unsplash.jpg",
+    projects: "Applied assignments across office productivity workflows.",
+    mentoring: "Practical mentoring aligned to real business usage.",
+  },
+  {
+    title: "Corporate MS Application Proficiency",
+    description:
+      "Structured training to strengthen practical proficiency in Microsoft application suites.",
+    meta: "Corporate training",
+    image: "/hero/html-css-collage-concept-with-person.jpg",
+    projects: "Task-based practice on spreadsheets, documents, and presentations.",
+    mentoring: "Guided review for consistent improvement and speed.",
+  },
+  {
+    title: "Desktop Publishing Training",
+    description:
+      "Comprehensive DTP training for layout, formatting, and document production workflows.",
+    meta: "Corporate training",
+    image: "/hero/christopher-gower-m_HRfLhgABo-unsplash.jpg",
+    projects: "Publishing workflow assignments with format and output checks.",
+    mentoring: "Expert support for industry-relevant publishing standards.",
+  },
+  {
+    title: "Visual Basic Software Training",
+    description:
+      "Visual Basic skill-building for application logic, coding structure, and practical implementation.",
+    meta: "Software training",
+    image: "/hero/programming-background-with-person-working-with-codes-computer.jpg",
+    projects: "Guided code tasks and software practice modules.",
+    mentoring: "Review-based mentoring to improve accuracy and structure.",
+  },
+  {
+    title: "FoxPro Software Training",
+    description:
+      "FoxPro-focused training for legacy database workflows and enterprise software handling.",
+    meta: "Software training",
+    image: "/hero/html-css-collage-concept-with-person.jpg",
+    projects: "Database-oriented practical work and software operation exercises.",
+    mentoring: "Support for troubleshooting, optimization, and practical usage.",
+  },
+  {
+    title: "Industrial Automation Software Training",
+    description:
+      "Software-oriented automation training for industrial use cases and practical system operations.",
+    meta: "Industry training",
+    image: "/hero/programming-background-with-person-working-with-codes-computer.jpg",
+    projects: "Applied automation tasks with workflow-oriented execution.",
+    mentoring: "Mentor-led guidance for operational clarity and confidence.",
+  },
+  {
+    title: "SAP Business Objects Training",
+    description:
+      "Business Objects training for reporting, analytics understanding, and enterprise data workflows.",
+    meta: "Enterprise analytics",
+    image: "/hero/christopher-gower-m_HRfLhgABo-unsplash.jpg",
+    projects: "Practical reporting and business analytics assignments.",
+    mentoring: "Structured support for tool usage and interpretation.",
+  },
+] as const;
+
 export const differentiators: readonly Highlight[] = [
   {
     title: "Clarity before complexity",
@@ -240,6 +342,9 @@ export const testimonials: readonly Testimonial[] = [
 export const contactDetails: readonly ContactDetail[] = [
   { label: "Phone", value: "7004704078", href: "tel:7004704078" },
   { label: "WhatsApp", value: "7004704078", href: "https://wa.me/917004704078" },
+  { label: "Response Time", value: "Within 24 hrs" },
+  { label: "Support Type", value: "Phone / Chat / Email" },
+  { label: "Payment Method", value: "Online / Offline" },
   {
     label: "Programs",
     value:

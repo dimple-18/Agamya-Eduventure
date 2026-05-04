@@ -173,6 +173,33 @@ export default function ContactPage() {
 
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">
+                  Response Time
+                </p>
+                <p className="mt-2 max-w-md text-base leading-8 text-[var(--text-secondary)]">
+                  Within 24 hrs
+                </p>
+              </div>
+
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">
+                  Support Type
+                </p>
+                <p className="mt-2 max-w-md text-base leading-8 text-[var(--text-secondary)]">
+                  Phone / Chat / Email
+                </p>
+              </div>
+
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">
+                  Payment Method
+                </p>
+                <p className="mt-2 max-w-md text-base leading-8 text-[var(--text-secondary)]">
+                  Online / Offline
+                </p>
+              </div>
+
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">
                   Location
                 </p>
                 <p className="mt-2 max-w-md text-base leading-8 text-[var(--text-secondary)]">

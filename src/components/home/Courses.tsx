@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import SectionHeading from "./SectionHeading";
-import { appliedPrograms, programCards } from "./content";
+import { appliedPrograms, enterprisePrograms, programCards } from "./content";
 
 type CoursesProps = {
   preview?: boolean;
@@ -15,7 +15,7 @@ const corePrograms = programCards.filter((program) =>
   [
     "Web Development",
     "Python Programming",
-    "Java & OOP",
+    "Java Programming",
     "Programming Fundamentals",
     "DCA (Diploma in Computer Applications)",
   ].includes(program.title),
@@ -33,18 +33,36 @@ const projectsAndCertifications = appliedPrograms.filter((program) =>
   ["Certification Support", "Mini & Major Projects"].includes(program.title),
 );
 
+const basicComputerProgram = enterprisePrograms.filter(
+  (program) => program.title === "Basic Computers",
+);
+
+const additionalTechnicalPrograms = enterprisePrograms.filter((program) =>
+  ["C++ Programming", "Dot NET", "PHP Programming"].includes(program.title),
+);
+
+const corporateEnterprisePrograms = enterprisePrograms.filter(
+  (program) =>
+    ![
+      "Basic Computers",
+      "C++ Programming",
+      "Dot NET",
+      "PHP Programming",
+    ].includes(program.title),
+);
+
 const groupedPrograms = [
   {
     title: "Core Programs",
     description:
       "The main learning tracks for students starting with programming, web development, and stronger coding fundamentals.",
-    items: corePrograms,
+    items: [...corePrograms, ...basicComputerProgram],
   },
   {
     title: "Technical Modules",
     description:
       "Focused modules that strengthen technical understanding through databases, SQL, logic-building, and practical problem-solving.",
-    items: technicalModules,
+    items: [...technicalModules, ...additionalTechnicalPrograms],
   },
   {
     title: "Career Support",
@@ -58,17 +76,26 @@ const groupedPrograms = [
       "Hands-on project work and certification guidance that help students apply learning in a meaningful way.",
     items: projectsAndCertifications,
   },
+  {
+    title: "Corporate & Advanced Courses",
+    description:
+      "Enterprise-focused and specialized professional training tracks for corporate productivity, software tooling, automation, and business workflows.",
+    items: corporateEnterprisePrograms,
+  },
 ] as const;
 
 const previewPrograms = [...corePrograms.slice(0, 2), ...technicalModules.slice(0, 1), ...careerSupport.slice(0, 1)];
 
 export default function Courses({ preview = false }: CoursesProps) {
+  const INITIAL_VISIBLE_PROGRAMS = 4;
+  const LOAD_MORE_STEP = 4;
   const categoryId = (title: string) => title.toLowerCase().replaceAll(/[^a-z0-9]+/g, "-");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [expandedProgramId, setExpandedProgramId] = useState<string | null>(null);
   const [openFilterGroupId, setOpenFilterGroupId] = useState<string | null>(categoryId("Core Programs"));
   const [searchQuery, setSearchQuery] = useState("");
   const [searchFocused, setSearchFocused] = useState(false);
+  const [visibleProgramsCount, setVisibleProgramsCount] = useState(INITIAL_VISIBLE_PROGRAMS);
   const cardRefs = useRef<Record<string, HTMLElement | null>>({});
 
   const selectedGroup = groupedPrograms.find((group) => categoryId(group.title) === selectedCategory);
@@ -110,6 +137,14 @@ export default function Courses({ preview = false }: CoursesProps) {
     }));
   }, [selectedCategory, selectedGroup]);
 
+  useEffect(() => {
+    setVisibleProgramsCount(INITIAL_VISIBLE_PROGRAMS);
+  }, [selectedCategory]);
+
+  const visiblePrograms = useMemo(() => {
+    return displayedPrograms.slice(0, visibleProgramsCount);
+  }, [displayedPrograms, visibleProgramsCount]);
+
   const searchSuggestions = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
     if (!query) {
@@ -133,6 +168,15 @@ export default function Courses({ preview = false }: CoursesProps) {
     setExpandedProgramId(programId);
     setSearchQuery(program.title);
     setSearchFocused(false);
+    setVisibleProgramsCount((current) => {
+      const selectedPrograms =
+        program.groupId === "all"
+          ? allPrograms
+          : allPrograms.filter((item) => item.groupId === program.groupId);
+      const selectedIndex = selectedPrograms.findIndex((item) => item.title === program.title);
+      const requiredVisibleCount = selectedIndex >= 0 ? selectedIndex + 1 : INITIAL_VISIBLE_PROGRAMS;
+      return Math.max(current, requiredVisibleCount);
+    });
 
     window.setTimeout(() => {
       const card = cardRefs.current[programId];
@@ -316,7 +360,7 @@ export default function Courses({ preview = false }: CoursesProps) {
 
         <section className="mt-8 border border-[var(--line)] bg-white">
           <div className="grid lg:grid-cols-[0.27fr_0.73fr]">
-            <aside className="hidden border-b border-[var(--line)] bg-[var(--surface-soft)] p-5 sm:p-7 lg:sticky lg:top-28 lg:block lg:h-fit lg:self-start lg:border-b-0 lg:border-r">
+            <aside className="hidden border-b border-[var(--line)] bg-[var(--surface-soft)] p-5 sm:p-7 lg:block lg:max-h-[70vh] lg:overflow-y-auto lg:border-b-0 lg:border-r">
               <div className="flex items-center justify-between">
                 <h3 className="text-[1.75rem] font-semibold tracking-[-0.04em] text-[var(--text-primary)]">
                   Filter
@@ -406,7 +450,7 @@ export default function Courses({ preview = false }: CoursesProps) {
               </div>
             </aside>
 
-            <div className="p-5 sm:p-7">
+            <div className="p-5 sm:p-7 lg:max-h-[70vh] lg:overflow-y-auto">
               <div className="flex flex-wrap items-center gap-2 border-b border-[var(--line)] pb-5">
                 {categoryOptions.map((option) => (
                   <button
@@ -439,7 +483,7 @@ export default function Courses({ preview = false }: CoursesProps) {
               </div>
 
               <div className="mt-6 grid gap-6 md:grid-cols-2">
-                {displayedPrograms.map((program) => {
+                {visiblePrograms.map((program) => {
                   const programId = `${program.groupTitle}-${program.title}`;
                   const isExpanded = expandedProgramId === programId;
 
@@ -514,6 +558,35 @@ export default function Courses({ preview = false }: CoursesProps) {
                   );
                 })}
               </div>
+
+              {visiblePrograms.length < displayedPrograms.length || (selectedCategory === "all" && visibleProgramsCount > INITIAL_VISIBLE_PROGRAMS) ? (
+                <div className="mt-7 flex justify-center gap-3">
+                  {visiblePrograms.length < displayedPrograms.length ? (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setVisibleProgramsCount((count) =>
+                          Math.min(count + LOAD_MORE_STEP, displayedPrograms.length),
+                        )
+                      }
+                      className="border border-[var(--brand)] bg-white px-6 py-2.5 text-sm font-semibold text-[var(--brand)] transition hover:bg-[var(--brand)] hover:text-white"
+                    >
+                      Show More
+                    </button>
+                  ) : null}
+
+                  {selectedCategory === "all" && visibleProgramsCount > INITIAL_VISIBLE_PROGRAMS ? (
+                    <button
+                      type="button"
+                      onClick={() => setVisibleProgramsCount(INITIAL_VISIBLE_PROGRAMS)}
+                      className="border border-[var(--brand)] bg-white px-6 py-2.5 text-sm font-semibold text-[var(--brand)] transition hover:bg-[var(--brand)] hover:text-white"
+                    >
+                      Show Less
+                    </button>
+                  ) : null}
+                </div>
+              ) : null}
+
             </div>
           </div>
         </section>
