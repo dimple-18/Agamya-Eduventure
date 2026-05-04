@@ -451,7 +451,8 @@ export default function Courses({ preview = false }: CoursesProps) {
             </aside>
 
             <div className="p-5 sm:p-7 lg:max-h-[calc(82vh+100px)] lg:overflow-y-auto">
-              <div className="flex flex-wrap items-center gap-2 border-b border-[var(--line)] pb-5">
+              <div className="border-b border-[var(--line)] pb-5 lg:sticky lg:top-0 lg:z-20 lg:-mx-7 lg:-mt-7 lg:bg-white/96 lg:px-7 lg:pt-7 lg:pb-4 lg:backdrop-blur-sm lg:shadow-[0_6px_12px_rgba(15,23,42,0.06)]">
+                <div className="flex flex-wrap items-center gap-2">
                 {categoryOptions.map((option) => (
                   <button
                     key={option.id}
@@ -466,6 +467,7 @@ export default function Courses({ preview = false }: CoursesProps) {
                     {option.label}
                   </button>
                 ))}
+                </div>
               </div>
 
               <div className="mt-6">
