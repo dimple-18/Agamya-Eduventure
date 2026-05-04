@@ -110,7 +110,7 @@ summary::-webkit-details-marker {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.16);
+  background: rgba(0, 0, 0, 0.22);
   z-index: 1;
   pointer-events: none;
 }
