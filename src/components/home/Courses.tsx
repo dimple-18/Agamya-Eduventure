@@ -360,7 +360,7 @@ export default function Courses({ preview = false }: CoursesProps) {
 
         <section className="mt-8 border border-[var(--line)] bg-white">
           <div className="grid lg:grid-cols-[0.27fr_0.73fr]">
-            <aside className="hidden border-b border-[var(--line)] bg-[var(--surface-soft)] p-5 sm:p-7 lg:block lg:max-h-[82vh] lg:overflow-y-auto lg:border-b-0 lg:border-r">
+            <aside className="hidden border-b border-[var(--line)] bg-[var(--surface-soft)] p-5 sm:p-7 lg:block lg:max-h-[calc(82vh+100px)] lg:overflow-y-auto lg:border-b-0 lg:border-r">
               <div className="flex items-center justify-between">
                 <h3 className="text-[1.75rem] font-semibold tracking-[-0.04em] text-[var(--text-primary)]">
                   Filter
@@ -450,7 +450,7 @@ export default function Courses({ preview = false }: CoursesProps) {
               </div>
             </aside>
 
-            <div className="p-5 sm:p-7 lg:max-h-[82vh] lg:overflow-y-auto">
+            <div className="p-5 sm:p-7 lg:max-h-[calc(82vh+100px)] lg:overflow-y-auto">
               <div className="flex flex-wrap items-center gap-2 border-b border-[var(--line)] pb-5">
                 {categoryOptions.map((option) => (
                   <button
