@@ -18,24 +18,24 @@ export default function GalleryPage() {
       <Navbar />
 
       <section className="section-shell pt-6 sm:pt-8">
-        <div className="mx-auto max-w-7xl border border-[var(--line)] bg-white px-6 py-10 sm:px-10 sm:py-14">
-          <p className="eyebrow">Gallery</p>
+        <div className="mx-auto max-w-7xl border border-[var(--line)] bg-[var(--banner-bg)] px-6 py-10 text-white sm:px-10 sm:py-14">
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/72">Gallery</p>
           <div className="mt-5 grid gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:items-end">
             <div>
-              <h1 className="max-w-4xl text-4xl font-semibold tracking-[-0.055em] text-[var(--text-primary)] sm:text-5xl lg:text-[4.2rem]">
+              <h1 className="max-w-4xl text-4xl font-semibold tracking-[-0.055em] text-white sm:text-5xl lg:text-[4.2rem]">
                 Event-wise photo gallery for institute occasions, workshops, and student moments.
               </h1>
             </div>
-            <div className="lg:border-l lg:border-[var(--line)] lg:pl-8">
-              <p className="text-base leading-8 text-[var(--text-secondary)]">
+            <div className="lg:border-l lg:border-white/24 lg:pl-8">
+              <p className="text-base leading-8 text-white/84">
                 Each event or occasion can have its own photo set here, so
                 visitors can browse multiple images from the same moment instead
                 of seeing only one static thumbnail.
               </p>
-              <div className="mt-6 inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">
+              <div className="mt-6 inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-white/72">
                 <Link href="/">Home</Link>
                 <span>/</span>
-                <span className="text-[var(--text-primary)]">Gallery</span>
+                <span className="text-white">Gallery</span>
               </div>
             </div>
           </div>

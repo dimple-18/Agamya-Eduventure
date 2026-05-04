@@ -7,6 +7,21 @@ export default function MotionEffects() {
   const pathname = usePathname();
 
   useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    document.documentElement.classList.add("js-motion");
+
+    if (!("IntersectionObserver" in window)) {
+      document
+        .querySelectorAll<HTMLElement>(".hero-stage, section.section-shell > div")
+        .forEach((element) => {
+          element.classList.add("motion-reveal-visible");
+        });
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -29,7 +44,9 @@ export default function MotionEffects() {
       observer.observe(element);
     });
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+    };
   }, [pathname]);
 
   return null;

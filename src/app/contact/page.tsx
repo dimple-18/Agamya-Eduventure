@@ -22,7 +22,7 @@ export default function ContactPage() {
       <Navbar />
 
       <section className="section-shell pt-6 sm:pt-8">
-        <div className="mx-auto max-w-7xl overflow-hidden border border-[var(--line)] bg-[#7d9199] text-white">
+        <div className="mx-auto max-w-7xl overflow-hidden border border-[var(--line)] bg-[var(--banner-bg)] text-white">
           <div className="px-6 py-14 text-center sm:px-10 sm:py-20">
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/72">
               Contact Agamya

@@ -46,8 +46,8 @@ export const navigationItems: readonly NavItem[] = [
   { label: "About", href: "/about" },
   { label: "Programs", href: "/programs" },
   { label: "Gallery", href: "/gallery" },
-  { label: "Outcomes", href: "/#outcomes" },
-  { label: "Testimonials", href: "/#testimonials" },
+  { label: "Outcomes", href: "/outcomes" },
+  { label: "Testimonials", href: "/testimonials" },
   { label: "Contact", href: "/contact" },
 ] as const;
 

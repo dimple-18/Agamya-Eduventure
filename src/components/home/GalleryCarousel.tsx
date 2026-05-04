@@ -65,7 +65,7 @@ export default function GalleryCarousel({
                 type="button"
                 onClick={() => setActiveIndex(index)}
                 className={`h-2.5 w-2.5 rounded-full transition ${
-                  index === activeIndex ? "bg-white" : "bg-white/45"
+                  index === activeIndex ? "bg-[var(--accent)]" : "bg-white/45"
                 }`}
                 aria-label={`Show image ${index + 1}`}
               />

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -32,13 +33,34 @@ const heroImages = [
 
 export default function Hero() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const address =
+    "Agamya Eduventure, 2nd floor, R.S. Tower, New Kalimati Rd, Hirasingh Bagan, Sakchi, Jamshedpur, Jharkhand 831001, India";
+  const mapsQuery = encodeURIComponent(address);
+  const mapsLink = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
 
   const quickActions = [
-    { label: "Apply", icon: faCalendarCheck },
-    { label: "Visit", icon: faLocationDot },
-    { label: "Virtual Tour", icon: faDisplay },
-    { label: "Request Info", icon: faCircleInfo },
+    { label: "Apply", icon: faCalendarCheck, href: "/contact#contact-form" },
+    { label: "Visit", icon: faLocationDot, href: mapsLink, external: true },
+    { label: "Gallery", icon: faDisplay, href: "/gallery" },
+    { label: "Request Info", icon: faCircleInfo, href: "/contact" },
   ] as const;
+
+  const renderRailIcon = (icon: (typeof quickActions)[number]["icon"], label: string) => (
+    <>
+      <span className="hero-rail-icon-stack">
+        <span className="hero-rail-orbit hero-rail-orbit-1" />
+        <span className="hero-rail-orbit hero-rail-orbit-2" />
+        <span className="hero-rail-orbit hero-rail-orbit-3" />
+        <FontAwesomeIcon
+          icon={icon}
+          className="hero-rail-icon h-5 w-5 text-[var(--brand)]"
+        />
+      </span>
+      <p className="hero-rail-label mt-2 text-[13px] font-semibold leading-5 text-[var(--brand)]">
+        {label}
+      </p>
+    </>
+  );
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -66,18 +88,25 @@ export default function Hero() {
 
           <div className="hero-action-rail">
             {quickActions.map((action, index) => (
-              <div
+              action.external ? (
+                <a
                 key={action.label}
-                className={`${index < quickActions.length - 1 ? "border-b border-[var(--line)]" : ""} flex min-h-[6.2rem] flex-col items-center justify-center px-2 py-3 text-center`}
+                href={action.href}
+                target="_blank"
+                rel="noreferrer"
+                className={`hero-rail-item ${index < quickActions.length - 1 ? "border-b border-[var(--line)]" : ""} flex min-h-[6.2rem] flex-col items-center justify-center px-2 py-3 text-center transition hover:bg-white`}
               >
-                <FontAwesomeIcon
-                  icon={action.icon}
-                  className="h-5 w-5 text-[var(--brand)]"
-                />
-                <p className="mt-2 text-[13px] font-semibold leading-5 text-[var(--brand)]">
-                  {action.label}
-                </p>
-              </div>
+                  {renderRailIcon(action.icon, action.label)}
+                </a>
+              ) : (
+                <Link
+                  key={action.label}
+                  href={action.href}
+                  className={`hero-rail-item ${index < quickActions.length - 1 ? "border-b border-[var(--line)]" : ""} flex min-h-[6.2rem] flex-col items-center justify-center px-2 py-3 text-center transition hover:bg-white`}
+                >
+                  {renderRailIcon(action.icon, action.label)}
+                </Link>
+              )
             ))}
           </div>
 
@@ -91,9 +120,10 @@ export default function Hero() {
             </p>
             <a
               href="#programs"
-              className="mt-5 inline-flex items-center bg-[var(--brand)] px-5 py-3 text-sm font-semibold text-white"
+              className="hero-cta mt-5 inline-flex items-center bg-[var(--brand)] px-5 py-3 text-sm font-semibold"
+              style={{ color: "#ffffff" }}
             >
-              LEARN MORE
+              <span style={{ color: "#ffffff" }}>LEARN MORE</span>
             </a>
           </div>
 
@@ -104,7 +134,7 @@ export default function Hero() {
                 type="button"
                 aria-label={`Show hero image ${index + 1}`}
                 onClick={() => setActiveIndex(index)}
-                className={`h-2.5 w-2.5 rounded-full transition ${index === activeIndex ? "bg-[var(--brand)]" : "bg-white/80 hover:bg-white"}`}
+                className={`h-2.5 w-2.5 rounded-full transition ${index === activeIndex ? "bg-[var(--accent)]" : "bg-white/80 hover:bg-white"}`}
               />
             ))}
           </div>

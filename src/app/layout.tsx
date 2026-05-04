@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import MotionEffects from "../components/home/MotionEffects";
+import CursorDot from "../components/home/CursorDot";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased">
       <body className="min-h-full">
-        <MotionEffects />
+        <CursorDot />
         {children}
       </body>
     </html>

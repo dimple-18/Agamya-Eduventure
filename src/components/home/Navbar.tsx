@@ -1,12 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { navigationItems } from "./content";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,6 +49,12 @@ export default function Navbar() {
             <Link
               key={item.href}
               href={item.href}
+              scroll
+              onClick={() => {
+                if (!item.href.includes("#") && item.href === pathname) {
+                  window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+                }
+              }}
               className="text-sm font-medium text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"
             >
               {item.label}
@@ -56,10 +64,12 @@ export default function Navbar() {
 
         <div className="hidden items-center gap-3 lg:flex">
           <Link
-            href="/contact"
-            className="text-sm font-semibold text-[var(--brand)] transition hover:text-[var(--brand-dark)]"
+            href="https://wa.me/917004704078"
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-full border border-[var(--brand)] px-5 py-2.5 text-sm font-semibold text-[var(--brand)] transition hover:bg-[var(--brand)] hover:!text-white"
           >
-            Request Info
+            WhatsApp
           </Link>
           <Link href="/contact" className="button-primary">
             Enquire Now
@@ -82,6 +92,12 @@ export default function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
+                  scroll
+                  onClick={() => {
+                    if (!item.href.includes("#") && item.href === pathname) {
+                      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+                    }
+                  }}
                   className="px-2 py-3 text-sm font-medium text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"
                 >
                   {item.label}

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
 import SectionHeading from "./SectionHeading";
 import { appliedPrograms, programCards } from "./content";
@@ -67,6 +67,9 @@ export default function Courses({ preview = false }: CoursesProps) {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [expandedProgramId, setExpandedProgramId] = useState<string | null>(null);
   const [openFilterGroupId, setOpenFilterGroupId] = useState<string | null>(categoryId("Core Programs"));
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchFocused, setSearchFocused] = useState(false);
+  const cardRefs = useRef<Record<string, HTMLElement | null>>({});
 
   const selectedGroup = groupedPrograms.find((group) => categoryId(group.title) === selectedCategory);
 
@@ -74,6 +77,18 @@ export default function Courses({ preview = false }: CoursesProps) {
     { id: "all", label: "All Programs" },
     ...groupedPrograms.map((group) => ({ id: categoryId(group.title), label: group.title })),
   ];
+
+  const allPrograms = useMemo(
+    () =>
+      groupedPrograms.flatMap((group) =>
+        group.items.map((item) => ({
+          ...item,
+          groupTitle: group.title,
+          groupId: categoryId(group.title),
+        })),
+      ),
+    [],
+  );
 
   const displayedPrograms = useMemo(() => {
     if (selectedCategory === "all") {
@@ -94,6 +109,51 @@ export default function Courses({ preview = false }: CoursesProps) {
       groupTitle: selectedGroup.title,
     }));
   }, [selectedCategory, selectedGroup]);
+
+  const searchSuggestions = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
+    if (!query) {
+      return [];
+    }
+
+    return allPrograms
+      .filter((program) => {
+        const title = program.title.toLowerCase();
+        const words = title.split(/[^a-z0-9]+/g).filter(Boolean);
+
+        return title.includes(query) || words.some((word) => word.startsWith(query));
+      })
+      .slice(0, 6);
+  }, [allPrograms, searchQuery]);
+
+  const openProgramCard = (program: (typeof allPrograms)[number]) => {
+    const programId = `${program.groupTitle}-${program.title}`;
+    setSelectedCategory(program.groupId);
+    setOpenFilterGroupId(program.groupId);
+    setExpandedProgramId(programId);
+    setSearchQuery(program.title);
+    setSearchFocused(false);
+
+    window.setTimeout(() => {
+      const card = cardRefs.current[programId];
+      if (card) {
+        card.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }, 80);
+  };
+
+  const runSearch = () => {
+    if (!searchQuery.trim()) {
+      setSelectedCategory("all");
+      setExpandedProgramId(null);
+      return;
+    }
+
+    const firstMatch = searchSuggestions[0];
+    if (firstMatch) {
+      openProgramCard(firstMatch);
+    }
+  };
 
   if (preview) {
     return (
@@ -205,14 +265,47 @@ export default function Courses({ preview = false }: CoursesProps) {
         <section className="-mt-6 px-4 sm:-mt-7 sm:px-8 lg:px-12">
           <div className="border border-[var(--line)] bg-white p-4 shadow-[0_16px_40px_rgba(15,23,42,0.08)] sm:p-5">
             <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
-              <input
-                type="text"
-                aria-label="Search programs"
-                placeholder="Search programs, modules, or learning tracks"
-                className="w-full border border-[var(--line)] bg-[var(--surface-soft)] px-4 py-3 text-sm text-[var(--text-primary)] outline-none transition focus:border-[var(--brand)]"
-              />
+              <div className="relative">
+                <input
+                  type="text"
+                  aria-label="Search programs"
+                  value={searchQuery}
+                  onChange={(event) => setSearchQuery(event.target.value)}
+                  onFocus={() => setSearchFocused(true)}
+                  onBlur={() => {
+                    window.setTimeout(() => setSearchFocused(false), 120);
+                  }}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter") {
+                      event.preventDefault();
+                      runSearch();
+                    }
+                  }}
+                  placeholder="Search programs, modules, or learning tracks"
+                  className="w-full border border-[var(--line)] bg-[var(--surface-soft)] px-4 py-3 text-sm text-[var(--text-primary)] outline-none transition focus:border-[var(--brand)]"
+                />
+
+                {searchFocused && searchSuggestions.length > 0 ? (
+                  <div className="absolute left-0 right-0 top-[calc(100%+0.35rem)] z-20 border border-[var(--line)] bg-white shadow-[0_14px_28px_rgba(15,23,42,0.08)]">
+                    {searchSuggestions.map((suggestion) => (
+                      <button
+                        key={`${suggestion.groupTitle}-${suggestion.title}`}
+                        type="button"
+                        onClick={() => openProgramCard(suggestion)}
+                        className="w-full border-b border-[var(--line)] px-4 py-3 text-left transition last:border-b-0 hover:bg-[var(--surface-soft)]"
+                      >
+                        <p className="text-sm font-semibold text-[var(--text-primary)]">{suggestion.title}</p>
+                        <p className="mt-1 text-xs uppercase tracking-[0.14em] text-[var(--brand)]">
+                          {suggestion.groupTitle}
+                        </p>
+                      </button>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
               <button
                 type="button"
+                onClick={runSearch}
                 className="min-w-[9rem] border border-[var(--brand)] bg-[var(--brand)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[var(--brand-dark)]"
               >
                 Search
@@ -353,6 +446,9 @@ export default function Courses({ preview = false }: CoursesProps) {
                   return (
                     <article
                       key={programId}
+                      ref={(element) => {
+                        cardRefs.current[programId] = element;
+                      }}
                       className="motion-card flex h-full flex-col overflow-hidden border border-[var(--line)] bg-white"
                     >
                         <div className="relative min-h-[14rem]">
@@ -371,10 +467,10 @@ export default function Courses({ preview = false }: CoursesProps) {
                           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--brand)]">
                             {program.meta}
                           </p>
-                          <h4 className="mt-3 text-[1.95rem] font-semibold leading-[1.16] tracking-[-0.04em] text-[var(--text-primary)]">
+                          <h4 className="mt-3 text-[1.95rem] font-semibold leading-[1.16] tracking-[-0.04em] text-[var(--text-primary)] md:min-h-[7rem]">
                             {program.title}
                           </h4>
-                          <p className="mt-3 text-sm leading-7 text-[var(--text-secondary)] [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden">
+                          <p className="mt-3 text-sm leading-7 text-[var(--text-secondary)] [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden md:min-h-[3.8rem]">
                             {program.description}
                           </p>
 
@@ -404,7 +500,7 @@ export default function Courses({ preview = false }: CoursesProps) {
                             </div>
                           ) : null}
 
-                          <div className="mt-5 flex justify-end">
+                          <div className="mt-auto flex justify-end pt-5">
                             <button
                               type="button"
                               onClick={() => setExpandedProgramId(isExpanded ? null : programId)}
