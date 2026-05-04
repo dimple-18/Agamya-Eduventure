@@ -1,12 +1,28 @@
 import Link from "next/link";
 
-import { navigationItems, programCards } from "./content";
+import { appliedPrograms, enterprisePrograms, navigationItems, programCards } from "./content";
+
+const footerProgramLinks = [
+  { label: "Core Programs", href: "/programs" },
+  { label: "Technical Modules", href: "/programs" },
+  { label: "Career Support", href: "/programs" },
+  { label: "Projects & Certifications", href: "/programs" },
+  { label: "Corporate & Advanced Courses", href: "/programs" },
+  { label: "View All Programs", href: "/programs" },
+] as const;
+
+const footerPopularPrograms = [
+  programCards.find((program) => program.title === "Web Development"),
+  programCards.find((program) => program.title === "Java Programming"),
+  enterprisePrograms.find((program) => program.title === "Basic Computers"),
+  appliedPrograms.find((program) => program.title === "Interview Preparation"),
+].filter((program): program is NonNullable<typeof program> => Boolean(program));
 
 export default function Footer() {
   return (
     <footer className="section-shell pb-8 pt-0">
       <div className="mx-auto max-w-7xl border border-[var(--line)] bg-white px-7 py-8 sm:px-10 sm:py-10">
-        <div className="grid gap-10 lg:grid-cols-[1.15fr_0.55fr_0.8fr_0.9fr]">
+        <div className="grid gap-10 lg:grid-cols-[1.08fr_0.5fr_0.72fr_0.72fr_0.88fr]">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[var(--muted)]">
               Agamya Eduventure
@@ -39,13 +55,34 @@ export default function Footer() {
 
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--muted)]">
-              Programs
+              Program Categories
             </p>
             <div className="mt-5 grid gap-3">
-              {programCards.slice(0, 4).map((program) => (
-                <p key={program.title} className="text-sm text-[var(--text-secondary)]">
+              {footerProgramLinks.map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="text-sm text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--muted)]">
+              Popular Tracks
+            </p>
+            <div className="mt-5 grid gap-3">
+              {footerPopularPrograms.map((program) => (
+                <Link
+                  key={program.title}
+                  href="/programs"
+                  className="text-sm text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"
+                >
                   {program.title}
-                </p>
+                </Link>
               ))}
             </div>
           </div>
