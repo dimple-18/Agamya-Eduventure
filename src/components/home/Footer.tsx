@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { appliedPrograms, enterprisePrograms, navigationItems, programCards } from "./content";
+import { pageContainerClass, pageGutterClass } from "./section-layout";
 
 const footerProgramLinks = [
   { label: "Core Programs", href: "/programs" },
@@ -20,8 +21,10 @@ const footerPopularPrograms = [
 
 export default function Footer() {
   return (
-    <footer className="section-shell pb-8 pt-0">
-      <div className="mx-auto max-w-7xl border border-[var(--line)] bg-white px-7 py-8 sm:px-10 sm:py-10">
+    <footer className={`bg-[#fdfbf7] pb-8 pt-0 ${pageGutterClass}`}>
+      <div
+        className={`${pageContainerClass} rounded-[20px] border border-[#ebe5db] bg-white px-7 py-8 shadow-[0_6px_22px_rgba(15,23,42,0.06)] sm:px-10 sm:py-10`}
+      >
         <div className="grid gap-10 lg:grid-cols-[1.08fr_0.5fr_0.72fr_0.72fr_0.88fr]">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[var(--muted)]">

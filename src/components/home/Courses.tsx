@@ -2,597 +2,341 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import {
+  ArrowRight,
+  Award,
+  BookOpen,
+  Briefcase,
+  Building2,
+  ChevronRight,
+  Code2,
+  FolderOpen,
+  Monitor,
+  Rocket,
+  Star,
+  TrendingUp,
+  UserRound,
+  Users,
+} from "lucide-react";
+import { useMemo, useState } from "react";
 
-import SectionHeading from "./SectionHeading";
-import { appliedPrograms, enterprisePrograms, programCards } from "./content";
+import ProgramsCatalog from "./ProgramsCatalog";
+import { categoryId, groupedPrograms } from "./programs-data";
+import { pageContainerClass, pageGutterClass } from "./section-layout";
 
 type CoursesProps = {
   preview?: boolean;
 };
 
-const corePrograms = programCards.filter((program) =>
-  [
-    "Web Development",
-    "Python Programming",
-    "Java Programming",
-    "Programming Fundamentals",
-    "DCA (Diploma in Computer Applications)",
-  ].includes(program.title),
-);
+const PREVIEW_PROGRAM_LIMIT = 4;
 
-const technicalModules = programCards.filter((program) =>
-  ["Database & SQL", "Data Structures & Logic Building"].includes(program.title),
-);
+const programCategories = groupedPrograms.map((group) => {
+  const iconByTitle: Record<string, typeof Monitor> = {
+    "Core Programs": Monitor,
+    "Technical Modules": Code2,
+    "Career Support": Briefcase,
+    "Projects & Certifications": Award,
+    "Corporate & Advanced Courses": Building2,
+  };
 
-const careerSupport = appliedPrograms.filter((program) =>
-  ["Internship Program", "Interview Preparation"].includes(program.title),
-);
+  return {
+    title: group.title,
+    description: group.description,
+    icon: iconByTitle[group.title] ?? Monitor,
+  };
+});
 
-const projectsAndCertifications = appliedPrograms.filter((program) =>
-  ["Certification Support", "Mini & Major Projects"].includes(program.title),
-);
-
-const basicComputerProgram = enterprisePrograms.filter(
-  (program) => program.title === "Basic Computers",
-);
-
-const additionalTechnicalPrograms = enterprisePrograms.filter((program) =>
-  ["C++ Programming", "Dot NET", "PHP Programming"].includes(program.title),
-);
-
-const corporateEnterprisePrograms = enterprisePrograms.filter(
-  (program) =>
-    ![
-      "Basic Computers",
-      "C++ Programming",
-      "Dot NET",
-      "PHP Programming",
-    ].includes(program.title),
-);
-
-const groupedPrograms = [
+const programHighlights = [
   {
-    title: "Core Programs",
-    description:
-      "The main learning tracks for students starting with programming, web development, and stronger coding fundamentals.",
-    items: [...corePrograms, ...basicComputerProgram],
+    label: "Industry-relevant curriculum",
+    icon: BookOpen,
+    iconBg: "bg-[#e8f4f3]",
+    iconColor: "text-[#1b6b66]",
   },
   {
-    title: "Technical Modules",
-    description:
-      "Focused modules that strengthen technical understanding through databases, SQL, logic-building, and practical problem-solving.",
-    items: [...technicalModules, ...additionalTechnicalPrograms],
+    label: "Mentor-guided learning",
+    icon: UserRound,
+    iconBg: "bg-[#fdf0e4]",
+    iconColor: "text-[#d97706]",
   },
   {
-    title: "Career Support",
-    description:
-      "Support layers that connect learning with preparation, exposure, and confidence for next steps.",
-    items: careerSupport,
+    label: "Practical projects & assignments",
+    icon: Briefcase,
+    iconBg: "bg-[#e8f4f3]",
+    iconColor: "text-[#1b6b66]",
   },
   {
-    title: "Projects & Certifications",
-    description:
-      "Hands-on project work and certification guidance that help students apply learning in a meaningful way.",
-    items: projectsAndCertifications,
-  },
-  {
-    title: "Corporate & Advanced Courses",
-    description:
-      "Enterprise-focused and specialized professional training tracks for corporate productivity, software tooling, automation, and business workflows.",
-    items: corporateEnterprisePrograms,
+    label: "Career-focused outcomes",
+    icon: TrendingUp,
+    iconBg: "bg-[#fdf0e4]",
+    iconColor: "text-[#d97706]",
   },
 ] as const;
 
-const previewPrograms = [...corePrograms.slice(0, 2), ...technicalModules.slice(0, 1), ...careerSupport.slice(0, 1)];
+const programStats = [
+  { value: "1,200+", label: "Students Guided", icon: Users, tone: "teal" },
+  { value: "300+", label: "Projects Completed", icon: FolderOpen, tone: "orange" },
+  { value: "98%", label: "Student Satisfaction", icon: Star, tone: "teal" },
+  { value: "100+", label: "Careers Kickstarted", icon: Rocket, tone: "orange" },
+] as const;
 
-export default function Courses({ preview = false }: CoursesProps) {
-  const INITIAL_VISIBLE_PROGRAMS = 4;
-  const LOAD_MORE_STEP = 4;
-  const categoryId = (title: string) => title.toLowerCase().replaceAll(/[^a-z0-9]+/g, "-");
-  const [selectedCategory, setSelectedCategory] = useState("all");
-  const [expandedProgramId, setExpandedProgramId] = useState<string | null>(null);
-  const [openFilterGroupId, setOpenFilterGroupId] = useState<string | null>(categoryId("Core Programs"));
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchFocused, setSearchFocused] = useState(false);
-  const [visibleProgramsCount, setVisibleProgramsCount] = useState(INITIAL_VISIBLE_PROGRAMS);
-  const cardRefs = useRef<Record<string, HTMLElement | null>>({});
+const programCardOverlays: Record<
+  string,
+  { type: "tech" } | { type: "badge"; label: string; className: string } | { type: "icon" }
+> = {
+  "Web Development": { type: "tech" },
+  "Python Programming": { type: "badge", label: "Python", className: "bg-[#fff4e8] text-[#3776ab]" },
+  "Database & SQL": { type: "badge", label: "SQL", className: "bg-[#e8f1ff] text-[#1d4ed8]" },
+  "Internship Program": { type: "icon" },
+};
 
-  const selectedGroup = groupedPrograms.find((group) => categoryId(group.title) === selectedCategory);
+const techOverlay = [
+  { label: "HTML", className: "bg-[#fff0e8] text-[#e44d26]" },
+  { label: "CSS", className: "bg-[#e8f1ff] text-[#264de4]" },
+  { label: "JS", className: "bg-[#fff8df] text-[#c9a227]" },
+  { label: "React", className: "bg-[#e8f7fb] text-[#149eca]" },
+] as const;
 
-  const categoryOptions = [
-    { id: "all", label: "All Programs" },
-    ...groupedPrograms.map((group) => ({ id: categoryId(group.title), label: group.title })),
-  ];
+function ProgramsPreview() {
+  const [activeCategory, setActiveCategory] = useState(programCategories[0]?.title ?? "Core Programs");
 
-  const allPrograms = useMemo(
-    () =>
-      groupedPrograms.flatMap((group) =>
-        group.items.map((item) => ({
-          ...item,
-          groupTitle: group.title,
-          groupId: categoryId(group.title),
-        })),
-      ),
-    [],
+  const activeGroup = useMemo(
+    () => programCategories.find((category) => category.title === activeCategory),
+    [activeCategory],
   );
 
-  const displayedPrograms = useMemo(() => {
-    if (selectedCategory === "all") {
-      return groupedPrograms.flatMap((group) =>
-        group.items.map((item) => ({
-          ...item,
-          groupTitle: group.title,
-        })),
-      );
-    }
+  const activePrograms = useMemo(() => {
+    const group = groupedPrograms.find((item) => item.title === activeCategory);
+    return group?.items.slice(0, PREVIEW_PROGRAM_LIMIT) ?? [];
+  }, [activeCategory]);
 
-    if (!selectedGroup) {
-      return [];
-    }
+  return (
+    <section id="programs" className={`bg-[#fdfbf7] pb-20 pt-14 ${pageGutterClass}`}>
+      <div className={pageContainerClass}>
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.35fr)] lg:items-start lg:gap-12">
+          <div className="max-w-[420px]">
+            <p className="inline-flex items-center gap-2.5 text-[12px] font-bold uppercase tracking-[0.22em] text-[#1b4d3e]">
+              <span className="h-2 w-2 rounded-full bg-[#f39c12]" />
+              Programs
+            </p>
 
-    return selectedGroup.items.map((item) => ({
-      ...item,
-      groupTitle: selectedGroup.title,
-    }));
-  }, [selectedCategory, selectedGroup]);
+            <h2 className="mt-5 text-[34px] font-bold leading-[1.12] tracking-[-0.03em] text-[#1b4d3e] sm:text-[40px] lg:text-[46px]">
+              Programs arranged with more clarity and less{" "}
+              <span className="inline-block whitespace-nowrap">friction.</span>
+            </h2>
 
-  useEffect(() => {
-    setVisibleProgramsCount(INITIAL_VISIBLE_PROGRAMS);
-  }, [selectedCategory]);
+            <p className="mt-6 text-[15px] leading-[1.75] text-[#5f6f82]">
+              {activeGroup?.description ??
+                "The same structured categories from the full Programs page are shown here in a concise preview."}
+            </p>
 
-  const visiblePrograms = useMemo(() => {
-    return displayedPrograms.slice(0, visibleProgramsCount);
-  }, [displayedPrograms, visibleProgramsCount]);
+            <div className="mt-8 rounded-[18px] border border-[#ebe5db] bg-white p-2 shadow-[0_4px_18px_rgba(0,0,0,0.04)]">
+              <p className="px-4 pt-3 text-[11px] font-bold uppercase tracking-[0.16em] text-[#6b7c8f]">
+                Explore Categories
+              </p>
+              <ul className="mt-2 space-y-1 pb-2">
+                {programCategories.map((category) => {
+                  const Icon = category.icon;
+                  const isActive = activeCategory === category.title;
 
-  const searchSuggestions = useMemo(() => {
-    const query = searchQuery.trim().toLowerCase();
-    if (!query) {
-      return [];
-    }
-
-    return allPrograms
-      .filter((program) => {
-        const title = program.title.toLowerCase();
-        const words = title.split(/[^a-z0-9]+/g).filter(Boolean);
-
-        return title.includes(query) || words.some((word) => word.startsWith(query));
-      })
-      .slice(0, 6);
-  }, [allPrograms, searchQuery]);
-
-  const openProgramCard = (program: (typeof allPrograms)[number]) => {
-    const programId = `${program.groupTitle}-${program.title}`;
-    setSelectedCategory(program.groupId);
-    setOpenFilterGroupId(program.groupId);
-    setExpandedProgramId(programId);
-    setSearchQuery(program.title);
-    setSearchFocused(false);
-    setVisibleProgramsCount((current) => {
-      const selectedPrograms =
-        program.groupId === "all"
-          ? allPrograms
-          : allPrograms.filter((item) => item.groupId === program.groupId);
-      const selectedIndex = selectedPrograms.findIndex((item) => item.title === program.title);
-      const requiredVisibleCount = selectedIndex >= 0 ? selectedIndex + 1 : INITIAL_VISIBLE_PROGRAMS;
-      return Math.max(current, requiredVisibleCount);
-    });
-
-    window.setTimeout(() => {
-      const card = cardRefs.current[programId];
-      if (card) {
-        card.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-    }, 80);
-  };
-
-  const runSearch = () => {
-    if (!searchQuery.trim()) {
-      setSelectedCategory("all");
-      setExpandedProgramId(null);
-      return;
-    }
-
-    const firstMatch = searchSuggestions[0];
-    if (firstMatch) {
-      openProgramCard(firstMatch);
-    }
-  };
-
-  if (preview) {
-    return (
-      <section id="programs" className="section-shell">
-        <div className="mx-auto max-w-7xl border-t border-[var(--line)] pt-16">
-          <div className="grid gap-10 lg:grid-cols-[0.46fr_1.54fr]">
-            <div className="space-y-8">
-              <SectionHeading
-                eyebrow="Programs"
-                title="Programs arranged with more clarity and less friction."
-                description="The same structured categories from the full Programs page are shown here in a concise preview."
-              />
-
-              <div className="border border-[var(--line)] bg-[var(--surface-soft)] p-6 sm:p-7">
-                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--brand)]">
-                  Program Categories
-                </p>
-                <div className="mt-5 grid gap-3">
-                  {groupedPrograms.map((group) => (
-                    <div
-                      key={group.title}
-                      className="border-b border-[var(--line)] pb-3 last:border-b-0 last:pb-0"
-                    >
-                      <p className="text-[1.02rem] font-semibold tracking-[-0.02em] text-[var(--text-primary)]">{group.title}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <Link href="/programs" className="button-primary">
-                Open Full Programs Page
-              </Link>
+                  return (
+                    <li key={category.title}>
+                      <button
+                        type="button"
+                        onClick={() => setActiveCategory(category.title)}
+                        className={`flex w-full items-center justify-between gap-3 rounded-xl px-4 py-3 text-left transition-colors ${
+                          isActive ? "bg-[#f3f5f4]" : "hover:bg-[#faf9f6]"
+                        }`}
+                      >
+                        <span className="flex items-center gap-3">
+                          <span
+                            className={`inline-flex h-9 w-9 items-center justify-center rounded-lg ${
+                              isActive
+                                ? "bg-[#e8f4f3] text-[#1b4d3e]"
+                                : "bg-[#f6f3ee] text-[#5f6f82]"
+                            }`}
+                          >
+                            <Icon className="h-4 w-4" strokeWidth={2.1} />
+                          </span>
+                          <span
+                            className={`text-[14px] font-semibold ${
+                              isActive ? "text-[#1b4d3e]" : "text-[#3f4f61]"
+                            }`}
+                          >
+                            {category.title}
+                          </span>
+                        </span>
+                        {isActive ? (
+                          <ChevronRight className="h-4 w-4 shrink-0 text-[#1b4d3e]" strokeWidth={2.25} />
+                        ) : null}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
 
-            <div>
-              <div className="flex flex-wrap gap-2 border-b border-[var(--line)] pb-5">
-                {groupedPrograms.map((group) => (
-                  <span
-                    key={group.title}
-                    className="border border-[var(--line)] bg-white px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-secondary)]"
+            <Link
+              href="/programs"
+              className="mt-7 inline-flex items-center gap-2 rounded-xl bg-[#1b4d3e] px-7 py-3.5 text-[14px] font-semibold !text-white transition-colors hover:bg-[#164032]"
+            >
+              Open Full Programs Page
+              <ArrowRight className="h-4 w-4 text-white" strokeWidth={2.25} />
+            </Link>
+          </div>
+
+          <div>
+            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+              {programHighlights.map((highlight) => {
+                const Icon = highlight.icon;
+
+                return (
+                  <div
+                    key={highlight.label}
+                    className="flex items-center gap-3 rounded-[14px] border border-[#ebe5db] bg-white px-4 py-3.5 shadow-[0_4px_16px_rgba(0,0,0,0.04)]"
                   >
-                    {group.title}
-                  </span>
-                ))}
-              </div>
-
-              <div className="mt-6 grid gap-5 md:grid-cols-2">
-              {previewPrograms.map((program) => (
-                <article
-                    key={program.title}
-                    className="motion-card lite-splash-card overflow-hidden border border-[var(--line)] bg-white"
-                >
-                  <div className="relative min-h-[15rem]">
-                    {program.image ? (
-                      <Image
-                        src={program.image}
-                        alt={program.title}
-                        fill
-                        className="object-cover"
-                        sizes="(min-width: 1280px) 30vw, (min-width: 768px) 50vw, 100vw"
-                      />
-                    ) : null}
-                    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(17,25,38,0.06),rgba(17,25,38,0.34))]" />
+                    <span
+                      className={`inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${highlight.iconBg} ${highlight.iconColor}`}
+                    >
+                      <Icon className="h-4 w-4" strokeWidth={2.1} />
+                    </span>
+                    <p className="text-[12px] font-semibold leading-snug text-[#1b4d3e]">
+                      {highlight.label}
+                    </p>
                   </div>
+                );
+              })}
+            </div>
 
-                    <div className="lite-splash-content px-6 py-6">
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--brand)]">
-                      {program.meta}
-                    </p>
-                    <h3 className="mt-3 text-[1.55rem] font-semibold tracking-[-0.04em] text-[var(--text-primary)]">
-                      {program.title}
-                    </h3>
-                      <p className="mt-3 text-sm leading-7 text-[var(--text-secondary)] [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden">
-                      {program.description}
-                    </p>
+            <div key={activeCategory} className="mt-5 grid gap-5 md:grid-cols-2">
+              {activePrograms.length === 0 ? (
+                <p className="col-span-full rounded-[20px] border border-dashed border-[#d6dde5] bg-white px-6 py-10 text-center text-[14px] text-[#5f6f82]">
+                  No programs are listed in this category yet. Open the full Programs page to
+                  explore all tracks.
+                </p>
+              ) : null}
+
+              {activePrograms.map((program) => {
+                const overlay = programCardOverlays[program.title];
+                const imageSrc = program.image;
+
+                return (
+                  <article
+                    key={`${activeCategory}-${program.title}`}
+                    className="overflow-hidden rounded-[20px] border border-[#ebe5db] bg-white shadow-[0_8px_28px_rgba(15,23,42,0.07)]"
+                  >
+                    <div className="relative h-[190px] sm:h-[205px]">
+                      {imageSrc ? (
+                        <Image
+                          src={imageSrc}
+                          alt={program.title}
+                          fill
+                          className="object-cover"
+                          sizes="(min-width: 1024px) 280px, 50vw"
+                        />
+                      ) : null}
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0f1a28]/35 via-transparent to-transparent" />
+
+                      <span className="absolute left-4 top-4 rounded-full border border-white/30 bg-white/95 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-[#1b4d3e] shadow-sm">
+                        {program.meta.toUpperCase()}
+                      </span>
+
+                      <div className="absolute bottom-3 right-3 flex flex-wrap justify-end gap-1.5">
+                        {overlay?.type === "tech"
+                          ? techOverlay.map((tech) => (
+                              <span
+                                key={tech.label}
+                                className={`inline-flex h-7 min-w-7 items-center justify-center rounded-md px-1.5 text-[9px] font-bold shadow-sm ${tech.className}`}
+                              >
+                                {tech.label}
+                              </span>
+                            ))
+                          : null}
+                        {overlay?.type === "badge" ? (
+                          <span
+                            className={`inline-flex h-8 items-center justify-center rounded-lg px-2.5 text-[11px] font-bold shadow-sm ${overlay.className}`}
+                          >
+                            {overlay.label}
+                          </span>
+                        ) : null}
+                        {overlay?.type === "icon" ? (
+                          <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/95 text-[#1b6b66] shadow-sm">
+                            <Briefcase className="h-4 w-4" strokeWidth={2.1} />
+                          </span>
+                        ) : null}
+                      </div>
+                    </div>
+
+                    <div className="px-5 pb-5 pt-4">
+                      <h3 className="text-[22px] font-bold leading-tight tracking-[-0.02em] text-[#1b4d3e]">
+                        {program.title}
+                      </h3>
+                      <p className="mt-2.5 text-[14px] leading-[1.65] text-[#5f6f82] [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden">
+                        {program.description}
+                      </p>
                       <div className="mt-4 flex justify-end">
                         <Link
                           href="/programs"
-                        className="button-micro border border-[var(--brand)] bg-[var(--brand)] px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-[var(--brand-dark)]"
+                          className="inline-flex items-center gap-1.5 rounded-full border border-[#e5e9ef] bg-[#f7f9fb] px-4 py-2 text-[13px] font-semibold text-[#1b6b66] transition-colors hover:bg-[#eef6f5]"
                         >
                           More Details
+                          <ArrowRight className="h-3.5 w-3.5" strokeWidth={2.25} />
                         </Link>
                       </div>
-                  </div>
-                </article>
-              ))}
-              </div>
+                    </div>
+                  </article>
+                );
+              })}
             </div>
           </div>
         </div>
-      </section>
-    );
+
+        <div className="mt-10 flex flex-col divide-y divide-[#e3e7ec] overflow-hidden rounded-[20px] border border-[#e3e7ec] bg-[#f3f5f7] sm:flex-row sm:divide-x sm:divide-y-0">
+          {programStats.map((stat) => {
+            const Icon = stat.icon;
+            const isTeal = stat.tone === "teal";
+
+            return (
+              <div
+                key={stat.label}
+                className="flex flex-1 items-center gap-4 px-6 py-5 sm:px-7 sm:py-6"
+              >
+                <span
+                  className={`inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full ${
+                    isTeal ? "bg-[#e8f4f3] text-[#1b6b66]" : "bg-[#fdf0e4] text-[#d97706]"
+                  }`}
+                >
+                  <Icon className="h-5 w-5" strokeWidth={2.1} />
+                </span>
+                <div>
+                  <p
+                    className={`text-[26px] font-bold leading-none tracking-tight ${
+                      isTeal ? "text-[#1b4d3e]" : "text-[#d97706]"
+                    }`}
+                  >
+                    {stat.value}
+                  </p>
+                  <p className="mt-1.5 text-[14px] font-semibold text-[#3f4f61]/85">
+                    {stat.label}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default function Courses({ preview = false }: CoursesProps) {
+  if (preview) {
+    return <ProgramsPreview />;
   }
 
   return (
-    <section id="programs" className="section-shell">
-      <div className="mx-auto max-w-[100rem] border-t border-[var(--line)] pt-16">
-        <section className="overflow-hidden border border-[var(--line)] bg-[#7d9199] text-white">
-          <div className="px-5 py-8 sm:px-8 sm:py-10 lg:px-12 lg:py-12">
-            <h2 className="text-[2rem] font-semibold tracking-[-0.04em] sm:text-[2.6rem] lg:text-[3.1rem]">
-              Explore Programs with Better Clarity
-            </h2>
-            <p className="mt-4 max-w-3xl text-base leading-8 text-white/86">
-              Find the right learning path by filtering categories and reviewing detailed program tracks in one focused view.
-            </p>
-          </div>
-        </section>
-
-        <section className="-mt-6 px-4 sm:-mt-7 sm:px-8 lg:px-12">
-          <div className="border border-[var(--line)] bg-white p-4 shadow-[0_16px_40px_rgba(15,23,42,0.08)] sm:p-5">
-            <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
-              <div className="relative">
-                <input
-                  type="text"
-                  aria-label="Search programs"
-                  value={searchQuery}
-                  onChange={(event) => setSearchQuery(event.target.value)}
-                  onFocus={() => setSearchFocused(true)}
-                  onBlur={() => {
-                    window.setTimeout(() => setSearchFocused(false), 120);
-                  }}
-                  onKeyDown={(event) => {
-                    if (event.key === "Enter") {
-                      event.preventDefault();
-                      runSearch();
-                    }
-                  }}
-                  placeholder="Search programs, modules, or learning tracks"
-                  className="w-full border border-[var(--line)] bg-[var(--surface-soft)] px-4 py-3 text-sm text-[var(--text-primary)] outline-none transition focus:border-[var(--brand)]"
-                />
-
-                {searchFocused && searchSuggestions.length > 0 ? (
-                  <div className="absolute left-0 right-0 top-[calc(100%+0.35rem)] z-20 border border-[var(--line)] bg-white shadow-[0_14px_28px_rgba(15,23,42,0.08)]">
-                    {searchSuggestions.map((suggestion) => (
-                      <button
-                        key={`${suggestion.groupTitle}-${suggestion.title}`}
-                        type="button"
-                        onClick={() => openProgramCard(suggestion)}
-                        className="w-full border-b border-[var(--line)] px-4 py-3 text-left transition last:border-b-0 hover:bg-[var(--surface-soft)]"
-                      >
-                        <p className="text-sm font-semibold text-[var(--text-primary)]">{suggestion.title}</p>
-                        <p className="mt-1 text-xs uppercase tracking-[0.14em] text-[var(--brand)]">
-                          {suggestion.groupTitle}
-                        </p>
-                      </button>
-                    ))}
-                  </div>
-                ) : null}
-              </div>
-              <button
-                type="button"
-                onClick={runSearch}
-                className="min-w-[9rem] border border-[var(--brand)] bg-[var(--brand)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[var(--brand-dark)]"
-              >
-                Search
-              </button>
-            </div>
-          </div>
-        </section>
-
-        <section className="mt-8 border border-[var(--line)] bg-white">
-          <div className="grid lg:grid-cols-[0.27fr_0.73fr]">
-            <aside className="hidden border-b border-[var(--line)] bg-[var(--surface-soft)] p-5 sm:p-7 lg:block lg:max-h-[calc(82vh+100px)] lg:overflow-y-auto lg:border-b-0 lg:border-r">
-              <div className="flex items-center justify-between">
-                <h3 className="text-[1.75rem] font-semibold tracking-[-0.04em] text-[var(--text-primary)]">
-                  Filter
-                </h3>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setSelectedCategory("all");
-                    setOpenFilterGroupId(null);
-                  }}
-                  className="text-sm font-semibold text-[var(--brand)] transition hover:text-[var(--brand-dark)]"
-                >
-                  Clear All
-                </button>
-              </div>
-
-              <div className="mt-5 border-t border-[var(--line)] pt-5">
-                <p className="text-[1.1rem] font-semibold text-[var(--text-primary)]">Program Category</p>
-
-                <div className="mt-4 space-y-3">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setSelectedCategory("all");
-                      setOpenFilterGroupId(null);
-                    }}
-                    className={`w-full text-left text-[1.02rem] leading-7 transition ${
-                      selectedCategory === "all"
-                        ? "font-semibold text-[var(--text-primary)]"
-                        : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
-                    }`}
-                  >
-                    All Programs
-                  </button>
-
-                  {groupedPrograms.map((group) => {
-                    const id = categoryId(group.title);
-                    const isOpen = openFilterGroupId === id;
-                    const isActive = selectedCategory === id;
-
-                    return (
-                      <div key={group.title} className="rounded-sm border border-[var(--line)] bg-white/70 p-3">
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setSelectedCategory(id);
-                            setOpenFilterGroupId(isOpen ? null : id);
-                          }}
-                          className="flex w-full items-center justify-between gap-3 text-left"
-                        >
-                          <span className="flex items-center gap-3">
-                            <span
-                              className={`text-[1.02rem] leading-7 ${
-                                isActive
-                                  ? "font-semibold text-[var(--text-primary)]"
-                                  : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
-                              }`}
-                            >
-                              {group.title}
-                            </span>
-                          </span>
-                          <span className="text-sm text-[var(--text-secondary)]">{isOpen ? "−" : "+"}</span>
-                        </button>
-
-                        {isOpen ? (
-                          <ul className="mt-3 space-y-1 border-t border-[var(--line)] pt-3 pl-7">
-                            {group.items.map((item) => (
-                              <li key={item.title} className="text-sm leading-7 text-[var(--text-secondary)]">
-                                {item.title}
-                              </li>
-                            ))}
-                          </ul>
-                        ) : null}
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              <div className="mt-6 border-t border-[var(--line)] pt-5">
-                <p className="text-[1.1rem] font-semibold text-[var(--text-primary)]">Selected Category</p>
-                <p className="mt-2 text-sm leading-7 text-[var(--text-secondary)]">
-                  {selectedCategory === "all"
-                    ? "Showing all programs across core learning, technical modules, career support, and projects."
-                    : selectedGroup?.description}
-                </p>
-              </div>
-            </aside>
-
-            <div className="p-5 sm:p-7 lg:max-h-[calc(82vh+100px)] lg:overflow-y-auto">
-              <div className="border-b border-[var(--line)] pb-5 lg:sticky lg:top-0 lg:z-20 lg:-mx-7 lg:-mt-7 lg:bg-white/96 lg:px-7 lg:pt-7 lg:pb-4 lg:backdrop-blur-sm lg:shadow-[0_6px_12px_rgba(15,23,42,0.06)]">
-                <div className="flex flex-wrap items-center gap-2">
-                {categoryOptions.map((option) => (
-                  <button
-                    key={option.id}
-                    type="button"
-                    onClick={() => setSelectedCategory(option.id)}
-                    className={`px-4 py-2 text-sm font-semibold transition ${
-                      selectedCategory === option.id
-                        ? "bg-[var(--brand)] text-white"
-                        : "border border-[var(--line)] bg-white text-[var(--text-secondary)] hover:border-[var(--line-strong)]"
-                    }`}
-                  >
-                    {option.label}
-                  </button>
-                ))}
-                </div>
-              </div>
-
-              <div className="mt-6">
-                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--brand)]">
-                  {selectedCategory === "all" ? "All Categories" : selectedGroup?.title}
-                </p>
-                <h3 className="mt-2 text-[2rem] font-semibold tracking-[-0.045em] text-[var(--text-primary)] sm:text-[2.3rem]">
-                  Programs at Agamya
-                </h3>
-                <p className="mt-3 max-w-3xl text-base leading-8 text-[var(--text-secondary)]">
-                  {selectedCategory === "all"
-                    ? "Explore complete offerings across all learning categories, from core tracks to certifications and project guidance."
-                    : selectedGroup?.description}
-                </p>
-              </div>
-
-              <div className="mt-6 grid gap-6 md:grid-cols-2">
-                {visiblePrograms.map((program) => {
-                  const programId = `${program.groupTitle}-${program.title}`;
-                  const isExpanded = expandedProgramId === programId;
-
-                  return (
-                    <article
-                      key={programId}
-                      ref={(element) => {
-                        cardRefs.current[programId] = element;
-                      }}
-                      className="motion-card flex h-full flex-col overflow-hidden border border-[var(--line)] bg-white"
-                    >
-                        <div className="relative min-h-[14rem]">
-                          {program.image ? (
-                            <Image
-                              src={program.image}
-                              alt={program.title}
-                              fill
-                              className="object-cover"
-                              sizes="(min-width: 1280px) 32vw, (min-width: 768px) 48vw, 100vw"
-                            />
-                          ) : null}
-                        </div>
-
-                        <div className="flex flex-1 flex-col px-5 py-5">
-                          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--brand)]">
-                            {program.meta}
-                          </p>
-                          <h4 className="mt-3 text-[1.95rem] font-semibold leading-[1.16] tracking-[-0.04em] text-[var(--text-primary)] md:min-h-[7rem]">
-                            {program.title}
-                          </h4>
-                          <p className="mt-3 text-sm leading-7 text-[var(--text-secondary)] [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden md:min-h-[3.8rem]">
-                            {program.description}
-                          </p>
-
-                          <div className="mt-4 border-t border-[var(--line)] pt-4">
-                            <ul className="space-y-2 text-sm leading-7 text-[var(--text-secondary)]">
-                              <li>
-                                <span className="font-semibold text-[var(--text-primary)]">Projects:</span>{" "}
-                                Guided practical implementation work
-                              </li>
-                              <li>
-                                <span className="font-semibold text-[var(--text-primary)]">Mentoring:</span>{" "}
-                                Regular personalized review and support
-                              </li>
-                            </ul>
-                          </div>
-
-                          {isExpanded ? (
-                            <div className="mt-4 space-y-4 border-t border-[var(--line)] pt-4">
-                              <div>
-                                <p className="text-sm font-semibold text-[var(--text-primary)]">Projects</p>
-                                <p className="mt-2 text-sm leading-7 text-[var(--text-secondary)]">{program.projects}</p>
-                              </div>
-                              <div className="border-t border-[var(--line)] pt-4">
-                                <p className="text-sm font-semibold text-[var(--text-primary)]">Mentoring</p>
-                                <p className="mt-2 text-sm leading-7 text-[var(--text-secondary)]">{program.mentoring}</p>
-                              </div>
-                            </div>
-                          ) : null}
-
-                          <div className="mt-auto flex justify-end pt-5">
-                            <button
-                              type="button"
-                              onClick={() => setExpandedProgramId(isExpanded ? null : programId)}
-                              className="button-micro border border-[var(--brand)] bg-[var(--brand)] px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-[var(--brand-dark)]"
-                            >
-                              {isExpanded ? "Show Less" : "More Details"}
-                            </button>
-                          </div>
-                        </div>
-                      </article>
-                  );
-                })}
-              </div>
-
-              {visiblePrograms.length < displayedPrograms.length || (selectedCategory === "all" && visibleProgramsCount > INITIAL_VISIBLE_PROGRAMS) ? (
-                <div className="mt-7 flex justify-center gap-3">
-                  {visiblePrograms.length < displayedPrograms.length ? (
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setVisibleProgramsCount((count) =>
-                          Math.min(count + LOAD_MORE_STEP, displayedPrograms.length),
-                        )
-                      }
-                      className="border border-[var(--brand)] bg-white px-6 py-2.5 text-sm font-semibold text-[var(--brand)] transition hover:bg-[var(--brand)] hover:text-white"
-                    >
-                      Show More
-                    </button>
-                  ) : null}
-
-                  {selectedCategory === "all" && visibleProgramsCount > INITIAL_VISIBLE_PROGRAMS ? (
-                    <button
-                      type="button"
-                      onClick={() => setVisibleProgramsCount(INITIAL_VISIBLE_PROGRAMS)}
-                      className="border border-[var(--brand)] bg-white px-6 py-2.5 text-sm font-semibold text-[var(--brand)] transition hover:bg-[var(--brand)] hover:text-white"
-                    >
-                      Show Less
-                    </button>
-                  ) : null}
-                </div>
-              ) : null}
-
-            </div>
-          </div>
-        </section>
-      </div>
+    <section id="programs">
+      <ProgramsCatalog />
     </section>
   );
 }

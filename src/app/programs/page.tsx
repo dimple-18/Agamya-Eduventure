@@ -7,7 +7,7 @@ import Navbar from "../../components/home/Navbar";
 export const metadata: Metadata = {
   title: "Programs | Agamya Eduventure",
   description:
-    "Explore Agamya Eduventure programs including programming tracks, technical modules, projects, internships, certifications, and interview preparation.",
+    "Find the right learning path by filtering categories and reviewing detailed program tracks at Agamya Eduventure.",
 };
 
 export default function ProgramsPage() {

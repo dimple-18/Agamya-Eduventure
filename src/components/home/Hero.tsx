@@ -11,6 +11,9 @@ import {
   faCircleInfo,
   faDisplay,
 } from "@fortawesome/free-solid-svg-icons";
+import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+
+import { pageContainerClass, pageGutterClass } from "./section-layout";
 
 const heroImages = [
   {
@@ -29,21 +32,39 @@ const heroImages = [
     src: "/hero/christopher-gower-m_HRfLhgABo-unsplash.jpg",
     alt: "Programming workspace with code open on a laptop",
   },
+  {
+    src: "https://images.unsplash.com/photo-1632406898177-95f7acd8854f?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    alt: "Modern coding and technology workspace",
+    fallbackSrc: "/hero/christopher-gower-m_HRfLhgABo-unsplash.jpg",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1688380692117-63178554d76d?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    alt: "Hands-on programming session in a modern setup",
+    fallbackSrc: "/hero/programming-background-with-person-working-with-codes-computer.jpg",
+  },
 ] as const;
 
 export default function Hero() {
+  type QuickAction = {
+    label: string;
+    icon: IconDefinition;
+    href: string;
+    external?: boolean;
+  };
+
   const [activeIndex, setActiveIndex] = useState(0);
+  const [failedSources, setFailedSources] = useState<Record<string, boolean>>({});
   const address =
     "Agamya Eduventure, 2nd floor, R.S. Tower, New Kalimati Rd, Hirasingh Bagan, Sakchi, Jamshedpur, Jharkhand 831001, India";
   const mapsQuery = encodeURIComponent(address);
   const mapsLink = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
 
-  const quickActions = [
+  const quickActions: readonly QuickAction[] = [
     { label: "Apply", icon: faCalendarCheck, href: "/contact#contact-form" },
     { label: "Visit", icon: faLocationDot, href: mapsLink, external: true },
     { label: "Gallery", icon: faDisplay, href: "/gallery" },
     { label: "Request Info", icon: faCircleInfo, href: "/contact" },
-  ] as const;
+  ];
 
   const renderRailIcon = (icon: (typeof quickActions)[number]["icon"], label: string) => (
     <>
@@ -71,18 +92,24 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="section-shell pt-0">
-      <div className="mx-auto max-w-7xl">
+    <section className={`pb-0 pt-6 ${pageGutterClass}`}>
+      <div className={pageContainerClass}>
         <div className="hero-stage">
           {heroImages.map((image, index) => (
             <Image
               key={image.src}
-              src={image.src}
+              src={failedSources[image.src] && "fallbackSrc" in image ? image.fallbackSrc : image.src}
               alt={image.alt}
               fill
               priority={index === 0}
               className={`object-cover object-center transition-opacity duration-700 ease-out ${index === activeIndex ? "opacity-100" : "opacity-0"}`}
               sizes="(min-width: 1024px) 1280px, 100vw"
+              onError={() => {
+                if (!("fallbackSrc" in image)) return;
+                setFailedSources((prev) =>
+                  prev[image.src] ? prev : { ...prev, [image.src]: true },
+                );
+              }}
             />
           ))}
 

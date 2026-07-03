@@ -1,45 +1,26 @@
 import Link from "next/link";
 
-import SectionHeading from "./SectionHeading";
-import { contactDetails, outcomes } from "./content";
+import { contactDetails } from "./content";
+import { pageContainerClass, pageGutterClass } from "./section-layout";
 
 export default function Contact() {
   return (
     <>
-      <section id="outcomes" className="section-shell">
-        <div className="mx-auto grid max-w-7xl gap-10 border-t border-[var(--line)] pt-16 lg:grid-cols-[0.88fr_1.12fr]">
-          <SectionHeading
-            eyebrow="Outcomes"
-            title="The goal is stronger understanding, better confidence, and clearer next steps."
-            description="Students should leave with a better foundation, more comfort while practicing, and a clearer sense of how to keep progressing."
-          />
-
-          <div className="lg:border-l lg:border-[var(--line)] lg:pl-10">
-            {outcomes.map((outcome, index) => (
-              <div
-                key={outcome}
-                className={`${index === 0 ? "pt-0" : "pt-6"} ${index < outcomes.length - 1 ? "border-b border-[var(--line)] pb-6" : "pb-0"}`}
-              >
-                <p className="text-base leading-8 text-[var(--text-secondary)]">
-                  {outcome}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section-shell pt-0">
-        <div className="mx-auto grid max-w-7xl gap-8 border border-[var(--line)] bg-white px-7 py-8 sm:px-10 sm:py-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+      <section className={`bg-[#fdfbf7] pb-10 pt-14 ${pageGutterClass}`}>
+        <div
+          className={`${pageContainerClass} grid gap-8 rounded-[20px] border border-[#ebe5db] bg-white px-7 py-8 shadow-[0_6px_22px_rgba(15,23,42,0.06)] sm:px-10 sm:py-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end`}
+        >
           <div>
-            <p className="eyebrow">Contact</p>
-            <h2 className="mt-5 max-w-xl text-4xl font-semibold tracking-[-0.05em] text-[var(--text-primary)] sm:text-[3.35rem]">
+            <p className="inline-flex items-center gap-2.5 text-[12px] font-bold uppercase tracking-[0.22em] text-[#1b4d3e]">
+              <span className="h-2 w-2 rounded-full bg-[#f39c12]" />
+              Contact
+            </p>
+            <h2 className="mt-5 max-w-xl text-[34px] font-bold leading-[1.12] tracking-[-0.03em] text-[#1b4d3e] sm:text-[40px]">
               Start with one conversation and a clearer next step.
             </h2>
-            <p className="mt-5 max-w-xl text-base leading-8 text-[var(--text-secondary)]">
-              Reach out to discuss the student&apos;s current level, suitable
-              program options, and how Agamya can help create a stronger
-              learning path.
+            <p className="mt-5 max-w-xl text-[15px] leading-[1.75] text-[#5f6f82]">
+              Reach out to discuss the student&apos;s current level, suitable program options,
+              and how Agamya can help create a stronger learning path.
             </p>
           </div>
 
@@ -47,20 +28,20 @@ export default function Contact() {
             {contactDetails.map((item) => (
               <div
                 key={item.label}
-                className="border-t border-[var(--line)] pt-4 sm:border-l sm:border-t-0 sm:pl-5 sm:pt-0"
+                className="border-t border-[#f0ebe3] pt-4 sm:border-l sm:border-t-0 sm:pl-5 sm:pt-0"
               >
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">
+                <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#6b7c8f]">
                   {item.label}
                 </p>
                 {item.href ? (
                   <a
                     href={item.href}
-                    className="mt-3 block text-lg font-semibold tracking-[-0.03em] text-[var(--text-primary)] transition hover:text-[var(--brand)]"
+                    className="mt-3 block text-[15px] font-semibold text-[#1b4d3e] transition hover:text-[#1b6b66]"
                   >
                     {item.value}
                   </a>
                 ) : (
-                  <p className="mt-3 text-base font-semibold leading-7 text-[var(--text-primary)]">
+                  <p className="mt-3 text-[15px] font-semibold leading-relaxed text-[#1b4d3e]">
                     {item.value}
                   </p>
                 )}
@@ -70,9 +51,12 @@ export default function Contact() {
         </div>
       </section>
 
-      <section id="contact" className="section-shell pt-0">
-        <div className="mx-auto flex max-w-7xl justify-end">
-          <Link href="/contact" className="button-primary">
+      <section id="contact" className={`pb-20 pt-0 ${pageGutterClass}`}>
+        <div className={`${pageContainerClass} flex justify-end`}>
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 rounded-xl bg-[#1b4d3e] px-7 py-3.5 text-[14px] font-semibold !text-white transition-colors hover:bg-[#164032]"
+          >
             View Contact Page
           </Link>
         </div>
