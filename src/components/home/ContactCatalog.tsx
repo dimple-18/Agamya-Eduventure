@@ -12,7 +12,6 @@ import {
   MessageSquare,
   Phone,
   Send,
-  User,
 } from "lucide-react";
 
 import {
@@ -24,57 +23,7 @@ import {
   contactWhatsAppHref,
   heroHighlights,
 } from "./contact-data";
-
-function IconField({
-  id,
-  name,
-  type = "text",
-  placeholder,
-  icon: Icon,
-  multiline = false,
-}: {
-  id: string;
-  name: string;
-  type?: string;
-  placeholder: string;
-  icon: typeof User;
-  multiline?: boolean;
-}) {
-  const wrapperClass =
-    "flex w-full gap-3 rounded-xl border border-[#e8e2d8] bg-[#fcfbfa] px-3.5 transition focus-within:border-[#1b6b66]/45 focus-within:bg-white focus-within:ring-4 focus-within:ring-[#1b6b66]/8";
-
-  const inputClass =
-    "min-w-0 flex-1 border-0 bg-transparent text-[14px] text-[#1b4d3e] outline-none placeholder:text-[#9aa8b8]";
-
-  return (
-    <div className={`${wrapperClass} ${multiline ? "items-start py-3" : "items-center py-1"}`}>
-      <span
-        className={`inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#e8f4f3] text-[#1b6b66] ${
-          multiline ? "mt-0.5" : ""
-        }`}
-      >
-        <Icon className="h-4 w-4" strokeWidth={2.1} />
-      </span>
-      {multiline ? (
-        <textarea
-          id={id}
-          name={name}
-          rows={5}
-          placeholder={placeholder}
-          className={`${inputClass} resize-none py-1 leading-relaxed`}
-        />
-      ) : (
-        <input
-          id={id}
-          name={name}
-          type={type}
-          placeholder={placeholder}
-          className={`${inputClass} py-2.5`}
-        />
-      )}
-    </div>
-  );
-}
+import ContactForm from "./ContactForm";
 
 function InfoCard({
   label,
@@ -99,7 +48,7 @@ function InfoCard({
       {action ? (
         <a
           href={action.href}
-          className="shrink-0 rounded-lg border border-[#1b4d3e]/20 bg-[#f8f6f1] px-3 py-1.5 text-[12px] font-semibold text-[#1b4d3e] transition-colors hover:bg-[#1b4d3e] hover:text-white"
+          className="shrink-0 rounded-lg border border-[#1b4d3e]/20 bg-[#f8f6f1] px-3 py-1.5 text-[12px] font-semibold text-[#1b4d3e] transition-colors hover:bg-[#1b4d3e] hover:!text-white cta-pulse"
         >
           {action.label}
         </a>
@@ -134,14 +83,14 @@ export default function ContactCatalog() {
                   <span className="inline-flex w-fit rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-[#b8ebe4] backdrop-blur-sm">
                     Contact Agamya
                   </span>
-                  <h1 className="mt-5 text-[32px] font-bold leading-[1.08] tracking-[-0.03em] !text-white sm:text-[40px] lg:text-[46px]">
+                  <h1 className="mt-5 text-[36px] font-bold leading-[1.08] tracking-[-0.03em] !text-white sm:text-[46px] lg:text-[54px]">
                     More than just a class,
                     <br />
                     a stronger place
                     <br />
                     to begin.
                   </h1>
-                  <p className="mt-4 max-w-[500px] text-[15px] leading-[1.7] text-white/82">
+                  <p className="mt-4 max-w-[560px] text-[17px] leading-[1.75] text-white/82 sm:text-[18px]">
                     Get guidance on programs, admissions, student fit, projects, and the best
                     next step for a clearer learning journey.
                   </p>
@@ -149,19 +98,19 @@ export default function ContactCatalog() {
                   <div className="mt-6 flex flex-wrap gap-3">
                     <a
                       href="#contact-form"
-                      className="inline-flex items-center gap-2 rounded-xl bg-[#1b4d3e] px-6 py-3.5 text-[14px] font-semibold !text-white shadow-[0_8px_20px_rgba(27,77,62,0.28)] transition-colors hover:bg-[#164032] hover:!text-white"
+                      className="inline-flex items-center gap-2 rounded-xl bg-[#1b4d3e] px-6 py-3.5 text-[15px] font-semibold !text-white shadow-[0_8px_20px_rgba(27,77,62,0.28)] transition-colors hover:bg-[#164032] hover:!text-white cta-pulse sm:text-[16px]"
                     >
                       <Send className="h-4 w-4" strokeWidth={2.25} />
                       Send a Message
                     </a>
                     <Link
                       href="/programs"
-                      className="inline-flex items-center gap-2 rounded-xl border border-white/35 bg-white/12 px-6 py-3.5 text-[14px] font-semibold !text-white backdrop-blur-sm transition-colors hover:bg-white/20 hover:!text-white"
+                      className="inline-flex items-center gap-2 rounded-xl border border-white/35 bg-white/12 px-6 py-3.5 text-[15px] font-semibold !text-white backdrop-blur-sm transition-colors hover:bg-white/20 hover:!text-white cta-pulse sm:text-[16px]"
                     >
                       View Programs
                     </Link>
                   </div>
-                  <p className="mt-4 text-[13px] text-white/72">
+                  <p className="mt-4 text-[15px] text-white/72 sm:text-[16px]">
                     We usually reply quickly and help you choose the right starting point.
                   </p>
                 </div>
@@ -217,46 +166,7 @@ export default function ContactCatalog() {
                   </div>
                 </div>
 
-                <form className="mt-8 grid gap-4">
-                  <IconField id="name" name="name" placeholder="Your Name" icon={User} />
-                  <IconField
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="Your Email Address"
-                    icon={Mail}
-                  />
-                  <IconField
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    placeholder="Phone Number"
-                    icon={Phone}
-                  />
-                  <IconField
-                    id="message"
-                    name="message"
-                    placeholder="How can we help you?"
-                    icon={MessageSquare}
-                    multiline
-                  />
-
-                  <p className="text-[13px] leading-relaxed text-[#6b7c8f]">
-                    Share your current level, program of interest, or any question.
-                  </p>
-
-                  <button
-                    type="submit"
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#1b4d3e] px-6 py-3.5 text-[15px] font-semibold text-white shadow-[0_8px_22px_rgba(27,77,62,0.22)] transition-colors hover:bg-[#164032]"
-                  >
-                    <Send className="h-4 w-4" strokeWidth={2.25} />
-                    Submit Message
-                  </button>
-
-                  <p className="text-center text-[12px] text-[#8a9aad]">
-                    Your information is safe and will never be shared.
-                  </p>
-                </form>
+                <ContactForm />
               </div>
 
               <div>
@@ -327,7 +237,7 @@ export default function ContactCatalog() {
                     href={contactMapsLink}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-[#1b4d3e]/25 bg-[#f8f6f1] px-5 py-3 text-[14px] font-semibold text-[#1b4d3e] transition-colors hover:bg-[#1b4d3e] hover:text-white"
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-[#1b4d3e]/25 bg-[#f8f6f1] px-5 py-3 text-[14px] font-semibold text-[#1b4d3e] transition-colors hover:bg-[#1b4d3e] hover:text-white cta-pulse"
                   >
                     Open in Google Maps
                     <ExternalLink className="h-4 w-4" strokeWidth={2.1} />
@@ -377,7 +287,7 @@ export default function ContactCatalog() {
                   href={contactWhatsAppHref}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#1b4d3e] px-7 py-3.5 text-[14px] font-semibold !text-white shadow-[0_8px_22px_rgba(27,77,62,0.22)] transition-colors hover:bg-[#164032] hover:!text-white lg:w-auto"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#1b4d3e] px-7 py-3.5 text-[14px] font-semibold !text-white shadow-[0_8px_22px_rgba(27,77,62,0.22)] transition-colors hover:bg-[#164032] hover:!text-white lg:w-auto cta-pulse"
                 >
                   <svg viewBox="0 0 24 24" aria-hidden className="h-4 w-4 fill-current">
                     <path d="M20.52 3.48A11.86 11.86 0 0 0 12.07 0C5.49 0 .14 5.35.14 11.93c0 2.1.55 4.16 1.6 5.98L0 24l6.26-1.64a11.87 11.87 0 0 0 5.81 1.48h.01c6.58 0 11.93-5.35 11.93-11.93 0-3.19-1.24-6.19-3.49-8.43Zm-8.45 18.35h-.01a9.9 9.9 0 0 1-5.04-1.38l-.36-.21-3.72.98 1-3.63-.23-.38a9.9 9.9 0 0 1-1.52-5.28C2.2 6.44 6.58 2.06 12.07 2.06c2.64 0 5.13 1.03 7 2.9a9.84 9.84 0 0 1 2.9 6.99c0 5.49-4.38 9.88-9.9 9.88Zm5.43-7.42c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.66.15-.2.3-.76.97-.94 1.17-.17.2-.35.22-.64.08-.3-.15-1.24-.46-2.37-1.47a8.84 8.84 0 0 1-1.64-2.04c-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.48-.5-.66-.5h-.56c-.2 0-.52.08-.8.37-.27.3-1.05 1.03-1.05 2.5 0 1.47 1.08 2.9 1.23 3.1.15.2 2.12 3.24 5.14 4.55.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 1.76-.72 2-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35Z" />

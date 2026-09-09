@@ -108,7 +108,7 @@ export default function LeavingPopup() {
             <Link
               href="/programs"
               onClick={handleClose}
-              className="group inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[#1b4d3e] px-4 py-2.5 text-[13px] font-semibold !text-white shadow-[0_6px_18px_rgba(27,77,62,0.22)] transition hover:bg-[#164032] hover:!text-white"
+              className="group inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[#1b4d3e] px-4 py-2.5 text-[13px] font-semibold !text-white shadow-[0_6px_18px_rgba(27,77,62,0.22)] transition hover:bg-[#164032] hover:!text-white cta-pulse"
             >
               Explore Programs
               <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" strokeWidth={2.4} />
@@ -119,7 +119,7 @@ export default function LeavingPopup() {
               target="_blank"
               rel="noreferrer"
               onClick={handleClose}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-[#1b4d3e]/20 bg-[#f8f6f1] px-4 py-2.5 text-[13px] font-semibold text-[#1b4d3e] transition hover:bg-[#eef5f3]"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-[#1b4d3e]/20 bg-[#f8f6f1] px-4 py-2.5 text-[13px] font-semibold text-[#1b4d3e] transition hover:bg-[#eef5f3] cta-pulse"
             >
               <MessageCircle className="h-3.5 w-3.5" strokeWidth={2.2} />
               Chat on WhatsApp

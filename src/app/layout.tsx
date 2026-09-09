@@ -9,6 +9,10 @@ export const metadata: Metadata = {
   title: "Agamya Eduventure | Premium Coding Education",
   description:
     "Agamya Eduventure offers a premium, modern coding education experience with structured mentoring, practical programs, and confidence-building guidance.",
+  icons: {
+    icon: "/logo/agamya-logo.png",
+    apple: "/logo/agamya-logo.png",
+  },
 };
 
 export default function RootLayout({

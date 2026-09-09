@@ -25,9 +25,10 @@ import {
   categoryId,
   getCatalogMeta,
   getProgramDetails,
-  groupedPrograms,
+  groupedPrograms as defaultGroupedPrograms,
   type ProgramWithGroup,
 } from "./programs-data";
+import type { ProgramGroup } from "@/lib/content/program-groups";
 
 const INITIAL_VISIBLE_PROGRAMS = 9;
 const LOAD_MORE_STEP = 6;
@@ -208,7 +209,7 @@ function ProgramCatalogCard({
           <button
             type="button"
             onClick={onViewDetails}
-            className="inline-flex items-center gap-1 rounded-lg bg-[#1b4d3e] px-3 py-1.5 text-[12px] font-semibold text-white transition-colors hover:bg-[#164032]"
+            className="inline-flex items-center gap-1 rounded-lg bg-[#1b4d3e] px-3 py-1.5 text-[12px] font-semibold text-white transition-colors hover:bg-[#164032] cta-pulse"
           >
             {isExpanded ? "Show Less" : "View Details"}
             {isExpanded ? (
@@ -223,7 +224,11 @@ function ProgramCatalogCard({
   );
 }
 
-export default function ProgramsCatalog() {
+export default function ProgramsCatalog({
+  groups = defaultGroupedPrograms,
+}: {
+  groups?: readonly ProgramGroup[];
+}) {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [openFilterGroupId, setOpenFilterGroupId] = useState<string | null>(
     categoryId("Core Programs"),
@@ -236,13 +241,13 @@ export default function ProgramsCatalog() {
   const [listView, setListView] = useState(false);
   const cardRefs = useRef<Record<string, HTMLElement | null>>({});
 
-  const selectedGroup = groupedPrograms.find(
+  const selectedGroup = groups.find(
     (group) => categoryId(group.title) === selectedCategory,
   );
 
   const allPrograms = useMemo(
     () =>
-      groupedPrograms.flatMap((group) =>
+      groups.flatMap((group) =>
         group.items.map((item) => ({
           ...item,
           groupTitle: group.title,
@@ -256,7 +261,7 @@ export default function ProgramsCatalog() {
     let programs: ProgramWithGroup[];
 
     if (selectedCategory === "all") {
-      programs = groupedPrograms.flatMap((group) =>
+      programs = groups.flatMap((group) =>
         group.items.map((item) => ({
           ...item,
           groupTitle: group.title,
@@ -373,11 +378,11 @@ export default function ProgramsCatalog() {
               <span className="inline-flex w-fit rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-[#b8ebe4] backdrop-blur-sm">
                 All Programs
               </span>
-              <h1 className="mt-5 text-[32px] font-bold leading-[1.08] tracking-[-0.03em] !text-white sm:text-[40px] lg:text-[46px]">
+              <h1 className="mt-5 text-[36px] font-bold leading-[1.08] tracking-[-0.03em] !text-white sm:text-[46px] lg:text-[54px]">
                 Explore Programs with{" "}
                 <span className="whitespace-nowrap text-[#8fe0d4]">Better Clarity</span>
               </h1>
-              <p className="mt-4 max-w-[520px] text-[15px] leading-[1.7] text-white/82">
+              <p className="mt-4 max-w-[560px] text-[17px] leading-[1.75] text-white/82 sm:text-[18px]">
                 Find the right learning path by filtering categories and reviewing detailed
                 program tracks in one focused view.
               </p>
@@ -392,8 +397,8 @@ export default function ProgramsCatalog() {
                     key={item.label}
                     className="rounded-xl border border-white/15 bg-white/10 px-3.5 py-2 backdrop-blur-sm"
                   >
-                    <p className="text-[14px] font-bold text-white">{item.value}</p>
-                    <p className="text-[11px] text-white/70">{item.label}</p>
+                    <p className="text-[18px] font-bold leading-tight text-white">{item.value}</p>
+                    <p className="mt-0.5 text-[13px] font-semibold text-white/70">{item.label}</p>
                   </div>
                 ))}
               </div>
@@ -444,7 +449,7 @@ export default function ProgramsCatalog() {
               <button
                 type="button"
                 onClick={runSearch}
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#1b4d3e] px-6 py-3.5 text-[14px] font-semibold text-white transition-colors hover:bg-[#164032] sm:min-w-[130px]"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#1b4d3e] px-6 py-3.5 text-[14px] font-semibold text-white transition-colors hover:bg-[#164032] sm:min-w-[130px] cta-pulse"
               >
                 Search
                 <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
@@ -493,7 +498,7 @@ export default function ProgramsCatalog() {
                   All Programs
                 </button>
 
-                {groupedPrograms.map((group) => {
+                {groups.map((group) => {
                   const id = categoryId(group.title);
                   const isOpen = openFilterGroupId === id;
                   const isActive = selectedCategory === id;
@@ -693,7 +698,7 @@ export default function ProgramsCatalog() {
                       Math.min(count + LOAD_MORE_STEP, displayedPrograms.length),
                     )
                   }
-                  className="rounded-xl border border-[#1b4d3e] bg-white px-6 py-2.5 text-[14px] font-semibold text-[#1b4d3e] transition-colors hover:bg-[#1b4d3e] hover:text-white"
+                  className="rounded-xl border border-[#1b4d3e] bg-white px-6 py-2.5 text-[14px] font-semibold text-[#1b4d3e] transition-colors hover:bg-[#1b4d3e] hover:text-white cta-pulse"
                 >
                   Show More Programs
                 </button>

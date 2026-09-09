@@ -98,8 +98,27 @@ export default function EnquiryPopup() {
     }, 220);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+
+    await fetch("/api/enquiries", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: String(formData.get("name") ?? ""),
+        email: String(formData.get("email") ?? ""),
+        phone: String(formData.get("phone") ?? ""),
+        message: [
+          formData.get("message"),
+          formData.get("address") ? `Address: ${formData.get("address")}` : null,
+        ]
+          .filter(Boolean)
+          .join("\n"),
+        source: "enquiry_popup",
+      }),
+    });
+
     setSubmitted(true);
     window.setTimeout(handleClose, 1600);
   };
@@ -198,7 +217,7 @@ export default function EnquiryPopup() {
 
               <button
                 type="submit"
-                className="group mt-1 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[#1b4d3e] px-4 py-2.5 text-[13px] font-semibold text-white shadow-[0_6px_18px_rgba(27,77,62,0.25)] transition hover:bg-[#164032]"
+                className="group mt-1 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[#1b4d3e] px-4 py-2.5 text-[13px] font-semibold text-white shadow-[0_6px_18px_rgba(27,77,62,0.25)] transition hover:bg-[#164032] cta-pulse"
               >
                 Send Enquiry
                 <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" strokeWidth={2.4} />

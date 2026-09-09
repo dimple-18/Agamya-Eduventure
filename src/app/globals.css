@@ -357,7 +357,7 @@ summary::-webkit-details-marker {
 
 .button-primary:hover,
 .button-secondary:hover {
-  transform: translateY(-1px);
+  transform: translateY(-1px) scale(1.04);
 }
 
 .button-primary:active,
@@ -388,6 +388,47 @@ summary::-webkit-details-marker {
   border-color: var(--brand);
   color: var(--brand-dark);
   background: rgba(29, 95, 93, 0.08);
+}
+
+@keyframes cta-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.cta-pulse,
+.button-primary,
+.hero-cta {
+  animation: cta-pulse 2.2s ease-in-out infinite;
+  transform-origin: center center;
+}
+
+@media (hover: hover) {
+  .cta-pulse:hover,
+  .cta-pulse:focus-visible,
+  .button-primary:hover,
+  .button-primary:focus-visible,
+  .hero-cta:hover,
+  .hero-cta:focus-visible {
+    animation-play-state: paused;
+  }
+
+  .cta-pulse:hover,
+  .cta-pulse:focus-visible {
+    transform: scale(1.04);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-pulse,
+  .button-primary,
+  .hero-cta {
+    animation: none;
+  }
 }
 
 .surface-card {

@@ -37,11 +37,11 @@ export default function AboutPage() {
                 <span className="inline-flex w-fit rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-[#b8ebe4] backdrop-blur-sm">
                   About Us
                 </span>
-                <h1 className="mt-5 text-[32px] font-bold leading-[1.08] tracking-[-0.03em] !text-white sm:text-[40px] lg:text-[46px]">
+                <h1 className="mt-5 text-[36px] font-bold leading-[1.08] tracking-[-0.03em] !text-white sm:text-[46px] lg:text-[54px]">
                   Built to Give Students a{" "}
                   <span className="whitespace-nowrap text-[#8fe0d4]">Clearer Start</span>
                 </h1>
-                <p className="mt-4 max-w-[520px] text-[15px] leading-[1.7] text-white/82">
+                <p className="mt-4 max-w-[560px] text-[17px] leading-[1.75] text-white/82 sm:text-[18px]">
                   Agamya Eduventure focuses on strong fundamentals, practical support, and
                   patient mentoring for students who want a more dependable learning experience.
                 </p>
@@ -56,8 +56,8 @@ export default function AboutPage() {
                       key={item.label}
                       className="rounded-xl border border-white/15 bg-white/10 px-3.5 py-2 backdrop-blur-sm"
                     >
-                      <p className="text-[14px] font-bold text-white">{item.value}</p>
-                      <p className="text-[11px] text-white/70">{item.label}</p>
+                      <p className="text-[18px] font-bold leading-tight text-white">{item.value}</p>
+                      <p className="mt-0.5 text-[13px] font-semibold text-white/70">{item.label}</p>
                     </div>
                   ))}
                 </div>

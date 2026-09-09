@@ -17,8 +17,8 @@ import {
 import { useEffect, useState } from "react";
 
 import {
-  homeGalleryFeatured,
-  homeGallerySidebar,
+  homeGalleryFeatured as defaultHomeGalleryFeatured,
+  homeGallerySidebar as defaultHomeGallerySidebar,
   type GalleryEvent,
 } from "./content";
 import { pageContainerClass, pageGutterClass } from "./section-layout";
@@ -168,7 +168,13 @@ function SidebarEventCard({ event }: { event: GalleryEvent }) {
   );
 }
 
-export default function HomeGallery() {
+export default function HomeGallery({
+  events,
+}: {
+  events?: readonly GalleryEvent[];
+}) {
+  const homeGalleryFeatured = events?.length ? events.slice(0, 4) : defaultHomeGalleryFeatured;
+  const homeGallerySidebar = events?.length ? events.slice(1, 4) : defaultHomeGallerySidebar;
   const [activeIndex, setActiveIndex] = useState(0);
   const featuredEvent = homeGalleryFeatured[activeIndex] ?? homeGalleryFeatured[0];
 
@@ -182,7 +188,7 @@ export default function HomeGallery() {
     }, 5000);
 
     return () => window.clearInterval(timer);
-  }, []);
+  }, [homeGalleryFeatured.length]);
 
   const goPrevious = () => {
     setActiveIndex(
@@ -211,7 +217,7 @@ export default function HomeGallery() {
 
             <p className="mt-6 text-[15px] leading-[1.75] text-[#5f6f82]">
               A glimpse into the learning environment, interactive sessions, and memorable
-              moments that shape students&apos; skills and confidence.
+              moments that shape student's skills and confidence.
             </p>
 
             <ul className="mt-8 space-y-3">
@@ -233,14 +239,6 @@ export default function HomeGallery() {
                 );
               })}
             </ul>
-
-            <Link
-              href="/gallery"
-              className="mt-8 inline-flex items-center gap-2 rounded-xl bg-[#1b4d3e] px-7 py-3.5 text-[14px] font-semibold !text-white transition-colors hover:bg-[#164032]"
-            >
-              View Full Gallery
-              <ArrowRight className="h-4 w-4 text-white" strokeWidth={2.25} />
-            </Link>
           </div>
 
           <div>
@@ -288,6 +286,13 @@ export default function HomeGallery() {
             {homeGallerySidebar.map((event) => (
               <SidebarEventCard key={event.title} event={event} />
             ))}
+            <Link
+              href="/gallery"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#1b4d3e] px-7 py-3.5 text-[14px] font-semibold !text-white transition-colors hover:bg-[#164032] cta-pulse"
+            >
+              View Full Gallery
+              <ArrowRight className="h-4 w-4 text-white" strokeWidth={2.25} />
+            </Link>
           </div>
         </div>
 

@@ -13,60 +13,44 @@ import {
   FolderOpen,
   Monitor,
   Rocket,
-  Star,
   TrendingUp,
   UserRound,
-  Users,
 } from "lucide-react";
 import { useMemo, useState } from "react";
 
 import ProgramsCatalog from "./ProgramsCatalog";
-import { categoryId, groupedPrograms } from "./programs-data";
+import { categoryId, groupedPrograms as defaultGroupedPrograms } from "./programs-data";
+import type { ProgramGroup } from "@/lib/content/program-groups";
 import { pageContainerClass, pageGutterClass } from "./section-layout";
 
 type CoursesProps = {
   preview?: boolean;
+  groups?: readonly ProgramGroup[];
 };
 
 const PREVIEW_PROGRAM_LIMIT = 4;
 
-const programCategories = groupedPrograms.map((group) => {
-  const iconByTitle: Record<string, typeof Monitor> = {
-    "Core Programs": Monitor,
-    "Technical Modules": Code2,
-    "Career Support": Briefcase,
-    "Projects & Certifications": Award,
-    "Corporate & Advanced Courses": Building2,
-  };
-
-  return {
-    title: group.title,
-    description: group.description,
-    icon: iconByTitle[group.title] ?? Monitor,
-  };
-});
-
 const programHighlights = [
   {
-    label: "Industry-relevant curriculum",
+    label: "Curriculum built for real roles",
     icon: BookOpen,
     iconBg: "bg-[#e8f4f3]",
     iconColor: "text-[#1b6b66]",
   },
   {
-    label: "Mentor-guided learning",
+    label: "Learning with personal guidance",
     icon: UserRound,
     iconBg: "bg-[#fdf0e4]",
     iconColor: "text-[#d97706]",
   },
   {
-    label: "Practical projects & assignments",
+    label: "Hands-on builds and practice",
     icon: Briefcase,
     iconBg: "bg-[#e8f4f3]",
     iconColor: "text-[#1b6b66]",
   },
   {
-    label: "Career-focused outcomes",
+    label: "Skills that support next steps",
     icon: TrendingUp,
     iconBg: "bg-[#fdf0e4]",
     iconColor: "text-[#d97706]",
@@ -74,10 +58,30 @@ const programHighlights = [
 ] as const;
 
 const programStats = [
-  { value: "1,200+", label: "Students Guided", icon: Users, tone: "teal" },
-  { value: "300+", label: "Projects Completed", icon: FolderOpen, tone: "orange" },
-  { value: "98%", label: "Student Satisfaction", icon: Star, tone: "teal" },
-  { value: "100+", label: "Careers Kickstarted", icon: Rocket, tone: "orange" },
+  {
+    value: "Core Tracks",
+    label: "Clear learning paths from fundamentals to practice",
+    icon: Monitor,
+    tone: "teal",
+  },
+  {
+    value: "Hands-on",
+    label: "Guided projects that build real confidence",
+    icon: FolderOpen,
+    tone: "orange",
+  },
+  {
+    value: "Mentored",
+    label: "Personal support when concepts get tough",
+    icon: UserRound,
+    tone: "teal",
+  },
+  {
+    value: "Career Ready",
+    label: "Skills that carry into interviews and work",
+    icon: Rocket,
+    tone: "orange",
+  },
 ] as const;
 
 const programCardOverlays: Record<
@@ -97,18 +101,34 @@ const techOverlay = [
   { label: "React", className: "bg-[#e8f7fb] text-[#149eca]" },
 ] as const;
 
-function ProgramsPreview() {
+function ProgramsPreview({ groups }: { groups: readonly ProgramGroup[] }) {
+  const programCategories = groups.map((group) => {
+    const iconByTitle: Record<string, typeof Monitor> = {
+      "Core Programs": Monitor,
+      "Technical Modules": Code2,
+      "Career Support": Briefcase,
+      "Projects & Certifications": Award,
+      "Corporate & Advanced Courses": Building2,
+    };
+
+    return {
+      title: group.title,
+      description: group.description,
+      icon: iconByTitle[group.title] ?? Monitor,
+    };
+  });
+
   const [activeCategory, setActiveCategory] = useState(programCategories[0]?.title ?? "Core Programs");
 
   const activeGroup = useMemo(
     () => programCategories.find((category) => category.title === activeCategory),
-    [activeCategory],
+    [activeCategory, programCategories],
   );
 
   const activePrograms = useMemo(() => {
-    const group = groupedPrograms.find((item) => item.title === activeCategory);
+    const group = groups.find((item) => item.title === activeCategory);
     return group?.items.slice(0, PREVIEW_PROGRAM_LIMIT) ?? [];
-  }, [activeCategory]);
+  }, [activeCategory, groups]);
 
   return (
     <section id="programs" className={`bg-[#fdfbf7] pb-20 pt-14 ${pageGutterClass}`}>
@@ -120,7 +140,7 @@ function ProgramsPreview() {
               Programs
             </p>
 
-            <h2 className="mt-5 text-[34px] font-bold leading-[1.12] tracking-[-0.03em] text-[#1b4d3e] sm:text-[40px] lg:text-[46px]">
+            <h2 className="mt-5 text-[40px] font-bold leading-[1.08] tracking-[-0.03em] text-[#1b4d3e] sm:text-[48px] lg:text-[56px]">
               Programs arranged with more clarity and less{" "}
               <span className="inline-block whitespace-nowrap">friction.</span>
             </h2>
@@ -178,7 +198,7 @@ function ProgramsPreview() {
 
             <Link
               href="/programs"
-              className="mt-7 inline-flex items-center gap-2 rounded-xl bg-[#1b4d3e] px-7 py-3.5 text-[14px] font-semibold !text-white transition-colors hover:bg-[#164032]"
+              className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#1b4d3e] px-7 py-3.5 text-[14px] font-semibold !text-white transition-colors hover:bg-[#164032] cta-pulse"
             >
               Open Full Programs Page
               <ArrowRight className="h-4 w-4 text-white" strokeWidth={2.25} />
@@ -291,35 +311,45 @@ function ProgramsPreview() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col divide-y divide-[#e3e7ec] overflow-hidden rounded-[20px] border border-[#e3e7ec] bg-[#f3f5f7] sm:flex-row sm:divide-x sm:divide-y-0">
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {programStats.map((stat) => {
             const Icon = stat.icon;
             const isTeal = stat.tone === "teal";
 
             return (
               <div
-                key={stat.label}
-                className="flex flex-1 items-center gap-4 px-6 py-5 sm:px-7 sm:py-6"
+                key={stat.value}
+                className="group relative overflow-hidden rounded-[22px] border border-[#ebe5db] bg-white px-5 py-6 shadow-[0_6px_20px_rgba(15,23,42,0.04)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_28px_rgba(15,23,42,0.08)]"
               >
+                <div
+                  className={`pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full opacity-70 blur-2xl transition group-hover:opacity-100 ${
+                    isTeal ? "bg-[#d7ebe8]" : "bg-[#f8e4d0]"
+                  }`}
+                />
                 <span
-                  className={`inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full ${
-                    isTeal ? "bg-[#e8f4f3] text-[#1b6b66]" : "bg-[#fdf0e4] text-[#d97706]"
+                  className={`relative inline-flex h-11 w-11 items-center justify-center rounded-2xl ${
+                    isTeal
+                      ? "bg-[#e8f4f3] text-[#1b6b66]"
+                      : "bg-[#fdf0e4] text-[#d97706]"
                   }`}
                 >
                   <Icon className="h-5 w-5" strokeWidth={2.1} />
                 </span>
-                <div>
-                  <p
-                    className={`text-[26px] font-bold leading-none tracking-tight ${
-                      isTeal ? "text-[#1b4d3e]" : "text-[#d97706]"
-                    }`}
-                  >
-                    {stat.value}
-                  </p>
-                  <p className="mt-1.5 text-[14px] font-semibold text-[#3f4f61]/85">
-                    {stat.label}
-                  </p>
-                </div>
+                <p
+                  className={`relative mt-5 text-[22px] font-bold leading-tight tracking-[-0.02em] ${
+                    isTeal ? "text-[#1b4d3e]" : "text-[#b86a1f]"
+                  }`}
+                >
+                  {stat.value}
+                </p>
+                <div
+                  className={`relative mt-3 h-[3px] w-10 rounded-full ${
+                    isTeal ? "bg-[#1b6b66]" : "bg-[#e8942f]"
+                  }`}
+                />
+                <p className="relative mt-3 text-[13px] leading-relaxed text-[#5f6f82]">
+                  {stat.label}
+                </p>
               </div>
             );
           })}
@@ -329,14 +359,14 @@ function ProgramsPreview() {
   );
 }
 
-export default function Courses({ preview = false }: CoursesProps) {
+export default function Courses({ preview = false, groups = defaultGroupedPrograms }: CoursesProps) {
   if (preview) {
-    return <ProgramsPreview />;
+    return <ProgramsPreview groups={groups} />;
   }
 
   return (
     <section id="programs">
-      <ProgramsCatalog />
+      <ProgramsCatalog groups={groups} />
     </section>
   );
 }

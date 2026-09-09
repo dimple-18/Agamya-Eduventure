@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import Courses from "../../components/home/Courses";
+import CoursesSection from "../../components/home/CoursesSection";
 import Footer from "../../components/home/Footer";
 import Navbar from "../../components/home/Navbar";
 
@@ -14,7 +14,7 @@ export default function ProgramsPage() {
   return (
     <main className="page-shell">
       <Navbar />
-      <Courses />
+      <CoursesSection />
       <Footer />
     </main>
   );

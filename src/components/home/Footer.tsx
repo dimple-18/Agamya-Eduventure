@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import BrandLogo from "./BrandLogo";
 import { appliedPrograms, enterprisePrograms, navigationItems, programCards } from "./content";
 import { pageContainerClass, pageGutterClass } from "./section-layout";
 
@@ -27,7 +28,8 @@ export default function Footer() {
       >
         <div className="grid gap-10 lg:grid-cols-[1.08fr_0.5fr_0.72fr_0.72fr_0.88fr]">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[var(--muted)]">
+            <BrandLogo href="/" size={52} showText={false} />
+            <p className="mt-4 text-sm font-semibold uppercase tracking-[0.24em] text-[var(--muted)]">
               Agamya Eduventure
             </p>
             <h2 className="mt-4 max-w-sm text-4xl font-semibold tracking-[-0.05em] text-[var(--text-primary)]">

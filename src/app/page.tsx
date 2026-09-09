@@ -1,12 +1,12 @@
 import About from "../components/home/About";
 import Contact from "../components/home/Contact";
-import Courses from "../components/home/Courses";
+import CoursesSection from "../components/home/CoursesSection";
 import Footer from "../components/home/Footer";
-import HomeGallery from "../components/home/HomeGallery";
+import HomeGallerySection from "../components/home/HomeGallerySection";
 import Hero from "../components/home/Hero";
 import LearningJourney from "../components/home/LearningJourney";
 import Navbar from "../components/home/Navbar";
-import StudentWorkShowcase from "../components/home/StudentWorkShowcase";
+import StudentWorkShowcaseSection from "../components/home/StudentWorkShowcaseSection";
 import Testimonials from "../components/home/Testimonials";
 
 export default function Home() {
@@ -15,9 +15,9 @@ export default function Home() {
       <Navbar />
       <Hero />
       <About />
-      <Courses preview />
-      <HomeGallery />
-      <StudentWorkShowcase />
+      <CoursesSection preview />
+      <HomeGallerySection />
+      <StudentWorkShowcaseSection />
       <Testimonials />
       <LearningJourney />
       <Contact />

@@ -55,7 +55,7 @@ export default function Contact() {
         <div className={`${pageContainerClass} flex justify-end`}>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 rounded-xl bg-[#1b4d3e] px-7 py-3.5 text-[14px] font-semibold !text-white transition-colors hover:bg-[#164032]"
+            className="inline-flex items-center gap-2 rounded-xl bg-[#1b4d3e] px-7 py-3.5 text-[14px] font-semibold !text-white transition-colors hover:bg-[#164032] cta-pulse"
           >
             View Contact Page
           </Link>

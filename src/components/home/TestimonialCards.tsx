@@ -3,7 +3,7 @@
 import { ChevronLeft, ChevronRight, Quote, Star } from "lucide-react";
 import { useMemo, useState } from "react";
 
-import { testimonials, type Testimonial } from "./content";
+import { testimonials as staticTestimonials, type Testimonial } from "./content";
 
 const CARDS_PER_VIEW = 3;
 
@@ -55,28 +55,33 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
 
 export function TestimonialSectionIntro() {
   return (
-    <>
-      <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#1b6b66]">
-        Student Voice
-      </p>
-      <h2 className="mt-3 max-w-3xl text-[28px] font-bold leading-[1.15] tracking-[-0.03em] text-[#1b4d3e] sm:text-[32px] lg:text-[36px]">
+    <div className="flex flex-col items-center text-center">
+      <h2 className="mx-auto max-w-3xl text-[38px] font-bold leading-[1.12] tracking-[-0.03em] text-[#1b4d3e] sm:text-[44px] lg:text-[50px]">
         What students and parents consistently appreciate.
       </h2>
-      <p className="mt-3 max-w-2xl text-[15px] leading-[1.7] text-[#5f6f82]">
+      <p className="mx-auto mt-4 max-w-2xl text-[18px] leading-[1.75] text-[#5f6f82] sm:text-[19px]">
         The strongest feedback is usually simple: teaching feels clear, support feels steady,
         and students feel more capable.
       </p>
-    </>
+    </div>
   );
 }
 
-export function TestimonialCards({ className }: { className?: string }) {
+export function TestimonialCards({
+  className,
+  items,
+}: {
+  className?: string;
+  items?: Testimonial[];
+}) {
+  const testimonialList = items ?? staticTestimonials;
   const [page, setPage] = useState(0);
-  const totalPages = Math.ceil(testimonials.length / CARDS_PER_VIEW);
+  const totalPages = Math.ceil(testimonialList.length / CARDS_PER_VIEW);
 
   const visibleTestimonials = useMemo(
-    () => testimonials.slice(page * CARDS_PER_VIEW, page * CARDS_PER_VIEW + CARDS_PER_VIEW),
-    [page],
+    () =>
+      testimonialList.slice(page * CARDS_PER_VIEW, page * CARDS_PER_VIEW + CARDS_PER_VIEW),
+    [page, testimonialList],
   );
 
   return (

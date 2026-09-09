@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import Footer from "../../components/home/Footer";
-import GalleryCatalog from "../../components/home/GalleryCatalog";
+import GalleryCatalogSection from "../../components/home/GalleryCatalogSection";
 import Navbar from "../../components/home/Navbar";
 
 export const metadata: Metadata = {
@@ -14,7 +14,7 @@ export default function GalleryPage() {
   return (
     <main className="page-shell">
       <Navbar />
-      <GalleryCatalog />
+      <GalleryCatalogSection />
       <Footer />
     </main>
   );

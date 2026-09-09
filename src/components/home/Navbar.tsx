@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import BrandLogo from "./BrandLogo";
 import { navigationItems } from "./content";
 
 export default function Navbar() {
@@ -34,19 +35,7 @@ export default function Navbar() {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-6">
-        <Link href="/" className="flex min-w-0 items-center gap-3">
-          <span className="flex h-11 w-11 items-center justify-center border border-[var(--line-strong)] bg-[var(--surface-soft)] text-sm font-semibold tracking-[0.22em] text-[var(--brand)]">
-            AE
-          </span>
-          <span className="min-w-0">
-            <span className="block truncate text-[11px] font-semibold uppercase tracking-[0.26em] text-[var(--muted)]">
-              Agamya
-            </span>
-            <span className="block truncate text-lg font-semibold tracking-[-0.02em] text-[var(--text-primary)]">
-              Eduventure
-            </span>
-          </span>
-        </Link>
+        <BrandLogo href="/" size={44} />
 
         <nav aria-label="Primary" className="hidden items-center gap-7 lg:flex">
           {navigationItems.map((item) => (
@@ -80,7 +69,7 @@ export default function Navbar() {
             href="https://wa.me/917004704078"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-[var(--brand)] px-5 py-2.5 text-sm font-semibold text-[var(--brand)] transition hover:bg-[var(--brand)] hover:!text-white"
+            className="inline-flex items-center gap-2 rounded-full border border-[var(--brand)] px-5 py-2.5 text-sm font-semibold text-[var(--brand)] transition hover:bg-[var(--brand)] hover:!text-white cta-pulse"
           >
             <span className="inline-flex h-4 w-4 items-center justify-center">
               <svg
@@ -155,7 +144,7 @@ export default function Navbar() {
               href="https://wa.me/917004704078"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-[var(--brand)] px-5 py-2.5 text-sm font-semibold text-[var(--brand)] transition hover:bg-[var(--brand)] hover:!text-white"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-[var(--brand)] px-5 py-2.5 text-sm font-semibold text-[var(--brand)] transition hover:bg-[var(--brand)] hover:!text-white cta-pulse"
             >
               <span className="inline-flex h-4 w-4 items-center justify-center">
                 <svg

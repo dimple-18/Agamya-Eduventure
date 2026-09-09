@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import Footer from "../../components/home/Footer";
 import Navbar from "../../components/home/Navbar";
-import StudentWorkShowcase from "../../components/home/StudentWorkShowcase";
+import StudentWorkShowcaseSection from "../../components/home/StudentWorkShowcaseSection";
 
 export const metadata: Metadata = {
   title: "Outcomes | Agamya Eduventure",
@@ -37,11 +37,11 @@ export default function OutcomesPage() {
                 <span className="inline-flex w-fit rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-[#b8ebe4] backdrop-blur-sm">
                   Student Outcomes
                 </span>
-                <h1 className="mt-5 text-[32px] font-bold leading-[1.08] tracking-[-0.03em] !text-white sm:text-[40px] lg:text-[46px]">
+                <h1 className="mt-5 text-[36px] font-bold leading-[1.08] tracking-[-0.03em] !text-white sm:text-[46px] lg:text-[54px]">
                   Learning Becomes Real Through{" "}
                   <span className="whitespace-nowrap text-[#8fe0d4]">Building</span>
                 </h1>
-                <p className="mt-4 max-w-[520px] text-[15px] leading-[1.7] text-white/82">
+                <p className="mt-4 max-w-[560px] text-[17px] leading-[1.75] text-white/82 sm:text-[18px]">
                   See what students have built with guidance, practice, and real-world
                   problem solving — projects that reflect confidence, skill, and steady
                   progress.
@@ -57,8 +57,8 @@ export default function OutcomesPage() {
                       key={item.label}
                       className="rounded-xl border border-white/15 bg-white/10 px-3.5 py-2 backdrop-blur-sm"
                     >
-                      <p className="text-[14px] font-bold text-white">{item.value}</p>
-                      <p className="text-[11px] text-white/70">{item.label}</p>
+                      <p className="text-[18px] font-bold leading-tight text-white">{item.value}</p>
+                      <p className="mt-0.5 text-[13px] font-semibold text-white/70">{item.label}</p>
                     </div>
                   ))}
                 </div>
@@ -68,7 +68,7 @@ export default function OutcomesPage() {
         </div>
       </section>
 
-      <StudentWorkShowcase
+      <StudentWorkShowcaseSection
         sectionId="outcomes"
         compactTop
         showIntro={false}

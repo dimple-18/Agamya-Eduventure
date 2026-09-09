@@ -2,57 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
-  BarChart3,
-  Briefcase,
-  CheckCircle2,
-  Code2,
   FolderOpen,
-  GraduationCap,
   Rocket,
   Star,
-  UserRound,
   Users,
 } from "lucide-react";
 
 import { pageContainerClass, pageGutterClass } from "./section-layout";
-
-const aboutPoints = [
-  {
-    title: "Concept Clarity",
-    description: "Strong fundamentals before moving ahead.",
-    icon: GraduationCap,
-    iconBg: "bg-[#e8f5ee]",
-    iconColor: "text-[#1b4d3e]",
-  },
-  {
-    title: "Hands-on Practice",
-    description: "Practice through guided exercises and projects.",
-    icon: Code2,
-    iconBg: "bg-[#e6f3f2]",
-    iconColor: "text-[#1b4d3e]",
-  },
-  {
-    title: "Personal Mentorship",
-    description: "One-on-one support when you need it most.",
-    icon: UserRound,
-    iconBg: "bg-[#eef1f4]",
-    iconColor: "text-[#3d4f63]",
-  },
-  {
-    title: "Track Progress",
-    description: "Regular feedback and progress checkpoints.",
-    icon: BarChart3,
-    iconBg: "bg-[#fdf0e4]",
-    iconColor: "text-[#c56a12]",
-  },
-  {
-    title: "Career Readiness",
-    description: "Projects and skills for real opportunities.",
-    icon: Briefcase,
-    iconBg: "bg-[#e9eef3]",
-    iconColor: "text-[#3d5568]",
-  },
-] as const;
 
 const stats = [
   {
@@ -114,7 +70,7 @@ export default function About({
   ctaLabel = "Read More",
 }: AboutProps) {
   return (
-    <section id="about" className={`bg-[#fdfbf7] pb-20 pt-14 ${pageGutterClass}`}>
+    <section id="about" className={`bg-[#fdfbf7] pb-20 pt-20 sm:pt-24 ${pageGutterClass}`}>
       <div className={pageContainerClass}>
         <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,1fr)] lg:gap-12">
           <div className="max-w-[560px]">
@@ -144,14 +100,14 @@ export default function About({
             <div className="mt-9 flex flex-wrap gap-3.5">
               <Link
                 href={ctaHref}
-                className="inline-flex items-center gap-2 rounded-xl bg-[#1b4d3e] px-7 py-3.5 text-[14px] font-semibold !text-white transition-colors hover:bg-[#164032]"
+                className="inline-flex items-center gap-2 rounded-xl bg-[#1b4d3e] px-7 py-3.5 text-[14px] font-semibold !text-white transition-colors hover:bg-[#164032] cta-pulse"
               >
                 {ctaLabel}
                 <ArrowRight className="h-4 w-4 text-white" strokeWidth={2.25} />
               </Link>
               <Link
                 href="/programs"
-                className="inline-flex items-center gap-2 rounded-xl border border-[#1b4d3e]/25 bg-white px-7 py-3.5 text-[14px] font-semibold text-[#1b4d3e] transition-colors hover:bg-[#f8f6f1]"
+                className="inline-flex items-center gap-2 rounded-xl border border-[#1b4d3e]/25 bg-white px-7 py-3.5 text-[14px] font-semibold text-[#1b4d3e] transition-colors hover:bg-[#f8f6f1] cta-pulse"
               >
                 View Programs
                 <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
@@ -204,36 +160,7 @@ export default function About({
           </div>
         </div>
 
-        <div className="mt-14 overflow-hidden rounded-[20px] border border-[#ebe5db] bg-white shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
-          <div className="flex flex-col divide-y divide-[#ebe5db] lg:flex-row lg:divide-x lg:divide-y-0">
-            {aboutPoints.map((point) => {
-              const Icon = point.icon;
-
-              return (
-                <div
-                  key={point.title}
-                  className="flex flex-1 items-center gap-3.5 px-5 py-5 sm:px-6 lg:py-6"
-                >
-                  <span
-                    className={`inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${point.iconBg} ${point.iconColor}`}
-                  >
-                    <Icon className="h-5 w-5" strokeWidth={2.1} />
-                  </span>
-                  <div className="min-w-0">
-                    <h3 className="text-[14px] font-bold leading-tight text-[#1b4d3e]">
-                      {point.title}
-                    </h3>
-                    <p className="mt-1 text-[12px] leading-snug text-[#6b7c8f]">
-                      {point.description}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {stats.map((stat) => {
             const Icon = stat.icon;
 
