@@ -56,7 +56,11 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
 export function TestimonialSectionIntro() {
   return (
     <div className="flex flex-col items-center text-center">
-      <h2 className="mx-auto max-w-3xl text-[38px] font-bold leading-[1.12] tracking-[-0.03em] text-[#1b4d3e] sm:text-[44px] lg:text-[50px]">
+      <p className="inline-flex items-center justify-center gap-2.5 text-[12px] font-bold uppercase tracking-[0.22em] text-[#1b4d3e]">
+        <span className="h-2 w-2 rounded-full bg-[#f39c12]" />
+        Testimonials
+      </p>
+      <h2 className="mx-auto mt-8 max-w-3xl text-[38px] font-bold leading-[1.12] tracking-[-0.03em] text-[#1b4d3e] sm:text-[44px] lg:text-[50px]">
         What students and parents consistently appreciate.
       </h2>
       <p className="mx-auto mt-4 max-w-2xl text-[18px] leading-[1.75] text-[#5f6f82] sm:text-[19px]">

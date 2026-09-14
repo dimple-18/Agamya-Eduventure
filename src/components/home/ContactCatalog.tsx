@@ -75,8 +75,6 @@ export default function ContactCatalog() {
               />
               <div className="absolute inset-0 bg-gradient-to-r from-[#0b2f2c]/92 via-[#0f3f3b]/78 to-[#0f3f3b]/35" />
 
-              <div className="pointer-events-none absolute -right-8 top-12 hidden h-32 w-32 rounded-full border border-dashed border-[#5eb8a8]/40 lg:block" />
-              <div className="pointer-events-none absolute bottom-16 right-[18%] hidden h-20 w-20 rounded-full border border-dashed border-[#f39c12]/35 lg:block" />
 
               <div className="relative grid gap-8 p-6 sm:p-8 lg:grid-cols-[1fr_320px] lg:items-center lg:p-10">
                 <div className="max-w-[560px]">
@@ -247,7 +245,7 @@ export default function ContactCatalog() {
             </div>
           </section>
 
-          {/* Bottom CTA */}
+         
           <section className="mt-8 overflow-hidden rounded-[22px] border border-[#ebe5db] bg-white p-6 shadow-[0_8px_28px_rgba(15,23,42,0.06)] sm:p-8">
             <div className="grid gap-8 lg:grid-cols-[auto_1fr_auto] lg:items-center lg:gap-10">
               <div className="relative hidden h-32 w-32 shrink-0 lg:block">

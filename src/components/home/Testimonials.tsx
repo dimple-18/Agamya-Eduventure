@@ -12,14 +12,7 @@ export default async function Testimonials() {
   return (
     <section id="testimonials" className={`bg-[#fdfbf7] pb-20 pt-14 ${pageGutterClass}`}>
       <div className={pageContainerClass}>
-        <p className="inline-flex items-center gap-2.5 text-[12px] font-bold uppercase tracking-[0.22em] text-[#1b4d3e]">
-          <span className="h-2 w-2 rounded-full bg-[#f39c12]" />
-          Testimonials
-        </p>
-
-        <div className="mt-8">
-          <TestimonialSectionIntro />
-        </div>
+        <TestimonialSectionIntro />
 
         <TestimonialCards className="mt-10" items={items} />
 

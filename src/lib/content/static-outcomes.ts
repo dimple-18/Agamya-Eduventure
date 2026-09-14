@@ -2,7 +2,7 @@ import type { StudentOutcome } from "./types";
 
 export const staticStudentOutcomes: StudentOutcome[] = [
   {
-    title: "Travel Explorer Website",
+    title: "Project 1",
     subtitle: "Full Stack Website",
     description:
       "Discover beautiful places, plan your trip, and create unforgettable memories.",
@@ -15,7 +15,7 @@ export const staticStudentOutcomes: StudentOutcome[] = [
     published: true,
   },
   {
-    title: "FinTrack Mobile App",
+    title: "Project 2",
     subtitle: "UI/UX Design",
     description: "Banking app UI/UX design with clean interface and smooth user flow.",
     student_name: "Aarav Mehta",
@@ -27,7 +27,7 @@ export const staticStudentOutcomes: StudentOutcome[] = [
     published: true,
   },
   {
-    title: "Task Manager App",
+    title: "Project 3",
     subtitle: "Python Project",
     description:
       "Python desktop app to manage tasks with calendar, reminders and priorities.",
@@ -40,7 +40,7 @@ export const staticStudentOutcomes: StudentOutcome[] = [
     published: true,
   },
   {
-    title: "Marketing Strategy Deck",
+    title: "Project 4",
     subtitle: "Presentation Project",
     description:
       "Business strategy presentation with research, insights, and visual storytelling.",
@@ -53,7 +53,7 @@ export const staticStudentOutcomes: StudentOutcome[] = [
     published: true,
   },
   {
-    title: "Sales Analytics Dashboard",
+    title: "Project 5",
     subtitle: "Data Dashboard",
     description:
       "Interactive dashboard to analyze sales trends, revenue, and performance with data visualization.",
