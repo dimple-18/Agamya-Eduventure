@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Database, Plus, Trash2 } from "lucide-react";
 
 import type { Testimonial } from "@/lib/content/types";
 import { fetchAdminList } from "@/lib/admin/fetch";
+import { revealForm } from "@/lib/admin/reveal-form";
 
 const emptyForm = {
   quote: "",
@@ -20,6 +21,8 @@ export default function TestimonialsManager() {
   const [saving, setSaving] = useState(false);
   const [importing, setImporting] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
+  const formSectionRef = useRef<HTMLElement>(null);
+  const firstFieldRef = useRef<HTMLTextAreaElement>(null);
 
   async function loadItems() {
     setLoading(true);
@@ -88,7 +91,7 @@ export default function TestimonialsManager() {
 
   return (
     <div className="space-y-6">
-      <section className="rounded-2xl border border-[#e8e2d8] bg-white p-6 shadow-[0_8px_24px_rgba(15,23,42,0.05)]">
+      <section className="rounded-2xl border border-[#e8e2d8] bg-white p-4 shadow-[0_8px_24px_rgba(15,23,42,0.05)] sm:p-6">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <h1 className="text-2xl font-semibold text-[#1b4d3e]">Testimonials</h1>
@@ -111,7 +114,10 @@ export default function TestimonialsManager() {
         )}
       </section>
 
-      <section className="rounded-2xl border border-[#e8e2d8] bg-white p-6 shadow-[0_8px_24px_rgba(15,23,42,0.05)]">
+      <section
+        ref={formSectionRef}
+        className="scroll-mt-20 rounded-2xl border border-[#e8e2d8] bg-white p-4 shadow-[0_8px_24px_rgba(15,23,42,0.05)] sm:p-6 lg:scroll-mt-6"
+      >
         <h2 className="text-lg font-semibold text-[#1b4d3e]">
           {editingId ? "Edit testimonial" : "Add testimonial"}
         </h2>
@@ -121,11 +127,12 @@ export default function TestimonialsManager() {
               Quote
             </span>
             <textarea
+              ref={firstFieldRef}
               required
               rows={4}
               value={form.quote}
               onChange={(event) => setForm((current) => ({ ...current, quote: event.target.value }))}
-              className="w-full rounded-xl border border-[#e8e2d8] bg-[#fcfbfa] px-3.5 py-2.5 text-sm text-[#1b4d3e] outline-none focus:border-[#1b6b66]/45 focus:ring-4 focus:ring-[#1b6b66]/8"
+              className="w-full rounded-xl border border-[#e8e2d8] bg-[#fcfbfa] px-3.5 py-2.5 text-base text-[#1b4d3e] outline-none focus:border-[#1b6b66]/45 focus:ring-4 focus:ring-[#1b6b66]/8 sm:text-sm"
             />
           </label>
           <div className="grid gap-4 md:grid-cols-2">
@@ -137,7 +144,7 @@ export default function TestimonialsManager() {
                 required
                 value={form.name}
                 onChange={(event) => setForm((current) => ({ ...current, name: event.target.value }))}
-                className="w-full rounded-xl border border-[#e8e2d8] bg-[#fcfbfa] px-3.5 py-2.5 text-sm text-[#1b4d3e] outline-none focus:border-[#1b6b66]/45 focus:ring-4 focus:ring-[#1b6b66]/8"
+                className="w-full rounded-xl border border-[#e8e2d8] bg-[#fcfbfa] px-3.5 py-2.5 text-base text-[#1b4d3e] outline-none focus:border-[#1b6b66]/45 focus:ring-4 focus:ring-[#1b6b66]/8 sm:text-sm"
               />
             </label>
             <label className="block">
@@ -148,15 +155,15 @@ export default function TestimonialsManager() {
                 required
                 value={form.role}
                 onChange={(event) => setForm((current) => ({ ...current, role: event.target.value }))}
-                className="w-full rounded-xl border border-[#e8e2d8] bg-[#fcfbfa] px-3.5 py-2.5 text-sm text-[#1b4d3e] outline-none focus:border-[#1b6b66]/45 focus:ring-4 focus:ring-[#1b6b66]/8"
+                className="w-full rounded-xl border border-[#e8e2d8] bg-[#fcfbfa] px-3.5 py-2.5 text-base text-[#1b4d3e] outline-none focus:border-[#1b6b66]/45 focus:ring-4 focus:ring-[#1b6b66]/8 sm:text-sm"
               />
             </label>
           </div>
-          <div className="flex gap-3">
+          <div className="flex flex-col gap-3 sm:flex-row">
             <button
               type="submit"
               disabled={saving}
-              className="inline-flex items-center gap-2 rounded-xl bg-[#1b4d3e] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#164032] disabled:opacity-60"
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-[#1b4d3e] px-4 py-2.5 sm:min-h-0 text-sm font-semibold text-white transition hover:bg-[#164032] disabled:opacity-60"
             >
               <Plus className="h-4 w-4" />
               {saving ? "Saving..." : editingId ? "Update" : "Add testimonial"}
@@ -168,7 +175,7 @@ export default function TestimonialsManager() {
                   setEditingId(null);
                   setForm(emptyForm);
                 }}
-                className="rounded-xl border border-[#e8e2d8] px-4 py-2.5 text-sm font-medium text-[#5f6c79]"
+                className="min-h-11 rounded-xl border border-[#e8e2d8] px-4 py-2.5 text-sm font-medium text-[#5f6c79] sm:min-h-0"
               >
                 Cancel
               </button>
@@ -177,7 +184,7 @@ export default function TestimonialsManager() {
         </form>
       </section>
 
-      <section className="rounded-2xl border border-[#e8e2d8] bg-white p-6 shadow-[0_8px_24px_rgba(15,23,42,0.05)]">
+      <section className="rounded-2xl border border-[#e8e2d8] bg-white p-4 shadow-[0_8px_24px_rgba(15,23,42,0.05)] sm:p-6">
         <h2 className="text-lg font-semibold text-[#1b4d3e]">All testimonials</h2>
         {loading ? (
           <p className="mt-4 text-sm text-[#5f6c79]">Loading...</p>
@@ -192,11 +199,11 @@ export default function TestimonialsManager() {
                 key={item.id}
                 className="rounded-xl border border-[#ebe5db] bg-[#fcfbfa] p-4"
               >
-                <p className="text-sm leading-relaxed text-[#3d4f63]">{item.quote}</p>
-                <p className="mt-3 text-sm font-semibold text-[#1b4d3e]">
+                <p className="break-words text-sm leading-relaxed text-[#3d4f63]">{item.quote}</p>
+                <p className="mt-3 break-words text-sm font-semibold text-[#1b4d3e]">
                   {item.name} · {item.role}
                 </p>
-                <div className="mt-3 flex gap-2">
+                <div className="mt-3 flex gap-3 sm:gap-2">
                   <button
                     type="button"
                     onClick={() => {
@@ -206,15 +213,16 @@ export default function TestimonialsManager() {
                         name: item.name,
                         role: item.role,
                       });
+                      revealForm(formSectionRef.current, firstFieldRef.current);
                     }}
-                    className="rounded-lg border border-[#e8e2d8] px-3 py-1.5 text-xs font-semibold text-[#1b4d3e]"
+                    className="inline-flex min-h-10 items-center rounded-lg border border-[#e8e2d8] px-4 text-sm font-semibold text-[#1b4d3e] sm:min-h-0 sm:px-3 sm:py-1.5 sm:text-xs"
                   >
                     Edit
                   </button>
                   <button
                     type="button"
                     onClick={() => item.id && handleDelete(item.id)}
-                    className="inline-flex items-center gap-1 rounded-lg border border-[#f2d4d4] px-3 py-1.5 text-xs font-semibold text-[#9b3d3d]"
+                    className="inline-flex min-h-10 items-center gap-1 rounded-lg border border-[#f2d4d4] px-4 text-sm font-semibold text-[#9b3d3d] sm:min-h-0 sm:px-3 sm:py-1.5 sm:text-xs"
                   >
                     <Trash2 className="h-3.5 w-3.5" />
                     Delete

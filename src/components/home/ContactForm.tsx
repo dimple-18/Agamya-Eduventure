@@ -22,7 +22,7 @@ function IconField({
     "flex w-full gap-3 rounded-xl border border-[#e8e2d8] bg-[#fcfbfa] px-3.5 transition focus-within:border-[#1b6b66]/45 focus-within:bg-white focus-within:ring-4 focus-within:ring-[#1b6b66]/8";
 
   const inputClass =
-    "min-w-0 flex-1 border-0 bg-transparent text-[14px] text-[#1b4d3e] outline-none placeholder:text-[#9aa8b8]";
+    "min-w-0 flex-1 border-0 bg-transparent text-base text-[#1b4d3e] sm:text-[14px] outline-none placeholder:text-[#9aa8b8]";
 
   return (
     <div className={`${wrapperClass} ${multiline ? "items-start py-3" : "items-center py-1"}`}>
@@ -129,7 +129,7 @@ export default function ContactForm() {
         {submitting ? "Sending..." : "Submit Message"}
       </button>
 
-      <p className="text-center text-[12px] text-[#8a9aad]">
+      <p className="text-center text-[14px] leading-[1.5] text-[#7a8b9f]">
         Your information is safe and will never be shared.
       </p>
     </form>

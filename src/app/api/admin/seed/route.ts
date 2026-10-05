@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { requireAdmin } from "@/lib/admin/require-admin";
+import { OCCASION_LABEL } from "@/lib/content/gallery-occasions";
 import { getDefaultContactSettings } from "@/lib/content/queries";
 import { flattenProgramsForSeed } from "@/lib/content/program-groups";
 import { staticStudentOutcomes } from "@/lib/content/static-outcomes";
@@ -74,7 +75,7 @@ export async function POST() {
       published: true,
     }));
 
-    await supabase.from("gallery_events").delete().neq("id", "00000000-0000-0000-0000-000000000000");
+    await supabase.from("gallery_events").delete().neq("label", OCCASION_LABEL);
     const { error: galleryError } = await supabase.from("gallery_events").insert(galleryRows);
     if (galleryError) {
       return NextResponse.json({ error: galleryError.message }, { status: 500 });

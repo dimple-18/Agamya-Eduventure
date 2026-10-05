@@ -49,6 +49,12 @@ export type ProgramRecord = {
   published?: boolean;
 };
 
+export type GalleryImage = {
+  url: string;
+  publicId?: string;
+  alt?: string;
+};
+
 export type GalleryEventRecord = {
   id?: string;
   title: string;
@@ -58,6 +64,8 @@ export type GalleryEventRecord = {
   date: string;
   location?: string | null;
   students: string;
+  year?: string | null;
+  images?: GalleryImage[] | null;
   sort_order?: number;
   published?: boolean;
 };

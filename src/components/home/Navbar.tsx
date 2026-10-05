@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import BrandLogo from "./BrandLogo";
 import { navigationItems } from "./content";
@@ -10,6 +10,7 @@ import { navigationItems } from "./content";
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -23,11 +24,35 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (!isMobileOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsMobileOpen(false);
+    };
+    const handlePointerDown = (event: PointerEvent) => {
+      if (!headerRef.current?.contains(event.target as Node)) setIsMobileOpen(false);
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("pointerdown", handlePointerDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("pointerdown", handlePointerDown);
+    };
+  }, [isMobileOpen]);
+
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
     <header
+      ref={headerRef}
       className={`sticky top-0 z-[70] border-b border-[var(--line)] px-4 backdrop-blur-md transition-all duration-300 sm:px-6 lg:px-8 ${
         isScrolled
           ? "bg-[rgba(250,247,241,0.92)] py-3 shadow-[0_10px_30px_rgba(15,23,42,0.08)]"
@@ -93,7 +118,7 @@ export default function Navbar() {
           aria-controls="mobile-nav-panel"
           aria-label={isMobileOpen ? "Close navigation menu" : "Open navigation menu"}
           onClick={() => setIsMobileOpen((current) => !current)}
-          className="grid h-10 w-10 place-items-center border border-[var(--line-strong)] bg-white text-[var(--text-primary)] transition hover:border-[var(--brand)] hover:text-[var(--brand)] lg:hidden"
+          className="grid h-11 w-11 shrink-0 place-items-center border border-[var(--line-strong)] bg-white text-[var(--text-primary)] transition hover:border-[var(--brand)] hover:text-[var(--brand)] lg:hidden"
         >
           <span className="flex flex-col gap-1.5">
             <span
@@ -111,8 +136,10 @@ export default function Navbar() {
 
       <div
         id="mobile-nav-panel"
-        className={`overflow-hidden transition-all duration-300 ease-out lg:hidden ${
-          isMobileOpen ? "max-h-[34rem] opacity-100" : "max-h-0 opacity-0"
+        className={`transition-all duration-300 ease-out lg:hidden ${
+          isMobileOpen
+            ? "max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain opacity-100"
+            : "max-h-0 overflow-hidden opacity-0"
         }`}
       >
         <div className="mx-auto mt-3 max-w-7xl border border-[var(--line)] bg-[rgba(255,255,255,0.96)] p-4 shadow-[0_18px_40px_rgba(15,23,42,0.08)]">
@@ -157,7 +184,11 @@ export default function Navbar() {
               </span>
               WhatsApp
             </Link>
-            <Link href="/contact" className="button-primary w-full text-center">
+            <Link
+              href="/contact"
+              onClick={() => setIsMobileOpen(false)}
+              className="button-primary w-full text-center"
+            >
               Enquire Now
             </Link>
           </div>

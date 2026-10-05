@@ -1,14 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Plus, Trash2 } from "lucide-react";
 
 import { PROGRAM_GROUP_OPTIONS } from "@/lib/content/program-groups";
 import type { ProgramRecord } from "@/lib/content/types";
 import { fetchAdminList } from "@/lib/admin/fetch";
+import { revealForm } from "@/lib/admin/reveal-form";
 
 const inputClass =
-  "w-full rounded-xl border border-[#e8e2d8] bg-[#fcfbfa] px-3.5 py-2.5 text-sm text-[#1b4d3e] outline-none focus:border-[#1b6b66]/45 focus:ring-4 focus:ring-[#1b6b66]/8";
+  "w-full rounded-xl border border-[#e8e2d8] bg-[#fcfbfa] px-3.5 py-2.5 text-base text-[#1b4d3e] outline-none focus:border-[#1b6b66]/45 focus:ring-4 focus:ring-[#1b6b66]/8 sm:text-sm";
 
 const emptyForm: ProgramRecord = {
   title: "",
@@ -28,6 +29,8 @@ export default function ProgramsManager() {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [readOnlyNotice, setReadOnlyNotice] = useState<string | null>(null);
+  const formSectionRef = useRef<HTMLElement>(null);
+  const firstFieldRef = useRef<HTMLInputElement>(null);
 
   async function loadItems() {
     setLoading(true);
@@ -75,7 +78,7 @@ export default function ProgramsManager() {
 
   return (
     <div className="space-y-6">
-      <section className="rounded-2xl border border-[#e8e2d8] bg-white p-6 shadow-[0_8px_24px_rgba(15,23,42,0.05)]">
+      <section className="rounded-2xl border border-[#e8e2d8] bg-white p-4 shadow-[0_8px_24px_rgba(15,23,42,0.05)] sm:p-6">
         <h1 className="text-2xl font-semibold text-[#1b4d3e]">Programs</h1>
         <p className="mt-2 text-sm text-[#5f6c79]">
           Manage courses shown on the home page and programs page.
@@ -90,7 +93,10 @@ export default function ProgramsManager() {
         )}
       </section>
 
-      <section className="rounded-2xl border border-[#e8e2d8] bg-white p-6 shadow-[0_8px_24px_rgba(15,23,42,0.05)]">
+      <section
+        ref={formSectionRef}
+        className="scroll-mt-20 rounded-2xl border border-[#e8e2d8] bg-white p-4 shadow-[0_8px_24px_rgba(15,23,42,0.05)] sm:p-6 lg:scroll-mt-6"
+      >
         <h2 className="text-lg font-semibold text-[#1b4d3e]">
           {editingId ? "Edit program" : "Add program"}
         </h2>
@@ -101,6 +107,7 @@ export default function ProgramsManager() {
                 Title
               </span>
               <input
+                ref={firstFieldRef}
                 required
                 value={form.title}
                 onChange={(e) => setForm((c) => ({ ...c, title: e.target.value }))}
@@ -181,11 +188,11 @@ export default function ProgramsManager() {
               className={inputClass}
             />
           </label>
-          <div className="flex gap-3">
+          <div className="flex flex-col gap-3 sm:flex-row">
             <button
               type="submit"
               disabled={saving}
-              className="inline-flex items-center gap-2 rounded-xl bg-[#1b4d3e] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#164032] disabled:opacity-60"
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-[#1b4d3e] px-4 py-2.5 sm:min-h-0 text-sm font-semibold text-white hover:bg-[#164032] disabled:opacity-60"
             >
               <Plus className="h-4 w-4" />
               {saving ? "Saving..." : editingId ? "Update" : "Add program"}
@@ -197,7 +204,7 @@ export default function ProgramsManager() {
                   setEditingId(null);
                   setForm(emptyForm);
                 }}
-                className="rounded-xl border border-[#e8e2d8] px-4 py-2.5 text-sm font-medium text-[#5f6c79]"
+                className="min-h-11 rounded-xl border border-[#e8e2d8] px-4 py-2.5 text-sm font-medium text-[#5f6c79] sm:min-h-0"
               >
                 Cancel
               </button>
@@ -206,7 +213,7 @@ export default function ProgramsManager() {
         </form>
       </section>
 
-      <section className="rounded-2xl border border-[#e8e2d8] bg-white p-6 shadow-[0_8px_24px_rgba(15,23,42,0.05)]">
+      <section className="rounded-2xl border border-[#e8e2d8] bg-white p-4 shadow-[0_8px_24px_rgba(15,23,42,0.05)] sm:p-6">
         <h2 className="text-lg font-semibold text-[#1b4d3e]">All programs ({items.length})</h2>
         {loading ? (
           <p className="mt-4 text-sm text-[#5f6c79]">Loading...</p>
@@ -219,21 +226,22 @@ export default function ProgramsManager() {
                     <p className="font-semibold text-[#1b4d3e]">{item.title}</p>
                     <p className="mt-1 text-xs text-[#7a8a9c]">{item.group_name}</p>
                   </div>
-                  <div className="flex gap-2">
+                  <div className="flex gap-3 sm:gap-2">
                     <button
                       type="button"
                       onClick={() => {
                         setEditingId(item.id ?? null);
                         setForm(item);
+                        revealForm(formSectionRef.current, firstFieldRef.current);
                       }}
-                      className="rounded-lg border border-[#e8e2d8] px-3 py-1.5 text-xs font-semibold text-[#1b4d3e]"
+                      className="inline-flex min-h-10 items-center rounded-lg border border-[#e8e2d8] px-4 text-sm font-semibold text-[#1b4d3e] sm:min-h-0 sm:px-3 sm:py-1.5 sm:text-xs"
                     >
                       Edit
                     </button>
                     <button
                       type="button"
                       onClick={() => item.id && handleDelete(item.id)}
-                      className="inline-flex items-center gap-1 rounded-lg border border-[#f2d4d4] px-3 py-1.5 text-xs font-semibold text-[#9b3d3d]"
+                      className="inline-flex min-h-10 items-center gap-1 rounded-lg border border-[#f2d4d4] px-4 text-sm font-semibold text-[#9b3d3d] sm:min-h-0 sm:px-3 sm:py-1.5 sm:text-xs"
                     >
                       <Trash2 className="h-3.5 w-3.5" />
                       Delete

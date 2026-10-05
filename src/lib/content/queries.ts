@@ -10,6 +10,7 @@ import {
   type GalleryEvent,
 } from "@/components/home/content";
 
+import { normalizeGalleryImages } from "./gallery-occasions";
 import { buildGroupedPrograms, type ProgramGroup } from "./program-groups";
 import { staticStudentOutcomes } from "./static-outcomes";
 import type {
@@ -112,6 +113,8 @@ function mapStaticGalleryEvents(): GalleryEvent[] {
 }
 
 function mapGalleryRow(row: GalleryEventRecord): GalleryEvent {
+  const images = normalizeGalleryImages(row.images);
+
   return {
     title: row.title,
     label: row.label,
@@ -120,6 +123,8 @@ function mapGalleryRow(row: GalleryEventRecord): GalleryEvent {
     date: row.date,
     location: row.location ?? undefined,
     students: row.students,
+    year: row.year ?? undefined,
+    images: images.length ? images : undefined,
   };
 }
 

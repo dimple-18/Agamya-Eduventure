@@ -56,7 +56,7 @@ export default function AdminDashboardPage() {
 
   return (
     <div className="space-y-6">
-      <section className="rounded-2xl border border-[#e8e2d8] bg-white p-6 shadow-[0_8px_24px_rgba(15,23,42,0.05)]">
+      <section className="rounded-2xl border border-[#e8e2d8] bg-white p-4 shadow-[0_8px_24px_rgba(15,23,42,0.05)] sm:p-6">
         <h1 className="text-2xl font-semibold text-[#1b4d3e]">Dashboard</h1>
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[#5f6c79]">
           Manage website content from here. Changes appear on the live site after you save.
@@ -64,7 +64,7 @@ export default function AdminDashboardPage() {
         </p>
 
         {!configured && (
-          <div className="mt-4 rounded-xl border border-[#f0dfbf] bg-[#fff9ef] px-4 py-3 text-sm text-[#7a5a2d]">
+          <div className="mt-4 break-words rounded-xl border border-[#f0dfbf] bg-[#fff9ef] px-4 py-3 text-sm text-[#7a5a2d]">
             Supabase is not connected yet. Copy <code>env.example</code> to{" "}
             <code>.env.local</code>, run the SQL in <code>supabase/schema.sql</code>, then create
             an admin user in Supabase Auth.
@@ -97,7 +97,7 @@ export default function AdminDashboardPage() {
 
 function SeedPanel({ configured }: { configured: boolean }) {
   return (
-    <section className="rounded-2xl border border-[#e8e2d8] bg-white p-6 shadow-[0_8px_24px_rgba(15,23,42,0.05)]">
+    <section className="rounded-2xl border border-[#e8e2d8] bg-white p-4 shadow-[0_8px_24px_rgba(15,23,42,0.05)] sm:p-6">
       <div className="flex items-start gap-3">
         <Database className="mt-0.5 h-5 w-5 text-[#1b6b66]" />
         <div>

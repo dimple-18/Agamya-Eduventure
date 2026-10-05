@@ -43,7 +43,7 @@ function TagPill({
 
 function MiniChip({ label }: { label: string }) {
   return (
-    <span className="rounded-md border border-[#e8e2d8] bg-[#faf8f3] px-2 py-0.5 text-[11px] font-semibold text-[#22354c]">
+    <span className="rounded-md border border-[#e8e2d8] bg-[#faf8f3] px-2.5 py-1 text-[13px] font-semibold text-[#22354c]">
       {label}
     </span>
   );
@@ -71,10 +71,10 @@ function OutcomeCard({ outcome }: { outcome: StudentOutcome }) {
         {outcome.badge_label}
       </span>
       <h3 className="mt-3 text-[20px] font-bold text-[#152a42] sm:text-[22px]">{outcome.title}</h3>
-      <p className="mt-1 text-[13px] font-medium text-[#637488]">{outcome.subtitle}</p>
-      <p className="mt-2 text-[13px] leading-[1.5] text-[#607085]">{outcome.description}</p>
-      <p className="mt-3 text-[12px] text-[#7b8794]">Built by</p>
-      <p className="text-[14px] font-semibold text-[#1d3049]">{outcome.student_name}</p>
+      <p className="mt-1 text-[15px] font-medium text-[#637488]">{outcome.subtitle}</p>
+      <p className="mt-2 text-[16px] leading-[1.6] text-[#607085]">{outcome.description}</p>
+      <p className="mt-3 text-[14px] text-[#7b8794]">Built by</p>
+      <p className="text-[16px] font-semibold text-[#1d3049]">{outcome.student_name}</p>
       <div className="mt-2 flex flex-wrap gap-2">
         {outcome.tools.map((tool) => (
           <MiniChip key={tool} label={tool} />
@@ -86,7 +86,7 @@ function OutcomeCard({ outcome }: { outcome: StudentOutcome }) {
           style={{ backgroundImage: `url(${outcome.image_url})` }}
         />
       ) : (
-        <div className="mt-4 h-[150px] rounded-xl bg-[linear-gradient(130deg,#d9ebff,#f7fcff,#c6ddff)]" />
+        <div className="mt-4 hidden h-[150px] rounded-xl bg-[linear-gradient(130deg,#d9ebff,#f7fcff,#c6ddff)] sm:block" />
       )}
     </article>
   );
@@ -110,7 +110,7 @@ export default function StudentWorkShowcase({
   return (
     <section
       id={sectionId}
-      className={`bg-[#fdfbf7] pb-20 ${pageGutterClass} ${compactTop ? "pt-0" : "pt-14"}`}
+      className={`bg-[#fdfbf7] pb-14 sm:pb-20 ${pageGutterClass} ${compactTop ? "pt-0" : "pt-10 sm:pt-14"}`}
     >
       <div className={pageContainerClass}>
         {showIntro ? (
@@ -121,18 +121,18 @@ export default function StudentWorkShowcase({
                   <span className="h-2 w-2 rounded-full bg-[#f39c12]" />
                   Student Work Showcase
                 </p>
-                <h2 className="mt-5 max-w-[700px] text-[40px] font-bold leading-[1.08] tracking-[-0.03em] text-[#1b4d3e] sm:text-[48px] lg:text-[56px]">
+                <h2 className="mt-4 max-w-[700px] text-[34px] font-bold leading-[1.1] sm:mt-5 sm:leading-[1.08] tracking-[-0.03em] text-[#1b4d3e] sm:text-[48px] lg:text-[56px]">
                   Learning becomes
                   <br />
                   real through <span className="text-[#122741]">building.</span>
                 </h2>
-                <p className="mt-4 max-w-[560px] text-[15px] leading-[1.75] text-[#5f6f82]">
+                <p className="mt-4 max-w-[560px] text-base leading-[1.7] text-[#5f6f82] sm:text-[15px] sm:leading-[1.75]">
                   Here&apos;s what our students have built with guidance, practice,
                   and real-world problem solving.
                 </p>
               </div>
 
-              <div className="flex flex-wrap gap-4 pt-8 lg:justify-end lg:pt-9">
+              <div className="hidden flex-wrap gap-4 pt-8 sm:flex lg:justify-end lg:pt-9">
                 {topTags.map((t) => (
                   <TagPill key={t.label} icon={t.icon} label={t.label} />
                 ))}
@@ -141,7 +141,7 @@ export default function StudentWorkShowcase({
           </>
         ) : null}
 
-        <div className="mt-10 grid gap-4 lg:grid-cols-2">
+        <div className="mt-8 grid gap-4 sm:mt-10 lg:grid-cols-2">
           {outcomes.map((outcome) => (
             <OutcomeCard key={outcome.id ?? outcome.title} outcome={outcome} />
           ))}

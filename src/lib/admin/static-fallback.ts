@@ -30,6 +30,8 @@ export function getStaticAdminGallery() {
     date: event.date,
     location: event.location ?? null,
     students: event.students,
+    year: event.year ?? null,
+    images: event.images ? [...event.images] : null,
     sort_order: index,
     published: true,
   }));

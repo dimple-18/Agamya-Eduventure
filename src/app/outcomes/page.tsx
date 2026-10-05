@@ -19,33 +19,33 @@ export default function OutcomesPage() {
       <section className="bg-[#fdfbf7] px-4 pt-6 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <section className="relative overflow-hidden rounded-[28px] border border-[#0d3d38]/20 shadow-[0_20px_50px_rgba(15,23,42,0.12)]">
-            <div className="relative min-h-[320px] sm:min-h-[360px] lg:min-h-[390px]">
+            <div className="relative min-h-[280px] sm:min-h-[360px] lg:min-h-[390px]">
               <Image
                 src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1600&auto=format&fit=crop"
                 alt="Student working on a coding project"
                 fill
                 className="object-cover object-[72%_center]"
                 priority
-                sizes="1240px"
+                sizes="(min-width: 1280px) 1240px, 100vw"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-[#0b2f2c]/92 via-[#0f3f3b]/78 to-[#0f3f3b]/35" />
 
 
-              <div className="relative flex h-full flex-col justify-center px-6 py-10 sm:px-10 sm:py-12 lg:max-w-[58%] lg:px-12">
+              <div className="relative flex h-full flex-col justify-center px-5 py-8 sm:px-10 sm:py-12 lg:max-w-[58%] lg:px-12">
                 <span className="inline-flex w-fit rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-[#b8ebe4] backdrop-blur-sm">
                   Student Outcomes
                 </span>
-                <h1 className="mt-5 text-[36px] font-bold leading-[1.08] tracking-[-0.03em] !text-white sm:text-[46px] lg:text-[54px]">
+                <h1 className="mt-4 text-[34px] font-bold leading-[1.1] tracking-[-0.03em] !text-white sm:mt-5 sm:text-[46px] sm:leading-[1.08] lg:text-[54px]">
                   Learning Becomes Real Through{" "}
                   <span className="whitespace-nowrap text-[#8fe0d4]">Building</span>
                 </h1>
-                <p className="mt-4 max-w-[560px] text-[17px] leading-[1.75] text-white/82 sm:text-[18px]">
+                <p className="mt-3 max-w-[560px] text-base leading-[1.6] text-white/82 sm:mt-4 sm:text-[18px] sm:leading-[1.75]">
                   See what students have built with guidance, practice, and real-world
                   problem solving — projects that reflect confidence, skill, and steady
                   progress.
                 </p>
 
-                <div className="mt-6 flex flex-wrap gap-3">
+                <div className="mt-6 hidden flex-wrap gap-3 sm:flex">
                   {[
                     { value: "300+", label: "Projects" },
                     { value: "Portfolio", label: "Ready" },

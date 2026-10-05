@@ -19,32 +19,32 @@ export default function AboutPage() {
       <section className="bg-[#fdfbf7] px-4 pt-6 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <section className="relative overflow-hidden rounded-[28px] border border-[#0d3d38]/20 shadow-[0_20px_50px_rgba(15,23,42,0.12)]">
-            <div className="relative min-h-[320px] sm:min-h-[360px] lg:min-h-[390px]">
+            <div className="relative min-h-[280px] sm:min-h-[360px] lg:min-h-[390px]">
               <Image
                 src="https://media.istockphoto.com/id/1304225026/photo/top-view-of-mobile-phone-glasses-pen-and-notebook-written-with-about-us-on-wooden-background.jpg?s=612x612&w=0&k=20&c=YhbAlzZONGfWt-Qm5W10Z0-Z8waHkblhtZEbRh4E0bM="
                 alt="About us workspace with notebook and phone"
                 fill
                 className="object-cover object-right"
                 priority
-                sizes="1240px"
+                sizes="(min-width: 1280px) 1240px, 100vw"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-[#0b2f2c]/92 via-[#0f3f3b]/78 to-[#0f3f3b]/35" />
 
 
-              <div className="relative flex h-full flex-col justify-center px-6 py-10 sm:px-10 sm:py-12 lg:max-w-[58%] lg:px-12">
+              <div className="relative flex h-full flex-col justify-center px-5 py-8 sm:px-10 sm:py-12 lg:max-w-[58%] lg:px-12">
                 <span className="inline-flex w-fit rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-[#b8ebe4] backdrop-blur-sm">
                   About Us
                 </span>
-                <h1 className="mt-5 text-[36px] font-bold leading-[1.08] tracking-[-0.03em] !text-white sm:text-[46px] lg:text-[54px]">
+                <h1 className="mt-4 text-[34px] font-bold leading-[1.1] tracking-[-0.03em] !text-white sm:mt-5 sm:text-[46px] sm:leading-[1.08] lg:text-[54px]">
                   Built to Give Students a{" "}
                   <span className="whitespace-nowrap text-[#8fe0d4]">Clearer Start</span>
                 </h1>
-                <p className="mt-4 max-w-[560px] text-[17px] leading-[1.75] text-white/82 sm:text-[18px]">
+                <p className="mt-3 max-w-[560px] text-base leading-[1.6] text-white/82 sm:mt-4 sm:text-[18px] sm:leading-[1.75]">
                   Agamya Eduventure focuses on strong fundamentals, practical support, and
                   patient mentoring for students who want a more dependable learning experience.
                 </p>
 
-                <div className="mt-6 flex flex-wrap gap-3">
+                <div className="mt-6 hidden flex-wrap gap-3 sm:flex">
                   {[
                     { value: "Clear", label: "Teaching" },
                     { value: "Practical", label: "Learning" },

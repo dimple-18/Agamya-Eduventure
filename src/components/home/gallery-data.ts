@@ -9,6 +9,8 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
+import { isOccasionLabel } from "@/lib/content/gallery-occasions";
+
 import { galleryEvents, type GalleryEvent } from "./content";
 
 export type GalleryFilterId =
@@ -45,7 +47,14 @@ const labelToFilter: Record<string, GalleryFilterId> = {
 };
 
 export function getEventFilterId(event: GalleryEvent): GalleryFilterId {
+  if (isOccasionLabel(event.label)) {
+    return "institute-occasions";
+  }
   return labelToFilter[event.label] ?? "all";
+}
+
+export function isOccasionEvent(event: GalleryEvent) {
+  return isOccasionLabel(event.label);
 }
 
 export const galleryCardMeta: Record<
@@ -75,10 +84,6 @@ export const galleryCardMeta: Record<
     summary: "Celebrating progress, confidence, and steady improvement through mentoring.",
     badgeTone: "green",
   },
-  "Institute Events": {
-    summary: "Photos from institute occasions, gatherings, and meaningful learning moments.",
-    badgeTone: "orange",
-  },
   "Project Presentation": {
     summary: "Students presenting work, sharing outcomes, and gaining confidence through feedback.",
     badgeTone: "teal",
@@ -99,10 +104,6 @@ export function getGalleryCardMeta(event: GalleryEvent) {
     summary: custom?.summary ?? event.description,
     badgeTone: custom?.badgeTone ?? ("teal" as const),
   };
-}
-
-export function parsePhotoCount(event: GalleryEvent) {
-  return `${event.photos.length} Photos`;
 }
 
 export function parseStudentLabel(event: GalleryEvent) {

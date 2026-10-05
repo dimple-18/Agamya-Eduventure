@@ -1,3 +1,5 @@
+import type { GalleryImage } from "@/lib/content/types";
+
 type NavItem = {
   label: string;
   href: string;
@@ -42,6 +44,8 @@ export type GalleryEvent = {
   date: string;
   location?: string;
   students: string;
+  year?: string;
+  images?: readonly GalleryImage[];
 };
 
 export const navigationItems: readonly NavItem[] = [
@@ -92,8 +96,8 @@ export const programCards: readonly ProgramCard[] = [
     meta: "Core track",
     image:
       "https://img.magnific.com/premium-vector/web-development-programming-code-testing-ui-concept-with-laptop-displaying-futuristic-code_375605-307.jpg?semt=ais_hybrid&w=740&q=80",
-    projects: "Build websites and full-stack practice projects with guided review.",
-    mentoring: "Personal support through each stage of the development journey.",
+    projects: "Build real websites and full-stack projects.",
+    mentoring: "Personal support at every stage.",
   },
   {
     title: "Python Programming",
@@ -101,8 +105,8 @@ export const programCards: readonly ProgramCard[] = [
       "A practical introduction to logic, syntax, automation thinking, and applied problem-solving for beginners.",
     meta: "Language track",
     image: "https://vitalskills.in/wp-content/uploads/2024/05/Python-Programming.webp",
-    projects: "Work on beginner-friendly Python exercises and structured mini projects.",
-    mentoring: "Concept clarity and step-by-step support while building confidence.",
+    projects: "Python exercises and structured mini projects.",
+    mentoring: "Step-by-step help to build concept clarity.",
   },
   {
     title: "Java Programming",
@@ -111,8 +115,8 @@ export const programCards: readonly ProgramCard[] = [
     meta: "Language track",
     image:
       "https://yaleinfotech.com/static/media/courses/best-java-training-in-coimbatore/comprehensive-training-programs.webp",
-    projects: "Practice OOP concepts through assignments and hands-on Java implementations.",
-    mentoring: "Regular guidance to strengthen logic, syntax, and disciplined coding habits.",
+    projects: "Hands-on Java assignments built around OOP.",
+    mentoring: "Regular guidance on logic and clean code.",
   },
   {
     title: "Programming Fundamentals",
@@ -121,17 +125,17 @@ export const programCards: readonly ProgramCard[] = [
     meta: "Foundation",
     image:
       "https://img.magnific.com/free-vector/laptop-with-program-code-isometric-icon-software-development-programming-applications-dark-neon_39422-971.jpg",
-    projects: "Build basic logic exercises and foundational coding tasks with support.",
-    mentoring: "Extra attention for beginners who need clarity before moving ahead.",
+    projects: "Foundational logic and coding exercises.",
+    mentoring: "Extra attention for first-time coders.",
   },
   {
     title: "DCA (Diploma in Computer Applications)",
     description:
       "A structured computer applications program covering office tools, internet usage, digital workflow, and practical computer fundamentals.",
     meta: "Core track",
-    image: "/hero/christopher-gower-m_HRfLhgABo-unsplash.jpg",
-    projects: "Complete practical assignments in documentation, spreadsheets, presentations, and digital productivity.",
-    mentoring: "Guided support for foundational computer literacy and confident day-to-day application usage.",
+    image: "/programs/dca-diploma-computer-applications.png",
+    projects: "Practical documents, spreadsheets, and presentations.",
+    mentoring: "Guided support for confident everyday computer use.",
   },
   {
     title: "Database & SQL",
@@ -140,8 +144,8 @@ export const programCards: readonly ProgramCard[] = [
     meta: "Technical module",
     image:
       "https://www.dataversity.net/wp-content/uploads/2025/09/kf_typesofdbms_oct23.png",
-    projects: "Practice real query writing, table design, and database-backed use cases.",
-    mentoring: "Guidance on understanding data structure, relationships, and query thinking.",
+    projects: "Real queries and database-backed use cases.",
+    mentoring: "Guidance on data relationships and query thinking.",
   },
   {
     title: "Data Structures & Logic Building",
@@ -150,8 +154,8 @@ export const programCards: readonly ProgramCard[] = [
     meta: "Skill development",
     image:
       "https://media.licdn.com/dms/image/v2/D4D12AQF_Wj1fEsaRsA/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1690875038253?e=2147483647&v=beta&t=u-5WytaSkz9aVIf1yo4F6nkMEdT0q7QOKpjTVY1nMGE",
-    projects: "Solve structured problem sets and logic-based coding exercises progressively.",
-    mentoring: "Support focused on reasoning, approach, and problem-solving confidence.",
+    projects: "Progressive problem sets and logic exercises.",
+    mentoring: "Support on reasoning and problem-solving approach.",
   },
 ];
 
@@ -163,8 +167,8 @@ export const appliedPrograms: readonly ProgramCard[] = [
     meta: "Career track",
     image:
       "https://pimwp.s3-accelerate.amazonaws.com/2021/08/school-coding-data-software-development.jpg",
-    projects: "Complete guided tasks and practical execution work in an internship-style format.",
-    mentoring: "Regular review and support to help students work more professionally.",
+    projects: "Guided tasks in an internship-style format.",
+    mentoring: "Regular reviews to build professional habits.",
   },
   {
     title: "Certification Support",
@@ -172,8 +176,8 @@ export const appliedPrograms: readonly ProgramCard[] = [
       "Preparation and guidance for students who want to complete certifications with stronger understanding.",
     meta: "Credential support",
     image: "https://www.blog-qhse.com/hubfs/ISO-9001.png",
-    projects: "Practice aligned exercises and preparation tasks connected to certification goals.",
-    mentoring: "Support for planning, preparation, and concept reinforcement before assessment.",
+    projects: "Practice tasks aligned to certification goals.",
+    mentoring: "Planning and revision support before exams.",
   },
   {
     title: "Mini & Major Projects",
@@ -182,8 +186,8 @@ export const appliedPrograms: readonly ProgramCard[] = [
     meta: "Project work",
     image:
       "https://img.magnific.com/free-photo/project-management-planning-development-message-box-notification-graphic_53876-120467.jpg?semt=ais_hybrid&w=740&q=80",
-    projects: "Build mini and major projects with review, feedback, and presentation guidance.",
-    mentoring: "Close help in planning, structuring, debugging, and improving project quality.",
+    projects: "Mini and major projects with review and feedback.",
+    mentoring: "Close help with planning, debugging, and polish.",
   },
   {
     title: "Interview Preparation",
@@ -192,8 +196,8 @@ export const appliedPrograms: readonly ProgramCard[] = [
     meta: "Career preparation",
     image:
       "https://plus.unsplash.com/premium_photo-1661306465544-cc55151ab336?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDI2fHx8ZW58MHx8fHx8",
-    projects: "Prepare through mock tasks, revision work, and focused interview practice.",
-    mentoring: "Guidance on communication, confidence, and presenting technical understanding clearly.",
+    projects: "Mock interviews and focused revision.",
+    mentoring: "Guidance on communication and confidence.",
   },
 ] as const;
 
@@ -203,9 +207,9 @@ export const enterprisePrograms: readonly ProgramCard[] = [
     description:
       "Beginner computer literacy training covering system usage, internet basics, and essential productivity tools.",
     meta: "Foundation module",
-    image: "/hero/christopher-gower-m_HRfLhgABo-unsplash.jpg",
-    projects: "Practice-based tasks in typing, file handling, and everyday computer workflows.",
-    mentoring: "Step-by-step mentor support for first-time learners.",
+    image: "/programs/basic-computers.png",
+    projects: "Typing, file handling, and everyday computer tasks.",
+    mentoring: "Patient, step-by-step support for beginners.",
   },
   {
     title: "C++ Programming",
@@ -213,8 +217,8 @@ export const enterprisePrograms: readonly ProgramCard[] = [
       "Structured C++ training focused on syntax, logic-building, and practical coding fundamentals.",
     meta: "Language track",
     image: "https://img-c.udemycdn.com/course/480x270/1576854_9aeb_2.jpg?w=3840&q=75",
-    projects: "Solve programming exercises and build mini console-based applications.",
-    mentoring: "Concept-first support to strengthen coding confidence.",
+    projects: "Programming exercises and console mini apps.",
+    mentoring: "Concept-first support to build coding confidence.",
   },
   {
     title: "Dot NET",
@@ -223,17 +227,17 @@ export const enterprisePrograms: readonly ProgramCard[] = [
     meta: "Technical stack",
     image:
       "https://www.robotlab.com/hs-fs/hubfs/coding-job.jpg?width=800&name=coding-job.jpg",
-    projects: "Build guided .NET practice tasks and structured assignments.",
-    mentoring: "Regular mentor review to improve implementation quality.",
+    projects: "Guided .NET tasks and structured assignments.",
+    mentoring: "Regular reviews to improve implementation quality.",
   },
   {
     title: "PHP Programming",
     description:
       "Backend programming basics in PHP with real-use concepts and practical coding flow.",
     meta: "Language track",
-    image: "/hero/programming-background-with-person-working-with-codes-computer.jpg",
-    projects: "Hands-on scripting and backend workflow exercises.",
-    mentoring: "Personalized guidance for clean code and logical structure.",
+    image: "/programs/php-programming.png",
+    projects: "Hands-on scripting and backend exercises.",
+    mentoring: "Guidance on clean, logical code.",
   },
   {
     title: "Enterprise Microsoft IT Skill Development",
@@ -242,8 +246,8 @@ export const enterprisePrograms: readonly ProgramCard[] = [
     meta: "Corporate training",
     image:
       "https://img.magnific.com/free-photo/online-learning-skills-concept-laptop-screen_53876-94882.jpg?semt=ais_hybrid&w=740&q=80",
-    projects: "Applied assignments across office productivity workflows.",
-    mentoring: "Practical mentoring aligned to real business usage.",
+    projects: "Assignments across office productivity workflows.",
+    mentoring: "Mentoring aligned to real business usage.",
   },
   {
     title: "Corporate MS Application Proficiency",
@@ -252,8 +256,8 @@ export const enterprisePrograms: readonly ProgramCard[] = [
     meta: "Corporate training",
     image:
       "https://static0.howtogeekimages.com/wordpress/wp-content/uploads/2024/06/laptop-with-a-powerpoint-presentation-and-a-screen-with-the-powerpoint-logo-in-the-background.jpg",
-    projects: "Task-based practice on spreadsheets, documents, and presentations.",
-    mentoring: "Guided review for consistent improvement and speed.",
+    projects: "Practice on spreadsheets, documents, and presentations.",
+    mentoring: "Guided reviews to improve speed and accuracy.",
   },
   {
     title: "Desktop Publishing Training",
@@ -261,8 +265,8 @@ export const enterprisePrograms: readonly ProgramCard[] = [
       "Comprehensive DTP training for layout, formatting, and document production workflows.",
     meta: "Corporate training",
     image: "https://ficainstitute.com/Image/desktop-publishing-course.jpg",
-    projects: "Publishing workflow assignments with format and output checks.",
-    mentoring: "Expert support for industry-relevant publishing standards.",
+    projects: "Publishing assignments with format and output checks.",
+    mentoring: "Expert support on industry publishing standards.",
   },
   {
     title: "Visual Basic Software Training",
@@ -271,8 +275,8 @@ export const enterprisePrograms: readonly ProgramCard[] = [
     meta: "Software training",
     image:
       "https://images.pexels.com/photos/7988758/pexels-photo-7988758.jpeg?cs=srgb&dl=pexels-mikhail-nilov-7988758.jpg&fm=jpg",
-    projects: "Guided code tasks and software practice modules.",
-    mentoring: "Review-based mentoring to improve accuracy and structure.",
+    projects: "Guided coding tasks and software practice modules.",
+    mentoring: "Reviews to improve accuracy and structure.",
   },
   {
     title: "FoxPro Software Training",
@@ -280,8 +284,8 @@ export const enterprisePrograms: readonly ProgramCard[] = [
       "FoxPro-focused training for legacy database workflows and enterprise software handling.",
     meta: "Software training",
     image: "/hero/html-css-collage-concept-with-person.jpg",
-    projects: "Database-oriented practical work and software operation exercises.",
-    mentoring: "Support for troubleshooting, optimization, and practical usage.",
+    projects: "Database tasks and software operation exercises.",
+    mentoring: "Support for troubleshooting and practical usage.",
   },
   {
     title: "Industrial Automation Software Training",
@@ -289,8 +293,8 @@ export const enterprisePrograms: readonly ProgramCard[] = [
       "Software-oriented automation training for industrial use cases and practical system operations.",
     meta: "Industry training",
     image: "/hero/programming-background-with-person-working-with-codes-computer.jpg",
-    projects: "Applied automation tasks with workflow-oriented execution.",
-    mentoring: "Mentor-led guidance for operational clarity and confidence.",
+    projects: "Applied, workflow-based automation tasks.",
+    mentoring: "Mentor-led guidance for operational confidence.",
   },
   {
     title: "SAP Business Objects Training",
@@ -298,7 +302,7 @@ export const enterprisePrograms: readonly ProgramCard[] = [
       "Business Objects training for reporting, analytics understanding, and enterprise data workflows.",
     meta: "Enterprise analytics",
     image: "/hero/christopher-gower-m_HRfLhgABo-unsplash.jpg",
-    projects: "Practical reporting and business analytics assignments.",
+    projects: "Practical reporting and analytics assignments.",
     mentoring: "Structured support for tool usage and interpretation.",
   },
 ] as const;
@@ -413,7 +417,7 @@ export const galleryEvents: readonly GalleryEvent[] = [
     description:
       "Students explore problem-solving, logic building, and practical implementation in guided coding sessions.",
     photos: [
-      "/hero/programming-background-with-person-working-with-codes-computer.jpg",
+      "/gallery/coding-workshop-session.png",
       "/hero/christopher-gower-m_HRfLhgABo-unsplash.jpg",
       "/hero/html-css-collage-concept-with-person.jpg",
     ],
@@ -427,7 +431,7 @@ export const galleryEvents: readonly GalleryEvent[] = [
     description:
       "Practice-focused learning environment where students work through guided exercises and build confidence.",
     photos: [
-      "/hero/christopher-gower-m_HRfLhgABo-unsplash.jpg",
+      "/gallery/student-practice-lab.png",
       "/hero/programming-background-with-person-working-with-codes-computer.jpg",
       "/hero/html-css-collage-concept-with-person.jpg",
     ],
@@ -440,7 +444,7 @@ export const galleryEvents: readonly GalleryEvent[] = [
     description:
       "One-on-one mentoring moments where students receive guidance, feedback, and clarity on challenging topics.",
     photos: [
-      "/hero/html-css-collage-concept-with-person.jpg",
+      "/gallery/mentor-doubt-clearing-v4.png",
       "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=1200&auto=format&fit=crop",
       "/hero/christopher-gower-m_HRfLhgABo-unsplash.jpg",
     ],
@@ -453,7 +457,7 @@ export const galleryEvents: readonly GalleryEvent[] = [
     description:
       "Industry professionals share real-world insights, career guidance, and practical perspectives with students.",
     photos: [
-      "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1200&auto=format&fit=crop",
+      "/gallery/industry-expert-talk.png",
       "/hero/programming-background-with-person-working-with-codes-computer.jpg",
       "/hero/christopher-gower-m_HRfLhgABo-unsplash.jpg",
     ],
@@ -472,20 +476,6 @@ export const galleryEvents: readonly GalleryEvent[] = [
     ],
     date: "22 Apr, 2024",
     students: "30 Students",
-  },
-  {
-    title: "Institute Events",
-    label: "Occasions",
-    description:
-      "Photos from institute occasions, student gatherings, and meaningful learning moments.",
-    photos: [
-      "/hero/programming-background-with-person-working-with-codes-computer.jpg",
-      "/hero/christopher-gower-m_HRfLhgABo-unsplash.jpg",
-      "/hero/html-css-collage-concept-with-person.jpg",
-    ],
-    date: "15 Apr, 2024",
-    location: "Jamshedpur",
-    students: "60 Students",
   },
   {
     title: "Project Presentation",

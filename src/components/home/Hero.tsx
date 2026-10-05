@@ -139,11 +139,11 @@ export default function Hero() {
 
           <div className="hero-overlay-copy">
             <p className="hero-overlay-eyebrow">Agamya Eduventure</p>
-            <p className="text-[2.7rem] font-semibold leading-[1] tracking-[-0.055em] text-white sm:text-[3.8rem] lg:text-[4.6rem]">
+            <p className="text-[2rem] font-semibold leading-[1.08] tracking-[-0.045em] text-white sm:text-[3.8rem] sm:leading-[1] sm:tracking-[-0.055em] lg:text-[4.6rem]">
               ISO-certified computer education with personality development and
               interview preparation.
             </p>
-            <p className="mt-3 max-w-xl text-base leading-7 text-white/88">
+            <p className="mt-3 max-w-xl text-base leading-6 text-white/88 sm:leading-7">
               Learn with structure, mentoring, and practical guidance from the
               beginning.
             </p>
@@ -168,6 +168,29 @@ export default function Hero() {
             ))}
           </div>
         </div>
+
+        <nav aria-label="Quick actions" className="mt-3 grid grid-cols-4 gap-2 lg:hidden">
+          {quickActions.map((action) => {
+            const className =
+              "flex min-h-[3.75rem] min-w-0 flex-col items-center justify-center gap-1.5 rounded-[var(--radius-sm)] border border-[var(--line)] bg-white px-1 py-2 text-center text-[12px] font-semibold leading-tight text-[var(--brand)] shadow-[0_6px_18px_rgba(15,23,42,0.05)] transition active:bg-[#f5f1ea] sm:flex-row sm:gap-2 sm:text-[13px]";
+            const content = (
+              <>
+                <FontAwesomeIcon icon={action.icon} className="h-4 w-4 shrink-0" aria-hidden="true" />
+                <span>{action.label}</span>
+              </>
+            );
+
+            return action.external ? (
+              <a key={action.label} href={action.href} target="_blank" rel="noreferrer" className={className}>
+                {content}
+              </a>
+            ) : (
+              <Link key={action.label} href={action.href} className={className}>
+                {content}
+              </Link>
+            );
+          })}
+        </nav>
       </div>
     </section>
   );

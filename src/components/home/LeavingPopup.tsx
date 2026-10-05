@@ -1,38 +1,49 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ArrowRight, MessageCircle, X } from "lucide-react";
+
+import { useMediaQuery } from "@/lib/use-media-query";
 
 import { contactWhatsAppHref } from "./contact-data";
 
 const SHOW_DELAY_MS = 60000;
 const DISMISS_KEY = "agamya-leaving-popup-dismissed";
 
-export default function LeavingPopup() {
-  const [isOpen, setIsOpen] = useState(false);
+export default function LeavingPopup({ blocked = false }: { blocked?: boolean }) {
+  const hasFinePointer = useMediaQuery("(hover: hover) and (pointer: fine)");
+  const [isDue, setIsDue] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const isOpen = hasFinePointer && isDue && !blocked;
 
   useEffect(() => {
+    if (!hasFinePointer) return;
     if (sessionStorage.getItem(DISMISS_KEY) === "1") return;
 
     const timer = setTimeout(() => {
       if (sessionStorage.getItem(DISMISS_KEY) === "1") return;
-      setIsOpen(true);
+      setIsDue(true);
     }, SHOW_DELAY_MS);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [hasFinePointer]);
 
   useEffect(() => {
-    if (!isOpen) {
-      setIsVisible(false);
-      return;
-    }
+    if (!isOpen) return;
 
     const frame = requestAnimationFrame(() => setIsVisible(true));
-    return () => cancelAnimationFrame(frame);
+    return () => {
+      cancelAnimationFrame(frame);
+      setIsVisible(false);
+    };
   }, [isOpen]);
+
+  const handleClose = useCallback(() => {
+    sessionStorage.setItem(DISMISS_KEY, "1");
+    setIsVisible(false);
+    window.setTimeout(() => setIsDue(false), 220);
+  }, []);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -43,13 +54,7 @@ export default function LeavingPopup() {
 
     window.addEventListener("keydown", handleEscape);
     return () => window.removeEventListener("keydown", handleEscape);
-  }, [isOpen]);
-
-  const handleClose = () => {
-    sessionStorage.setItem(DISMISS_KEY, "1");
-    setIsVisible(false);
-    window.setTimeout(() => setIsOpen(false), 220);
-  };
+  }, [isOpen, handleClose]);
 
   if (!isOpen) return null;
 

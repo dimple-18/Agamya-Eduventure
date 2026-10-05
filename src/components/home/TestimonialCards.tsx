@@ -27,9 +27,9 @@ function getInitial(name: string) {
 
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   return (
-    <article className="flex h-full flex-col rounded-[20px] border border-[#ebe5db] bg-white p-6 shadow-[0_6px_22px_rgba(15,23,42,0.06)] sm:p-7">
+    <article className="flex h-full flex-col rounded-[20px] border border-[#ebe5db] bg-white p-5 shadow-[0_6px_22px_rgba(15,23,42,0.06)] sm:p-7">
       <Quote className="h-8 w-8 text-[#1b6b66]/75" strokeWidth={1.75} aria-hidden />
-      <p className="mt-4 flex-1 text-[15px] leading-[1.65] text-[#3d4f63]">
+      <p className="mt-4 flex-1 text-[16px] leading-[1.65] text-[#3d4f63] sm:text-[15px]">
         {testimonial.quote}
       </p>
       <div className="mt-6 border-t border-[#f0ebe3] pt-5">
@@ -42,7 +42,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
           </div>
           <div className="min-w-0">
             <p className="text-[14px] font-bold text-[#1b4d3e]">{testimonial.name}</p>
-            <p className="mt-0.5 text-[12px] leading-snug text-[#6b7c8f]">{testimonial.role}</p>
+            <p className="mt-0.5 text-[13px] leading-snug text-[#6b7c8f] sm:text-[12px]">{testimonial.role}</p>
           </div>
         </div>
         <div className="mt-4">
@@ -60,10 +60,10 @@ export function TestimonialSectionIntro() {
         <span className="h-2 w-2 rounded-full bg-[#f39c12]" />
         Testimonials
       </p>
-      <h2 className="mx-auto mt-8 max-w-3xl text-[38px] font-bold leading-[1.12] tracking-[-0.03em] text-[#1b4d3e] sm:text-[44px] lg:text-[50px]">
+      <h2 className="mx-auto mt-4 max-w-3xl text-[34px] font-bold leading-[1.15] tracking-[-0.03em] text-[#1b4d3e] sm:mt-8 sm:text-[44px] sm:leading-[1.12] lg:text-[50px]">
         What students and parents consistently appreciate.
       </h2>
-      <p className="mx-auto mt-4 max-w-2xl text-[18px] leading-[1.75] text-[#5f6f82] sm:text-[19px]">
+      <p className="mx-auto mt-4 max-w-2xl text-base leading-[1.7] text-[#5f6f82] sm:text-[19px] sm:leading-[1.75]">
         The strongest feedback is usually simple: teaching feels clear, support feels steady,
         and students feel more capable.
       </p>

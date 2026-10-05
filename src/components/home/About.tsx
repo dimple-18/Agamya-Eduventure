@@ -70,7 +70,7 @@ export default function About({
   ctaLabel = "Read More",
 }: AboutProps) {
   return (
-    <section id="about" className={`bg-[#fdfbf7] pb-20 pt-20 sm:pt-24 ${pageGutterClass}`}>
+    <section id="about" className={`bg-[#fdfbf7] pb-14 pt-12 sm:pb-20 sm:pt-24 ${pageGutterClass}`}>
       <div className={pageContainerClass}>
         <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,1fr)] lg:gap-12">
           <div className="max-w-[560px]">
@@ -79,35 +79,35 @@ export default function About({
               About Agamya
             </p>
 
-            <h2 className="mt-5 text-[34px] font-bold leading-[1.12] tracking-[-0.03em] text-[#1b4d3e] sm:text-[42px] lg:text-[52px]">
+            <h2 className="mt-4 text-[34px] font-bold sm:mt-5 leading-[1.12] tracking-[-0.03em] text-[#1b4d3e] sm:text-[42px] lg:text-[52px]">
               A steadier way to help students begin learning technology{" "}
               <span className="relative inline-block whitespace-nowrap">
                 well.
               </span>
             </h2>
 
-            <p className="mt-7 text-[15px] leading-[1.75] text-[#5f6f82]">
+            <p className="mt-5 text-[17px] leading-[1.7] text-[#5f6f82] sm:mt-7 sm:text-[18px] sm:leading-[1.75]">
               Agamya Eduventure is built for students who need more than standard classes.
               The focus stays on concept clarity, practical work, disciplined learning, and
               guidance that helps students move forward with more confidence.
             </p>
-            <p className="mt-4 text-[15px] leading-[1.75] text-[#5f6f82]">
+            <p className="mt-4 text-[17px] leading-[1.7] text-[#5f6f82] sm:text-[18px] sm:leading-[1.75]">
               Instead of rushing through topics, the learning model emphasizes understanding,
               repetition, projects, and personal support. That creates a stronger beginning
               and a more dependable path ahead.
             </p>
 
-            <div className="mt-9 flex flex-wrap gap-3.5">
+            <div className="mt-8 grid gap-3 sm:mt-9 sm:flex sm:flex-wrap sm:gap-3.5">
               <Link
                 href={ctaHref}
-                className="inline-flex items-center gap-2 rounded-xl bg-[#1b4d3e] px-7 py-3.5 text-[14px] font-semibold !text-white transition-colors hover:bg-[#164032] cta-pulse"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#1b4d3e] px-7 py-3.5 text-[14px] font-semibold !text-white transition-colors hover:bg-[#164032] cta-pulse"
               >
                 {ctaLabel}
                 <ArrowRight className="h-4 w-4 text-white" strokeWidth={2.25} />
               </Link>
               <Link
                 href="/programs"
-                className="inline-flex items-center gap-2 rounded-xl border border-[#1b4d3e]/25 bg-white px-7 py-3.5 text-[14px] font-semibold text-[#1b4d3e] transition-colors hover:bg-[#f8f6f1] cta-pulse"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#1b4d3e]/25 bg-white px-7 py-3.5 text-[14px] font-semibold text-[#1b4d3e] transition-colors hover:bg-[#f8f6f1] cta-pulse"
               >
                 View Programs
                 <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
@@ -116,7 +116,7 @@ export default function About({
           </div>
 
           <div className="relative overflow-hidden rounded-[22px] border border-[#e8e2d8] bg-[#dfe8e4] shadow-[0_18px_42px_rgba(24,36,52,0.1)]">
-            <div className="relative aspect-[1.05/1] min-h-[360px] sm:min-h-[420px] lg:min-h-[470px]">
+            <div className="relative aspect-[1.05/1] min-h-[260px] sm:min-h-[420px] md:aspect-[16/10] lg:aspect-[1.05/1] lg:min-h-[470px]">
               <Image
                 src="https://www.dahmani.net/images/news/about-us.jpg"
                 alt="Student learning technology with confidence"
@@ -126,7 +126,7 @@ export default function About({
                 priority
               />
 
-              <div className="absolute left-5 top-5 max-w-[220px] rounded-2xl border border-white/10 bg-[#0f1a28]/72 p-4 text-[11px] leading-[1.65] text-white backdrop-blur-sm sm:left-6 sm:top-6 sm:max-w-[250px] sm:p-5 sm:text-[12px]">
+              <div className="absolute left-5 top-5 hidden max-w-[220px] rounded-2xl border border-white/10 bg-[#0f1a28]/72 p-4 text-[11px] leading-[1.65] text-white backdrop-blur-sm sm:left-6 sm:top-6 sm:block sm:max-w-[250px] sm:p-5 sm:text-[12px]">
                 <p className="font-mono text-[#6bb8ff]">&lt;main&gt;</p>
                 <div className="pl-3 font-mono">
                   <p className="text-[#6bb8ff]">&lt;section class=&quot;learning&quot;&gt;</p>
@@ -160,26 +160,26 @@ export default function About({
           </div>
         </div>
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid grid-cols-2 gap-3 sm:mt-14 sm:gap-5 lg:grid-cols-4">
           {stats.map((stat) => {
             const Icon = stat.icon;
 
             return (
               <div
                 key={stat.label}
-                className={`rounded-[22px] px-7 py-7 ${stat.cardBg}`}
+                className={`rounded-[22px] px-4 py-5 sm:px-7 sm:py-7 ${stat.cardBg}`}
               >
                 <span
                   className={`inline-flex h-11 w-11 items-center justify-center rounded-xl ${stat.iconBg} ${stat.iconColor}`}
                 >
                   <Icon className="h-5 w-5" strokeWidth={2.1} />
                 </span>
-                <div className="mt-5">
-                  <p className={`text-[34px] font-bold leading-none tracking-tight ${stat.valueColor}`}>
+                <div className="mt-4 sm:mt-5">
+                  <p className={`text-[26px] font-bold leading-none tracking-tight sm:text-[34px] ${stat.valueColor}`}>
                     {stat.value}
                   </p>
                   <div className={`mt-3 h-[3px] w-11 rounded-full ${stat.barColor}`} />
-                  <p className="mt-3 text-[15px] font-semibold text-[#3f4f61]/80">
+                  <p className="mt-3 text-[14px] font-semibold leading-snug text-[#3f4f61]/80 sm:text-[15px]">
                     {stat.label}
                   </p>
                 </div>

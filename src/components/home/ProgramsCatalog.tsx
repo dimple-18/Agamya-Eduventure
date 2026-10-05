@@ -20,6 +20,8 @@ import {
 } from "lucide-react";
 import { useMemo, useRef, useState } from "react";
 
+import { useMediaQuery } from "@/lib/use-media-query";
+
 import {
   badgeToneStyles,
   categoryId,
@@ -80,28 +82,30 @@ function ProgramCatalogCard({
   const badgeClass = badgeToneStyles[meta.badgeTone];
   const floatStyle = meta.floatLabel ? floatIconStyles[meta.floatLabel] : undefined;
 
+  const detailLabelClass = "text-[14px] font-semibold leading-snug text-[#1b4d3e]";
+
   const expandedDetails = details ? (
-    <div className="mt-3 space-y-2 border-t border-[#f0ebe3] pt-3 text-[12px] leading-relaxed text-[#5f6f82]">
-      <p>
-        <span className="font-semibold text-[#1b4d3e]">Ideal for: </span>
-        {details.idealFor}
-      </p>
+    <div className="mt-4 space-y-3.5 border-t border-[#f0ebe3] pt-4 text-[15px] leading-[1.6] text-[#4f5f72]">
       <div>
-        <p className="font-semibold text-[#1b4d3e]">You&apos;ll learn:</p>
-        <ul className="mt-1 list-disc space-y-1 pl-4">
+        <p className={detailLabelClass}>Ideal for</p>
+        <p className="mt-1">{details.idealFor}</p>
+      </div>
+      <div>
+        <p className={detailLabelClass}>You&apos;ll learn</p>
+        <ul className="mt-1 list-disc space-y-0.5 pl-5 marker:text-[#1b6b66]">
           {details.highlights.slice(0, 4).map((item) => (
             <li key={item}>{item}</li>
           ))}
         </ul>
       </div>
-      <p>
-        <span className="font-semibold text-[#1b4d3e]">Projects: </span>
-        {details.projects}
-      </p>
-      <p>
-        <span className="font-semibold text-[#1b4d3e]">Mentoring: </span>
-        {details.mentoring}
-      </p>
+      <div>
+        <p className={detailLabelClass}>Projects</p>
+        <p className="mt-1">{details.projects}</p>
+      </div>
+      <div>
+        <p className={detailLabelClass}>Mentoring</p>
+        <p className="mt-1">{details.mentoring}</p>
+      </div>
     </div>
   ) : null;
 
@@ -121,7 +125,7 @@ function ProgramCatalogCard({
         <div className="flex flex-1 flex-col justify-between p-4">
           <div>
             <h4 className="text-[18px] font-bold text-[#1b4d3e]">{program.title}</h4>
-            <p className="mt-1 text-[13px] leading-relaxed text-[#5f6f82]">{meta.summary}</p>
+            <p className="mt-1 text-[16px] leading-[1.55] text-[#5f6f82]">{meta.summary}</p>
             <p className="mt-2 text-[12px] text-[#6b7c8f]">
               {meta.duration} | {meta.level}
             </p>
@@ -163,19 +167,19 @@ function ProgramCatalogCard({
             alt={program.title}
             fill
             className="object-cover"
-            sizes="(min-width: 1280px) 320px, 33vw"
+            sizes="(min-width: 1280px) 320px, (min-width: 768px) 50vw, 100vw"
           />
         ) : null}
         <div className="absolute inset-0 bg-gradient-to-t from-[#0f1a28]/25 via-transparent to-transparent" />
         <span
-          className={`absolute left-3 top-3 rounded-full px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.12em] ${badgeClass}`}
+          className={`absolute left-3 top-3 rounded-full px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.12em] sm:text-[9px] ${badgeClass}`}
         >
           {program.meta.toUpperCase()}
         </span>
         <button
           type="button"
           onClick={onViewDetails}
-          className="absolute right-3 top-3 inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/92 text-[#1b6b66] shadow-sm transition-colors hover:bg-white hover:text-[#1b4d3e]"
+          className="absolute right-3 top-3 inline-flex h-10 w-10 items-center sm:h-8 sm:w-8 justify-center rounded-full bg-white/92 text-[#1b6b66] shadow-sm transition-colors hover:bg-white hover:text-[#1b4d3e]"
           aria-label={`View ${program.title} details`}
         >
           <BookOpen className="h-4 w-4" strokeWidth={2} />
@@ -191,25 +195,25 @@ function ProgramCatalogCard({
 
       <div className="flex flex-1 flex-col p-4">
         <h4 className="text-[17px] font-bold leading-tight text-[#1b4d3e]">{program.title}</h4>
-        <p className="mt-2 text-[13px] leading-[1.55] text-[#5f6f82] [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden">
+        <p className="mt-2 text-[16px] leading-[1.55] text-[#5f6f82] [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden">
           {meta.summary}
         </p>
-        <p className="mt-3 text-[12px] font-medium text-[#6b7c8f]">
+        <p className="mt-3 text-[13px] font-medium text-[#6b7c8f] sm:text-[12px]">
           {meta.duration} <span className="text-[#c5cdd6]">|</span> {meta.level}
         </p>
-        <span className="mt-3 inline-flex w-fit rounded-full border border-[#e8e2d8] bg-[#f8f6f1] px-2.5 py-1 text-[11px] font-medium text-[#3f4f61]">
+        <span className="mt-3 inline-flex w-fit rounded-full border border-[#e8e2d8] bg-[#f8f6f1] px-2.5 py-1 text-[12px] font-medium text-[#3f4f61] sm:text-[11px]">
           {meta.topics}
         </span>
         {expandedDetails}
-        <div className="mt-auto flex items-center justify-between border-t border-[#f0ebe3] pt-4">
-          <span className="inline-flex items-center gap-1.5 text-[12px] font-medium text-[#5f6f82]">
+        <div className="mt-auto flex items-center justify-between gap-3 border-t border-[#f0ebe3] pt-4">
+          <span className="inline-flex items-center gap-1.5 text-[13px] font-medium text-[#5f6f82] sm:text-[12px]">
             <Users className="h-3.5 w-3.5 text-[#1b6b66]" />
             {meta.students}
           </span>
           <button
             type="button"
             onClick={onViewDetails}
-            className="inline-flex items-center gap-1 rounded-lg bg-[#1b4d3e] px-3 py-1.5 text-[12px] font-semibold text-white transition-colors hover:bg-[#164032] cta-pulse"
+            className="inline-flex min-h-10 items-center gap-1 rounded-lg bg-[#1b4d3e] px-3.5 py-1.5 text-[13px] font-semibold sm:min-h-0 sm:px-3 sm:text-[12px] text-white transition-colors hover:bg-[#164032] cta-pulse"
           >
             {isExpanded ? "Show Less" : "View Details"}
             {isExpanded ? (
@@ -239,6 +243,8 @@ export default function ProgramsCatalog({
   const [expandedProgramId, setExpandedProgramId] = useState<string | null>(null);
   const [sortBy, setSortBy] = useState("popular");
   const [listView, setListView] = useState(false);
+  const isMdUp = useMediaQuery("(min-width: 768px)");
+  const effectiveListView = listView && isMdUp;
   const cardRefs = useRef<Record<string, HTMLElement | null>>({});
 
   const selectedGroup = groups.find(
@@ -360,32 +366,32 @@ export default function ProgramsCatalog({
         <div className="mx-auto max-w-7xl">
         {/* Hero */}
         <section className="relative overflow-hidden rounded-[28px] border border-[#0d3d38]/20 shadow-[0_20px_50px_rgba(15,23,42,0.12)]">
-          <div className="relative min-h-[320px] sm:min-h-[360px] lg:min-h-[390px]">
+          <div className="relative min-h-[280px] sm:min-h-[360px] lg:min-h-[390px]">
             <Image
-              src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1600&auto=format&fit=crop"
-              alt="Student exploring programs"
+              src="/programs/programs-hero.png"
+              alt="Mentor guiding students through code on a laptop"
               fill
-              className="object-cover object-[72%_center]"
+              className="object-cover object-[60%_center]"
               priority
-              sizes="1240px"
+              sizes="(min-width: 1280px) 1240px, 100vw"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-[#0b2f2c]/92 via-[#0f3f3b]/78 to-[#0f3f3b]/35" />
 
 
-            <div className="relative flex h-full flex-col justify-center px-6 py-10 sm:px-10 sm:py-12 lg:max-w-[58%] lg:px-12">
+            <div className="relative flex h-full flex-col justify-center px-5 py-8 sm:px-10 sm:py-12 lg:max-w-[58%] lg:px-12">
               <span className="inline-flex w-fit rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-[#b8ebe4] backdrop-blur-sm">
                 All Programs
               </span>
-              <h1 className="mt-5 text-[36px] font-bold leading-[1.08] tracking-[-0.03em] !text-white sm:text-[46px] lg:text-[54px]">
+              <h1 className="mt-4 text-[34px] font-bold leading-[1.1] tracking-[-0.03em] !text-white sm:mt-5 sm:text-[46px] sm:leading-[1.08] lg:text-[54px]">
                 Explore Programs with{" "}
                 <span className="whitespace-nowrap text-[#8fe0d4]">Better Clarity</span>
               </h1>
-              <p className="mt-4 max-w-[560px] text-[17px] leading-[1.75] text-white/82 sm:text-[18px]">
+              <p className="mt-3 max-w-[560px] text-base leading-[1.6] text-white/82 sm:mt-4 sm:text-[18px] sm:leading-[1.75]">
                 Find the right learning path by filtering categories and reviewing detailed
                 program tracks in one focused view.
               </p>
 
-              <div className="mt-6 flex flex-wrap gap-3">
+              <div className="mt-6 hidden flex-wrap gap-3 sm:flex">
                 {[
                   { value: "25+", label: "Programs" },
                   { value: "Industry", label: "Relevant" },
@@ -424,7 +430,7 @@ export default function ProgramsCatalog({
                     }
                   }}
                   placeholder="Search programs, modules, or learning tracks..."
-                  className="w-full rounded-xl border border-transparent bg-[#f8f6f1] py-3.5 pl-11 pr-4 text-[14px] text-[#1b4d3e] outline-none transition focus:border-[#1b6b66]/30 focus:bg-white"
+                  className="w-full rounded-xl border border-transparent bg-[#f8f6f1] py-3.5 pl-11 pr-4 text-base text-[#1b4d3e] sm:text-[14px] outline-none transition focus:border-[#1b6b66]/30 focus:bg-white"
                 />
                 {searchFocused && searchSuggestions.length > 0 ? (
                   <div className="absolute left-0 right-0 top-[calc(100%+0.35rem)] z-30 overflow-hidden rounded-xl border border-[#ebe5db] bg-white shadow-[0_14px_28px_rgba(15,23,42,0.1)]">
@@ -457,9 +463,9 @@ export default function ProgramsCatalog({
         </div>
 
         {/* Main layout */}
-        <div className="mt-12 grid gap-10 lg:grid-cols-[290px_minmax(0,1fr)] lg:items-start lg:gap-14 xl:gap-16">
-          {/* Sidebar - mobile visible, desktop sticky */}
-          <aside className="lg:sticky lg:top-24">
+        <div className="mt-8 grid gap-10 sm:mt-12 lg:grid-cols-[290px_minmax(0,1fr)] lg:items-start lg:gap-14 xl:gap-16">
+          {/* Sidebar - desktop only, sticky */}
+          <aside className="hidden lg:sticky lg:top-24 lg:block">
             <div className="rounded-[20px] border border-[#ebe5db] bg-white p-5 shadow-[0_8px_28px_rgba(15,23,42,0.06)]">
               <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-2">
@@ -571,9 +577,9 @@ export default function ProgramsCatalog({
           </aside>
 
           {/* Main content */}
-          <div>
+          <div className="min-w-0">
             <div className="rounded-[18px] border border-[#ebe5db] bg-white p-4 shadow-[0_6px_20px_rgba(15,23,42,0.05)] sm:p-5">
-              <div className="flex flex-wrap gap-2.5">
+              <div className="-mx-4 flex gap-2.5 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0 [&::-webkit-scrollbar]:hidden">
                 {categoryChips.map((chip) => {
                   const Icon = chip.icon;
                   const isActive = selectedCategory === chip.id;
@@ -586,7 +592,7 @@ export default function ProgramsCatalog({
                         selectCategory(chip.id);
                         if (chip.id !== "all") setOpenFilterGroupId(chip.id);
                       }}
-                      className={`inline-flex items-center gap-2 rounded-full px-3.5 py-2 text-[12px] font-semibold transition-colors sm:text-[13px] ${
+                      className={`inline-flex min-h-10 shrink-0 items-center gap-2 whitespace-nowrap rounded-full px-3.5 py-2 text-[13px] font-semibold transition-colors sm:min-h-0 ${
                         isActive
                           ? "bg-[#1b4d3e] text-white shadow-sm"
                           : "border border-[#e8e2d8] bg-[#f8f6f1] text-[#3f4f61] hover:border-[#cfe0de]"
@@ -605,7 +611,7 @@ export default function ProgramsCatalog({
                 <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#1b6b66]">
                   {headerLabel}
                 </p>
-                <h2 className="mt-2 text-[28px] font-bold tracking-[-0.03em] text-[#1b4d3e] sm:text-[32px]">
+                <h2 className="mt-2 text-[32px] font-bold tracking-[-0.03em] text-[#1b4d3e] sm:text-[32px]">
                   Programs at Agamya
                 </h2>
                 <p className="mt-2 max-w-2xl text-[14px] leading-[1.65] text-[#5f6f82]">
@@ -619,13 +625,13 @@ export default function ProgramsCatalog({
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
-                    className="rounded-lg border border-[#e8e2d8] bg-white px-3 py-2 text-[13px] font-semibold text-[#1b4d3e] outline-none focus:border-[#1b6b66]/40"
+                    className="min-h-11 rounded-lg border border-[#e8e2d8] bg-white px-3 py-2 text-base font-semibold text-[#1b4d3e] outline-none focus:border-[#1b6b66]/40 sm:min-h-0 sm:text-[13px]"
                   >
                     <option value="popular">Popular</option>
                     <option value="name">Name</option>
                   </select>
                 </label>
-                <div className="inline-flex overflow-hidden rounded-lg border border-[#e8e2d8] bg-white">
+                <div className="hidden overflow-hidden rounded-lg border border-[#e8e2d8] bg-white md:inline-flex">
                   <button
                     type="button"
                     onClick={() => setListView(false)}
@@ -651,8 +657,8 @@ export default function ProgramsCatalog({
             </div>
 
             <div
-              className={`mt-8 grid gap-7 ${
-                listView
+              className={`mt-6 grid gap-5 sm:mt-8 sm:gap-7 ${
+                effectiveListView
                   ? "grid-cols-1"
                   : "grid-cols-1 md:grid-cols-2 2xl:grid-cols-3"
               }`}
@@ -670,7 +676,7 @@ export default function ProgramsCatalog({
                   >
                     <ProgramCatalogCard
                       program={program}
-                      listView={listView}
+                      listView={effectiveListView}
                       isExpanded={isExpanded}
                       onViewDetails={() =>
                         setExpandedProgramId(isExpanded ? null : programId)

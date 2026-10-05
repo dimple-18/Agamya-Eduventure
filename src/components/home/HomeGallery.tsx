@@ -95,17 +95,17 @@ function FeaturedEventCard({ event }: { event: GalleryEvent }) {
         <div className="absolute bottom-4 left-4 right-4 flex flex-wrap items-center justify-between gap-2">
           <div className="flex flex-wrap gap-2">
             {event.location ? (
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-[#0f1a28]/72 px-3 py-1.5 text-[11px] font-semibold text-white backdrop-blur-sm">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-[#0f1a28]/72 px-3 py-1.5 text-[12px] font-semibold text-white backdrop-blur-sm sm:text-[11px]">
                 <MapPin className="h-3 w-3" strokeWidth={2.25} />
                 {event.location}
               </span>
             ) : null}
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#0f1a28]/72 px-3 py-1.5 text-[11px] font-semibold text-white backdrop-blur-sm">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#0f1a28]/72 px-3 py-1.5 text-[12px] font-semibold text-white backdrop-blur-sm sm:text-[11px]">
               <Calendar className="h-3 w-3" strokeWidth={2.25} />
               {event.date}
             </span>
           </div>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#0f1a28]/72 px-3 py-1.5 text-[11px] font-semibold text-white backdrop-blur-sm">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#0f1a28]/72 px-3 py-1.5 text-[12px] font-semibold text-white backdrop-blur-sm sm:text-[11px]">
             <Users className="h-3 w-3" strokeWidth={2.25} />
             {event.students}
           </span>
@@ -119,7 +119,7 @@ function FeaturedEventCard({ event }: { event: GalleryEvent }) {
         <h3 className="mt-2 text-[22px] font-bold leading-tight tracking-[-0.02em] text-[#1b4d3e] sm:text-[24px]">
           {event.title}
         </h3>
-        <p className="mt-2.5 text-[14px] leading-[1.65] text-[#5f6f82] [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden">
+        <p className="mt-2.5 text-[15px] leading-[1.6] text-[#5f6f82] sm:text-[14px] sm:leading-[1.65] [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden">
           {event.description}
         </p>
         <Link
@@ -201,26 +201,26 @@ export default function HomeGallery({
   };
 
   return (
-    <section id="gallery" className={`bg-[#fdfbf7] pb-20 pt-14 ${pageGutterClass}`}>
+    <section id="gallery" className={`bg-[#fdfbf7] pb-14 pt-10 sm:pb-20 sm:pt-14 ${pageGutterClass}`}>
       <div className={pageContainerClass}>
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.45fr)_minmax(0,0.95fr)] lg:gap-8 xl:gap-10">
+        <div className="grid gap-6 sm:gap-10 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.45fr)_minmax(0,0.95fr)] lg:gap-8 xl:gap-10">
           <div className="max-w-[400px]">
             <p className="inline-flex items-center gap-2.5 text-[12px] font-bold uppercase tracking-[0.22em] text-[#1b4d3e]">
               <span className="h-2 w-2 rounded-full bg-[#f39c12]" />
               Gallery
             </p>
 
-            <h2 className="mt-5 text-[34px] font-bold leading-[1.12] tracking-[-0.03em] text-[#1b4d3e] sm:text-[40px] lg:text-[44px]">
+            <h2 className="mt-4 text-[34px] font-bold leading-[1.15] sm:mt-5 sm:leading-[1.12] tracking-[-0.03em] text-[#1b4d3e] sm:text-[40px] lg:text-[44px]">
               Event highlights from workshops, practice, and institute{" "}
               <span className="inline-block whitespace-nowrap">occasions.</span>
             </h2>
 
-            <p className="mt-6 text-[15px] leading-[1.75] text-[#5f6f82]">
+            <p className="mt-4 text-base leading-[1.7] text-[#5f6f82] sm:mt-6 sm:text-[15px] sm:leading-[1.75]">
               A glimpse into the learning environment, interactive sessions, and memorable
               moments that shape student's skills and confidence.
             </p>
 
-            <ul className="mt-8 space-y-3">
+            <ul className="mt-8 hidden space-y-3 sm:block">
               {galleryFeatures.map((feature) => {
                 const Icon = feature.icon;
 
@@ -248,7 +248,7 @@ export default function HomeGallery({
               <button
                 type="button"
                 onClick={goPrevious}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#d6dde5] bg-white text-[#1b4d3e] shadow-sm transition-colors hover:bg-[#f3f5f4]"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#d6dde5] sm:h-10 sm:w-10 bg-white text-[#1b4d3e] shadow-sm transition-colors hover:bg-[#f3f5f4]"
                 aria-label="Previous gallery highlight"
               >
                 <ArrowLeft className="h-4 w-4" strokeWidth={2.25} />
@@ -274,7 +274,7 @@ export default function HomeGallery({
               <button
                 type="button"
                 onClick={goNext}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#d6dde5] bg-white text-[#1b4d3e] shadow-sm transition-colors hover:bg-[#f3f5f4]"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#d6dde5] sm:h-10 sm:w-10 bg-white text-[#1b4d3e] shadow-sm transition-colors hover:bg-[#f3f5f4]"
                 aria-label="Next gallery highlight"
               >
                 <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
@@ -283,9 +283,11 @@ export default function HomeGallery({
           </div>
 
           <div className="flex flex-col gap-4">
-            {homeGallerySidebar.map((event) => (
-              <SidebarEventCard key={event.title} event={event} />
-            ))}
+            <div className="hidden lg:flex lg:flex-col lg:gap-4">
+              {homeGallerySidebar.map((event) => (
+                <SidebarEventCard key={event.title} event={event} />
+              ))}
+            </div>
             <Link
               href="/gallery"
               className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#1b4d3e] px-7 py-3.5 text-[14px] font-semibold !text-white transition-colors hover:bg-[#164032] cta-pulse"
@@ -296,7 +298,7 @@ export default function HomeGallery({
           </div>
         </div>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
           {galleryStats.map((stat) => {
             const Icon = stat.icon;
             const toneStyles = {
@@ -325,17 +327,17 @@ export default function HomeGallery({
             return (
               <div
                 key={stat.label}
-                className="rounded-[18px] border border-[#ebe5db] bg-white px-5 py-5 shadow-[0_4px_18px_rgba(0,0,0,0.04)] sm:px-6"
+                className="rounded-[18px] border border-[#ebe5db] bg-white px-4 py-4 shadow-[0_4px_18px_rgba(0,0,0,0.04)] sm:px-6 sm:py-5"
               >
                 <span
                   className={`inline-flex h-11 w-11 items-center justify-center rounded-full ${toneStyles.iconBg} ${toneStyles.iconColor}`}
                 >
                   <Icon className="h-5 w-5" strokeWidth={2.1} />
                 </span>
-                <p className={`mt-4 text-[26px] font-bold leading-none ${toneStyles.valueColor}`}>
+                <p className={`mt-4 text-[22px] font-bold leading-none sm:text-[26px] ${toneStyles.valueColor}`}>
                   {stat.value}
                 </p>
-                <p className="mt-1.5 text-[15px] font-bold text-[#1b4d3e]">{stat.label}</p>
+                <p className="mt-1.5 text-[14px] font-bold leading-snug text-[#1b4d3e] sm:text-[15px]">{stat.label}</p>
                 <p className="mt-1 text-[13px] text-[#6b7c8f]">{stat.subtext}</p>
               </div>
             );

@@ -30,25 +30,27 @@ function InfoCard({
   children,
   icon: Icon,
   action,
+  className = "flex",
 }: {
   label: string;
   children: ReactNode;
   icon: typeof Phone;
   action?: { label: string; href: string };
+  className?: string;
 }) {
   return (
-    <div className="flex items-start gap-3 rounded-xl border border-[#ebe5db] bg-white p-4 shadow-[0_4px_16px_rgba(15,23,42,0.04)]">
+    <div className={`${className} flex-wrap items-start gap-3 rounded-xl border border-[#ebe5db] bg-white p-3.5 shadow-[0_4px_16px_rgba(15,23,42,0.04)] sm:flex-nowrap sm:p-4`}>
       <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#e8f4f3] text-[#1b6b66]">
         <Icon className="h-4 w-4" strokeWidth={2.1} />
       </span>
       <div className="min-w-0 flex-1">
         <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#6b7c8f]">{label}</p>
-        <div className="mt-1 text-[14px] font-semibold leading-relaxed text-[#1b4d3e]">{children}</div>
+        <div className="mt-1 break-words text-[15px] font-semibold leading-relaxed text-[#1b4d3e] sm:text-[14px]">{children}</div>
       </div>
       {action ? (
         <a
           href={action.href}
-          className="shrink-0 rounded-lg border border-[#1b4d3e]/20 bg-[#f8f6f1] px-3 py-1.5 text-[12px] font-semibold text-[#1b4d3e] transition-colors hover:bg-[#1b4d3e] hover:!text-white cta-pulse"
+          className="inline-flex min-h-10 basis-full items-center justify-center rounded-lg border border-[#1b4d3e]/20 bg-[#f8f6f1] px-3 py-1.5 text-[14px] font-semibold sm:min-h-0 sm:basis-auto sm:shrink-0 sm:text-[12px] text-[#1b4d3e] transition-colors hover:bg-[#1b4d3e] hover:!text-white cta-pulse"
         >
           {action.label}
         </a>
@@ -64,46 +66,46 @@ export default function ContactCatalog() {
         <div className="mx-auto max-w-7xl">
           {/* Hero */}
           <section className="relative overflow-hidden rounded-[28px] border border-[#0d3d38]/20 shadow-[0_20px_50px_rgba(15,23,42,0.12)]">
-            <div className="relative min-h-[320px] sm:min-h-[360px] lg:min-h-[390px]">
+            <div className="relative sm:min-h-[360px] lg:min-h-[390px]">
               <Image
                 src="/hero/contact-hero.png"
                 alt="Contact us workspace"
                 fill
                 className="object-cover object-center"
                 priority
-                sizes="1280px"
+                sizes="(min-width: 1280px) 1280px, 100vw"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-[#0b2f2c]/92 via-[#0f3f3b]/78 to-[#0f3f3b]/35" />
 
 
-              <div className="relative grid gap-8 p-6 sm:p-8 lg:grid-cols-[1fr_320px] lg:items-center lg:p-10">
+              <div className="relative grid gap-8 px-5 py-8 sm:p-8 lg:grid-cols-[1fr_320px] lg:items-center lg:p-10">
                 <div className="max-w-[560px]">
                   <span className="inline-flex w-fit rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-[#b8ebe4] backdrop-blur-sm">
                     Contact Agamya
                   </span>
-                  <h1 className="mt-5 text-[36px] font-bold leading-[1.08] tracking-[-0.03em] !text-white sm:text-[46px] lg:text-[54px]">
-                    More than just a class,
-                    <br />
-                    a stronger place
-                    <br />
+                  <h1 className="mt-4 text-[34px] font-bold leading-[1.1] tracking-[-0.03em] !text-white sm:mt-5 sm:text-[46px] sm:leading-[1.08] lg:text-[54px]">
+                    More than just a class,{" "}
+                    <br className="hidden sm:inline" />
+                    a stronger place{" "}
+                    <br className="hidden sm:inline" />
                     to begin.
                   </h1>
-                  <p className="mt-4 max-w-[560px] text-[17px] leading-[1.75] text-white/82 sm:text-[18px]">
+                  <p className="mt-3 max-w-[560px] text-base leading-[1.6] text-white/82 sm:mt-4 sm:text-[18px] sm:leading-[1.75]">
                     Get guidance on programs, admissions, student fit, projects, and the best
                     next step for a clearer learning journey.
                   </p>
 
-                  <div className="mt-6 flex flex-wrap gap-3">
+                  <div className="mt-6 grid gap-3 sm:flex sm:flex-wrap">
                     <a
                       href="#contact-form"
-                      className="inline-flex items-center gap-2 rounded-xl bg-[#1b4d3e] px-6 py-3.5 text-[15px] font-semibold !text-white shadow-[0_8px_20px_rgba(27,77,62,0.28)] transition-colors hover:bg-[#164032] hover:!text-white cta-pulse sm:text-[16px]"
+                      className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#1b4d3e] px-6 py-3.5 text-[15px] font-semibold !text-white shadow-[0_8px_20px_rgba(27,77,62,0.28)] transition-colors hover:bg-[#164032] hover:!text-white cta-pulse sm:text-[16px]"
                     >
                       <Send className="h-4 w-4" strokeWidth={2.25} />
                       Send a Message
                     </a>
                     <Link
                       href="/programs"
-                      className="inline-flex items-center gap-2 rounded-xl border border-white/35 bg-white/12 px-6 py-3.5 text-[15px] font-semibold !text-white backdrop-blur-sm transition-colors hover:bg-white/20 hover:!text-white cta-pulse sm:text-[16px]"
+                      className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/35 bg-white/12 px-6 py-3.5 text-[15px] font-semibold !text-white backdrop-blur-sm transition-colors hover:bg-white/20 hover:!text-white cta-pulse sm:text-[16px]"
                     >
                       View Programs
                     </Link>
@@ -113,7 +115,7 @@ export default function ContactCatalog() {
                   </p>
                 </div>
 
-                <div className="rounded-[20px] border border-white/35 bg-white/12 p-2 backdrop-blur-sm lg:absolute lg:right-8 lg:top-1/2 lg:w-[300px] lg:-translate-y-1/2 xl:right-10">
+                <div className="hidden rounded-[20px] border border-white/35 bg-white/12 p-2 backdrop-blur-sm lg:absolute lg:block lg:right-8 lg:top-1/2 lg:w-[300px] lg:-translate-y-1/2 xl:right-10">
                   {heroHighlights.map((item, index) => {
                     const toneClass =
                       item.tone === "orange"
@@ -147,7 +149,7 @@ export default function ContactCatalog() {
           </section>
 
           {/* Main contact card */}
-          <section className="mt-10 rounded-[24px] border border-[#ebe5db] bg-white p-6 shadow-[0_10px_36px_rgba(15,23,42,0.06)] sm:p-8 lg:p-10">
+          <section className="mt-8 rounded-[24px] border border-[#ebe5db] bg-white p-4 shadow-[0_10px_36px_rgba(15,23,42,0.06)] sm:mt-10 sm:p-8 lg:p-10">
             <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
               <div id="contact-form">
                 <div className="flex items-start gap-3">
@@ -155,7 +157,7 @@ export default function ContactCatalog() {
                     <Mail className="h-5 w-5" strokeWidth={2.1} />
                   </span>
                   <div>
-                    <h2 className="text-[26px] font-bold tracking-[-0.02em] text-[#1b4d3e] sm:text-[28px]">
+                    <h2 className="text-[28px] font-bold tracking-[-0.02em] text-[#1b4d3e] sm:text-[28px]">
                       Get in Touch
                     </h2>
                     <p className="mt-2 max-w-lg text-[14px] leading-relaxed text-[#5f6f82]">
@@ -173,7 +175,7 @@ export default function ContactCatalog() {
                     <Headphones className="h-5 w-5" strokeWidth={2.1} />
                   </span>
                   <div>
-                    <h2 className="text-[26px] font-bold tracking-[-0.02em] text-[#1b4d3e] sm:text-[28px]">
+                    <h2 className="text-[28px] font-bold tracking-[-0.02em] text-[#1b4d3e] sm:text-[28px]">
                       Connect with Us
                     </h2>
                     <p className="mt-2 text-[14px] leading-relaxed text-[#5f6f82]">
@@ -183,7 +185,7 @@ export default function ContactCatalog() {
                   </div>
                 </div>
 
-                <div className="mt-8 grid gap-3">
+                <div className="mt-6 grid gap-3 sm:mt-8">
                   <InfoCard
                     label="Phone"
                     icon={Phone}
@@ -213,15 +215,21 @@ export default function ContactCatalog() {
                     {contactProgramsText}
                   </InfoCard>
 
-                  <InfoCard label="Response Time" icon={Clock}>
+                  <InfoCard label="Support & Payment" icon={Headphones} className="flex sm:hidden">
+                    <span className="block">Response: Within 24 hrs</span>
+                    <span className="block">Support: Phone / Chat / Email</span>
+                    <span className="block">Payment: Online / Offline</span>
+                  </InfoCard>
+
+                  <InfoCard label="Response Time" icon={Clock} className="hidden sm:flex">
                     Within 24 hrs
                   </InfoCard>
 
-                  <InfoCard label="Support Type" icon={Headphones}>
+                  <InfoCard label="Support Type" icon={Headphones} className="hidden sm:flex">
                     Phone / Chat / Email
                   </InfoCard>
 
-                  <InfoCard label="Payment Method" icon={CreditCard}>
+                  <InfoCard label="Payment Method" icon={CreditCard} className="hidden sm:flex">
                     Online / Offline
                   </InfoCard>
 
@@ -246,7 +254,7 @@ export default function ContactCatalog() {
           </section>
 
          
-          <section className="mt-8 overflow-hidden rounded-[22px] border border-[#ebe5db] bg-white p-6 shadow-[0_8px_28px_rgba(15,23,42,0.06)] sm:p-8">
+          <section className="mt-8 overflow-hidden rounded-[22px] border border-[#ebe5db] bg-white p-5 shadow-[0_8px_28px_rgba(15,23,42,0.06)] sm:p-8">
             <div className="grid gap-8 lg:grid-cols-[auto_1fr_auto] lg:items-center lg:gap-10">
               <div className="relative hidden h-32 w-32 shrink-0 lg:block">
                 <Image
@@ -259,7 +267,7 @@ export default function ContactCatalog() {
               </div>
 
               <div>
-                <h2 className="text-[24px] font-bold tracking-[-0.02em] text-[#1b4d3e] sm:text-[26px]">
+                <h2 className="text-[28px] font-bold tracking-[-0.02em] text-[#1b4d3e] sm:text-[26px]">
                   Let&apos;s help you take the next step.
                 </h2>
                 <p className="mt-2 max-w-xl text-[14px] leading-relaxed text-[#5f6f82]">

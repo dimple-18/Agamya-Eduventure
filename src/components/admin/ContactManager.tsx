@@ -62,7 +62,7 @@ export default function ContactManager() {
 
   return (
     <div className="space-y-6">
-      <section className="rounded-2xl border border-[#e8e2d8] bg-white p-6 shadow-[0_8px_24px_rgba(15,23,42,0.05)]">
+      <section className="rounded-2xl border border-[#e8e2d8] bg-white p-4 shadow-[0_8px_24px_rgba(15,23,42,0.05)] sm:p-6">
         <h1 className="text-2xl font-semibold text-[#1b4d3e]">Contact details</h1>
         <p className="mt-2 text-sm text-[#5f6c79]">
           These values are used across the contact page, footer, and enquiry areas.
@@ -71,7 +71,7 @@ export default function ContactManager() {
 
       <form
         onSubmit={handleSubmit}
-        className="rounded-2xl border border-[#e8e2d8] bg-white p-6 shadow-[0_8px_24px_rgba(15,23,42,0.05)]"
+        className="rounded-2xl border border-[#e8e2d8] bg-white p-4 shadow-[0_8px_24px_rgba(15,23,42,0.05)] sm:p-6"
       >
         <div className="grid gap-4">
           {fields.map(({ key, label, multiline }) => (
@@ -88,7 +88,7 @@ export default function ContactManager() {
                       current ? { ...current, [key]: event.target.value } : current,
                     )
                   }
-                  className="w-full rounded-xl border border-[#e8e2d8] bg-[#fcfbfa] px-3.5 py-2.5 text-sm text-[#1b4d3e] outline-none focus:border-[#1b6b66]/45 focus:ring-4 focus:ring-[#1b6b66]/8"
+                  className="w-full rounded-xl border border-[#e8e2d8] bg-[#fcfbfa] px-3.5 py-2.5 text-base text-[#1b4d3e] outline-none focus:border-[#1b6b66]/45 focus:ring-4 focus:ring-[#1b6b66]/8 sm:text-sm"
                 />
               ) : (
                 <input
@@ -98,7 +98,7 @@ export default function ContactManager() {
                       current ? { ...current, [key]: event.target.value } : current,
                     )
                   }
-                  className="w-full rounded-xl border border-[#e8e2d8] bg-[#fcfbfa] px-3.5 py-2.5 text-sm text-[#1b4d3e] outline-none focus:border-[#1b6b66]/45 focus:ring-4 focus:ring-[#1b6b66]/8"
+                  className="w-full rounded-xl border border-[#e8e2d8] bg-[#fcfbfa] px-3.5 py-2.5 text-base text-[#1b4d3e] outline-none focus:border-[#1b6b66]/45 focus:ring-4 focus:ring-[#1b6b66]/8 sm:text-sm"
                 />
               )}
             </label>
@@ -112,7 +112,7 @@ export default function ContactManager() {
         <button
           type="submit"
           disabled={saving}
-          className="mt-5 rounded-xl bg-[#1b4d3e] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#164032] disabled:opacity-60"
+          className="mt-5 min-h-11 w-full rounded-xl bg-[#1b4d3e] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#164032] disabled:opacity-60 sm:min-h-0 sm:w-auto"
         >
           {saving ? "Saving..." : "Save contact details"}
         </button>

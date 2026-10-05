@@ -33,7 +33,7 @@ export default function EnquiriesManager() {
 
   return (
     <div className="space-y-6">
-      <section className="rounded-2xl border border-[#e8e2d8] bg-white p-6 shadow-[0_8px_24px_rgba(15,23,42,0.05)]">
+      <section className="rounded-2xl border border-[#e8e2d8] bg-white p-4 shadow-[0_8px_24px_rgba(15,23,42,0.05)] sm:p-6">
         <h1 className="text-2xl font-semibold text-[#1b4d3e]">Enquiries</h1>
         <p className="mt-2 text-sm text-[#5f6c79]">
           Messages submitted from the enquiry popup and contact form.
@@ -45,7 +45,7 @@ export default function EnquiriesManager() {
         )}
       </section>
 
-      <section className="rounded-2xl border border-[#e8e2d8] bg-white p-6 shadow-[0_8px_24px_rgba(15,23,42,0.05)]">
+      <section className="rounded-2xl border border-[#e8e2d8] bg-white p-4 shadow-[0_8px_24px_rgba(15,23,42,0.05)] sm:p-6">
         {loading ? (
           <p className="text-sm text-[#5f6c79]">Loading...</p>
         ) : items.length === 0 ? (
@@ -58,8 +58,8 @@ export default function EnquiriesManager() {
                 className="rounded-xl border border-[#ebe5db] bg-[#fcfbfa] p-4"
               >
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <div>
-                    <p className="text-sm font-semibold text-[#1b4d3e]">{item.name}</p>
+                  <div className="min-w-0">
+                    <p className="break-words text-sm font-semibold text-[#1b4d3e]">{item.name}</p>
                     <p className="text-xs text-[#7a8a9c]">
                       {new Date(item.created_at).toLocaleString()} · {item.source}
                     </p>
@@ -77,16 +77,16 @@ export default function EnquiriesManager() {
                   </span>
                 </div>
                 <div className="mt-3 space-y-1 text-sm text-[#3d4f63]">
-                  {item.email && <p>Email: {item.email}</p>}
+                  {item.email && <p className="break-all">Email: {item.email}</p>}
                   {item.phone && <p>Phone: {item.phone}</p>}
-                  {item.message && <p className="leading-relaxed">{item.message}</p>}
+                  {item.message && <p className="break-words leading-relaxed">{item.message}</p>}
                 </div>
-                <div className="mt-3 flex gap-2">
+                <div className="mt-3 flex gap-3 sm:gap-2">
                   {item.status !== "read" && (
                     <button
                       type="button"
                       onClick={() => updateStatus(item.id, "read")}
-                      className="rounded-lg border border-[#cfe0de] px-3 py-1.5 text-xs font-semibold text-[#1b4d3e]"
+                      className="inline-flex min-h-10 items-center rounded-lg border border-[#cfe0de] px-4 text-sm font-semibold text-[#1b4d3e] sm:min-h-0 sm:px-3 sm:py-1.5 sm:text-xs"
                     >
                       Mark read
                     </button>
@@ -95,7 +95,7 @@ export default function EnquiriesManager() {
                     <button
                       type="button"
                       onClick={() => updateStatus(item.id, "archived")}
-                      className="rounded-lg border border-[#e8e2d8] px-3 py-1.5 text-xs font-semibold text-[#5f6c79]"
+                      className="inline-flex min-h-10 items-center rounded-lg border border-[#e8e2d8] px-4 text-sm font-semibold text-[#5f6c79] sm:min-h-0 sm:px-3 sm:py-1.5 sm:text-xs"
                     >
                       Archive
                     </button>

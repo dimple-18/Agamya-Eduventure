@@ -12,6 +12,7 @@ import {
   Users,
 } from "lucide-react";
 import { RadialOrbitalTimelineDemo } from "@/components/ui/radial-orbital-timeline-demo";
+import { useMediaQuery } from "@/lib/use-media-query";
 
 import { pageContainerClass, pageGutterClass } from "./section-layout";
 
@@ -72,33 +73,35 @@ type LearningJourneyProps = {
 };
 
 export default function LearningJourney({ compactTop = false }: LearningJourneyProps) {
+  const showOrbital = useMediaQuery("(min-width: 640px)");
+
   return (
     <section
       id="learning-journey"
-      className={`bg-[#fdfbf7] pb-20 ${pageGutterClass} ${compactTop ? "pt-0" : "pt-14"}`}
+      className={`bg-[#fdfbf7] pb-14 sm:pb-20 ${pageGutterClass} ${compactTop ? "pt-0" : "pt-10 sm:pt-14"}`}
     >
       <div className={pageContainerClass}>
-        <div className="grid gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:items-start">
+        <div className="grid gap-6 sm:gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:items-start">
           <div className="max-w-[680px]">
             <p className="inline-flex items-center gap-2.5 text-[12px] font-bold uppercase tracking-[0.22em] text-[#1b4d3e]">
               <span className="h-2 w-2 rounded-full bg-[#f39c12]" />
               Learning Journey
             </p>
-            <h2 className="mt-5 text-[34px] font-bold leading-[1.12] tracking-[-0.03em] text-[#1b4d3e] sm:text-[42px] lg:text-[52px]">
-              Every strong career
-              <br />
-              begins with the
-              <br />
+            <h2 className="mt-4 text-[34px] font-bold leading-[1.15] tracking-[-0.03em] text-[#1b4d3e] sm:mt-5 sm:text-[42px] sm:leading-[1.12] lg:text-[52px]">
+              Every strong career{" "}
+              <br className="hidden sm:inline" />
+              begins with the{" "}
+              <br className="hidden sm:inline" />
               right <span className="text-[#122741]">learning path.</span>
             </h2>
-            <p className="mt-4 max-w-[620px] text-[15px] leading-[1.75] text-[#5f6f82]">
+            <p className="mt-4 max-w-[620px] text-base leading-[1.7] text-[#5f6f82] sm:text-[15px] sm:leading-[1.75]">
               From first concepts to interview confidence, each phase is
               designed to help students grow steadily, practice deeply, and move
               forward with clarity.
             </p>
           </div>
 
-          <aside className="rounded-2xl border border-[#ebe5db] bg-white/85 p-6 shadow-[0_10px_28px_rgba(20,35,55,0.06)]">
+          <aside className="rounded-2xl border border-[#ebe5db] bg-white/85 p-4 shadow-[0_10px_28px_rgba(20,35,55,0.06)] sm:p-6">
             <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#145f5f]">
               Why This Works
             </p>
@@ -109,7 +112,7 @@ export default function LearningJourney({ compactTop = false }: LearningJourneyP
                 return (
                   <div
                     key={item.label}
-                    className="flex min-h-[74px] items-center gap-3 rounded-xl border border-[#efe9e0] bg-white px-3.5 py-2.5"
+                    className="flex items-center gap-3 sm:min-h-[74px] rounded-xl border border-[#efe9e0] bg-white px-3.5 py-2.5"
                   >
                     <span
                       className={`inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${
@@ -130,11 +133,11 @@ export default function LearningJourney({ compactTop = false }: LearningJourneyP
           </aside>
         </div>
 
-        <div className="mt-10 grid gap-5 lg:grid-cols-[0.84fr_1.16fr]">
-          <div className="overflow-hidden rounded-2xl border border-[#dcd6cb] shadow-[0_10px_28px_rgba(20,35,55,0.08)]">
-            <RadialOrbitalTimelineDemo />
+        <div className="mt-6 grid gap-5 sm:mt-10 lg:grid-cols-[0.84fr_1.16fr]">
+          <div className="hidden overflow-hidden rounded-2xl border border-[#dcd6cb] shadow-[0_10px_28px_rgba(20,35,55,0.08)] sm:block sm:min-h-[420px]">
+            {showOrbital ? <RadialOrbitalTimelineDemo /> : null}
           </div>
-          <div className="rounded-2xl border border-[#e6e0d6] bg-white/90 p-5 shadow-[0_10px_28px_rgba(20,35,55,0.06)]">
+          <div className="rounded-2xl border border-[#e6e0d6] bg-white/90 p-4 shadow-[0_10px_28px_rgba(20,35,55,0.06)] sm:p-5">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#106b6d]">
               Learning Steps
             </p>
@@ -159,7 +162,7 @@ export default function LearningJourney({ compactTop = false }: LearningJourneyP
                             {item.title}
                           </h3>
                         </div>
-                        <p className="mt-1 text-[13px] leading-[1.45] text-[#5e6d82]">
+                        <p className="mt-1 text-[14px] leading-[1.5] text-[#5e6d82] sm:text-[13px] sm:leading-[1.45]">
                           {item.description}
                         </p>
                       </div>

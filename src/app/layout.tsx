@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 
 import CursorDot from "../components/home/CursorDot";
-import EnquiryPopup from "../components/home/EnquiryPopup";
-import LeavingPopup from "../components/home/LeavingPopup";
+import PublicPopups from "../components/home/PublicPopups";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -24,8 +23,7 @@ export default function RootLayout({
     <html lang="en" className="h-full antialiased">
       <body className="min-h-full">
         <CursorDot />
-        <EnquiryPopup />
-        <LeavingPopup />
+        <PublicPopups />
         {children}
       </body>
     </html>

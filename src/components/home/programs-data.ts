@@ -159,13 +159,12 @@ export type ProgramDetailContent = {
 
 export const programDetails: Record<string, ProgramDetailContent> = {
   "Web Development": {
-    idealFor: "Students who want to build websites and full-stack applications from scratch.",
+    idealFor: "Students who want to build websites and full-stack apps.",
     highlights: [
-      "HTML, CSS, and responsive layout fundamentals",
-      "JavaScript logic, DOM handling, and interactive UI",
-      "React component structure and modern frontend flow",
-      "Backend basics with Node.js and API integration",
-      "Project planning, debugging, and deployment awareness",
+      "Responsive HTML & CSS",
+      "JavaScript & interactive UI",
+      "React fundamentals",
+      "Node.js & APIs",
     ],
     outcomes: [
       "Build portfolio-ready websites and web apps",
@@ -174,13 +173,12 @@ export const programDetails: Record<string, ProgramDetailContent> = {
     ],
   },
   "Python Programming": {
-    idealFor: "Beginners and career switchers starting with a versatile programming language.",
+    idealFor: "Beginners starting with a versatile first language.",
     highlights: [
-      "Python syntax, variables, loops, and functions",
-      "Object-oriented programming concepts",
-      "Data structures and problem-solving practice",
-      "File handling, modules, and automation basics",
-      "Introductory Flask for simple application building",
+      "Python syntax & functions",
+      "Object-oriented programming",
+      "Data structures & problem solving",
+      "Automation & Flask basics",
     ],
     outcomes: [
       "Write clean Python programs independently",
@@ -189,13 +187,12 @@ export const programDetails: Record<string, ProgramDetailContent> = {
     ],
   },
   "Java Programming": {
-    idealFor: "Students who want strong OOP foundations and disciplined coding habits.",
+    idealFor: "Students who want strong OOP foundations.",
     highlights: [
-      "Core Java syntax and program structure",
-      "Classes, objects, inheritance, and encapsulation",
-      "Collections, exception handling, and file I/O",
-      "Logic-building through structured assignments",
-      "Industry-style coding discipline and readability",
+      "Core Java syntax",
+      "Classes, objects & inheritance",
+      "Collections & exception handling",
+      "Structured logic building",
     ],
     outcomes: [
       "Understand object-oriented design clearly",
@@ -204,13 +201,12 @@ export const programDetails: Record<string, ProgramDetailContent> = {
     ],
   },
   "Programming Fundamentals": {
-    idealFor: "Absolute beginners who need clarity before choosing a specialization.",
+    idealFor: "Absolute beginners before choosing a specialization.",
     highlights: [
-      "How computers execute code and solve problems",
-      "Variables, conditions, loops, and functions",
-      "Basic algorithms and step-by-step thinking",
-      "Debugging habits and structured practice",
-      "Introduction to choosing the right learning track",
+      "How code runs",
+      "Variables, loops & functions",
+      "Basic algorithms",
+      "Debugging habits",
     ],
     outcomes: [
       "Gain a solid base before advanced courses",
@@ -219,13 +215,12 @@ export const programDetails: Record<string, ProgramDetailContent> = {
     ],
   },
   "DCA (Diploma in Computer Applications)": {
-    idealFor: "Learners who want practical computer skills for study, office work, and daily use.",
+    idealFor: "Learners who need practical computer skills for study and work.",
     highlights: [
-      "MS Office tools for documents, sheets, and presentations",
-      "Internet usage, email, and digital file management",
-      "Typing, formatting, and productivity workflows",
-      "Basic computer operations and troubleshooting",
-      "Assignments aligned to real academic and office tasks",
+      "MS Office essentials",
+      "Internet, email & file management",
+      "Typing & productivity workflows",
+      "Basic troubleshooting",
     ],
     outcomes: [
       "Use computers confidently for everyday tasks",
@@ -234,12 +229,12 @@ export const programDetails: Record<string, ProgramDetailContent> = {
     ],
   },
   "Basic Computers": {
-    idealFor: "First-time computer users who need patient, step-by-step guidance.",
+    idealFor: "First-time computer users who need step-by-step guidance.",
     highlights: [
-      "System basics, keyboard, mouse, and file handling",
-      "Internet browsing and safe digital habits",
-      "Introductory office and productivity tools",
-      "Guided practice with everyday computer tasks",
+      "Keyboard, mouse & file basics",
+      "Safe internet browsing",
+      "Intro to office tools",
+      "Everyday computer tasks",
     ],
     outcomes: [
       "Operate a computer without hesitation",
@@ -248,13 +243,12 @@ export const programDetails: Record<string, ProgramDetailContent> = {
     ],
   },
   "Database & SQL": {
-    idealFor: "Students who want to work with data storage, queries, and backend systems.",
+    idealFor: "Students who want to work with data and backend systems.",
     highlights: [
-      "Relational database concepts and table design",
-      "SQL queries, filters, joins, and aggregations",
-      "Data modeling for real application needs",
-      "MySQL practice with hands-on exercises",
-      "Connecting data thinking to project requirements",
+      "Relational database design",
+      "Queries, joins & aggregations",
+      "Data modeling",
+      "Hands-on MySQL practice",
     ],
     outcomes: [
       "Write efficient SQL for common use cases",
@@ -263,13 +257,12 @@ export const programDetails: Record<string, ProgramDetailContent> = {
     ],
   },
   "Data Structures & Logic Building": {
-    idealFor: "Learners preparing for coding interviews and stronger problem-solving ability.",
+    idealFor: "Learners preparing for coding interviews.",
     highlights: [
-      "Arrays, strings, stacks, queues, and linked lists",
-      "Time and space complexity awareness",
+      "Arrays, stacks, queues & lists",
+      "Time & space complexity",
       "Pattern-based problem solving",
-      "Interview-style coding practice",
-      "Approach building with mentor feedback",
+      "Interview-style practice",
     ],
     outcomes: [
       "Solve structured coding problems more confidently",
@@ -278,13 +271,12 @@ export const programDetails: Record<string, ProgramDetailContent> = {
     ],
   },
   "C++ Programming": {
-    idealFor: "Students who want low-level logic skills and strong programming fundamentals.",
+    idealFor: "Students who want strong low-level programming skills.",
     highlights: [
-      "C++ syntax, data types, and control flow",
-      "Functions, pointers, and memory basics",
-      "Object-oriented concepts in C++",
-      "Console-based mini projects and exercises",
-      "Code structure, debugging, and optimization habits",
+      "C++ syntax & control flow",
+      "Functions, pointers & memory",
+      "OOP in C++",
+      "Console mini projects",
     ],
     outcomes: [
       "Build logic-heavy C++ programs",
@@ -293,13 +285,12 @@ export const programDetails: Record<string, ProgramDetailContent> = {
     ],
   },
   "Dot NET": {
-    idealFor: "Learners interested in Microsoft-based application development.",
+    idealFor: "Learners interested in Microsoft-based app development.",
     highlights: [
-      ".NET framework and application structure",
-      "C# fundamentals for backend development",
-      "Forms, logic layers, and basic architecture",
-      "Guided assignments with practical implementation",
-      "Code review and improvement through mentoring",
+      ".NET application structure",
+      "C# fundamentals",
+      "Forms & logic layers",
+      "Guided practical assignments",
     ],
     outcomes: [
       "Understand .NET application building flow",
@@ -308,13 +299,12 @@ export const programDetails: Record<string, ProgramDetailContent> = {
     ],
   },
   "PHP Programming": {
-    idealFor: "Students exploring server-side scripting and backend web development.",
+    idealFor: "Students exploring server-side web development.",
     highlights: [
-      "PHP syntax and scripting fundamentals",
-      "Form handling and server-side logic",
-      "Database connectivity basics",
-      "Backend workflow for simple web applications",
-      "Clean code structure and debugging practice",
+      "PHP scripting basics",
+      "Forms & server-side logic",
+      "Database connectivity",
+      "Simple web backends",
     ],
     outcomes: [
       "Build basic dynamic web backends",
@@ -323,13 +313,12 @@ export const programDetails: Record<string, ProgramDetailContent> = {
     ],
   },
   "Internship Program": {
-    idealFor: "Students who want real-world exposure through guided internship-style work.",
+    idealFor: "Students who want real, workplace-style experience.",
     highlights: [
-      "Task-based learning similar to workplace projects",
-      "Code review, deadlines, and execution discipline",
-      "Team-style communication and reporting",
-      "Practical problem solving with mentor oversight",
-      "Portfolio and experience-building focus",
+      "Workplace-style tasks",
+      "Code reviews & deadlines",
+      "Team communication",
+      "Portfolio building",
     ],
     outcomes: [
       "Experience structured professional work habits",
@@ -338,13 +327,12 @@ export const programDetails: Record<string, ProgramDetailContent> = {
     ],
   },
   "Interview Preparation": {
-    idealFor: "Students preparing for placements, internships, and technical interviews.",
+    idealFor: "Students preparing for placements and technical interviews.",
     highlights: [
-      "Core concept revision across chosen tracks",
-      "Mock interview practice and answer structuring",
-      "Communication and confidence-building sessions",
-      "Resume and self-presentation guidance",
-      "Technical and HR interview readiness support",
+      "Core concept revision",
+      "Mock interviews",
+      "Resume & self-presentation",
+      "Technical & HR readiness",
     ],
     outcomes: [
       "Present technical knowledge more clearly",
@@ -353,13 +341,12 @@ export const programDetails: Record<string, ProgramDetailContent> = {
     ],
   },
   "Certification Support": {
-    idealFor: "Learners pursuing certifications who need structured preparation and clarity.",
+    idealFor: "Learners who want a clear plan for certification exams.",
     highlights: [
-      "Certification roadmap and syllabus alignment",
-      "Topic-wise revision and practice tests",
-      "Concept reinforcement before assessments",
-      "Doubt clearing for exam-focused areas",
-      "Study planning with mentor check-ins",
+      "Syllabus-aligned roadmap",
+      "Practice tests & revision",
+      "Exam-focused doubt clearing",
+      "Mentor study check-ins",
     ],
     outcomes: [
       "Approach certification exams with a clear plan",
@@ -368,13 +355,12 @@ export const programDetails: Record<string, ProgramDetailContent> = {
     ],
   },
   "Mini & Major Projects": {
-    idealFor: "Students who need help planning, building, and presenting academic or portfolio projects.",
+    idealFor: "Students building academic or portfolio projects.",
     highlights: [
-      "Project topic selection and scope planning",
-      "Architecture, modules, and implementation guidance",
-      "Debugging, testing, and improvement support",
-      "Documentation and presentation preparation",
-      "Review cycles for academic or portfolio quality",
+      "Topic selection & scoping",
+      "Architecture & implementation",
+      "Debugging & testing",
+      "Documentation & presentation",
     ],
     outcomes: [
       "Deliver complete projects with mentor support",
@@ -383,13 +369,12 @@ export const programDetails: Record<string, ProgramDetailContent> = {
     ],
   },
   "Enterprise Microsoft IT Skill Development": {
-    idealFor: "Corporate teams and professionals using Microsoft tools in daily operations.",
+    idealFor: "Corporate teams using Microsoft tools every day.",
     highlights: [
-      "Microsoft productivity suite for business workflows",
-      "Document, spreadsheet, and presentation efficiency",
-      "Collaboration tools and workplace digital habits",
-      "Task-based corporate assignments",
-      "Training aligned to real office usage",
+      "Microsoft productivity suite",
+      "Document & spreadsheet efficiency",
+      "Collaboration tools",
+      "Real office assignments",
     ],
     outcomes: [
       "Improve day-to-day Microsoft tool proficiency",
@@ -398,13 +383,12 @@ export const programDetails: Record<string, ProgramDetailContent> = {
     ],
   },
   "Corporate MS Application Proficiency": {
-    idealFor: "Professionals who need stronger hands-on skills across Microsoft applications.",
+    idealFor: "Professionals who need stronger Microsoft Office skills.",
     highlights: [
-      "Word, Excel, PowerPoint, and Outlook proficiency",
-      "Formatting, reporting, and presentation workflows",
-      "Spreadsheet logic for business use cases",
-      "Professional document and deck creation",
-      "Speed and accuracy through guided practice",
+      "Word, Excel, PowerPoint & Outlook",
+      "Reports & presentations",
+      "Business spreadsheet logic",
+      "Speed & accuracy practice",
     ],
     outcomes: [
       "Produce polished business documents and reports",
@@ -413,13 +397,12 @@ export const programDetails: Record<string, ProgramDetailContent> = {
     ],
   },
   "Desktop Publishing Training": {
-    idealFor: "Learners interested in layout design, publishing, and print-ready document production.",
+    idealFor: "Learners interested in layout design and print publishing.",
     highlights: [
-      "Page layout, typography, and visual composition",
-      "Brochures, flyers, and publication formatting",
-      "Image placement and design consistency",
-      "Print-ready output and production workflows",
-      "Industry-relevant DTP tool practice",
+      "Layout & typography",
+      "Brochures, flyers & publications",
+      "Print-ready output",
+      "Industry DTP tools",
     ],
     outcomes: [
       "Create professional publishing layouts",
@@ -428,13 +411,12 @@ export const programDetails: Record<string, ProgramDetailContent> = {
     ],
   },
   "Visual Basic Software Training": {
-    idealFor: "Learners working with VB-based applications and business software development.",
+    idealFor: "Learners building business software with Visual Basic.",
     highlights: [
-      "Visual Basic syntax and form-based development",
-      "Event-driven programming and UI logic",
-      "Database connectivity in VB applications",
-      "Structured coding for business software tasks",
-      "Debugging and module-based implementation",
+      "Form-based VB development",
+      "Event-driven UI logic",
+      "Database connectivity",
+      "Debugging & modules",
     ],
     outcomes: [
       "Build and maintain VB-based applications",
@@ -443,13 +425,12 @@ export const programDetails: Record<string, ProgramDetailContent> = {
     ],
   },
   "FoxPro Software Training": {
-    idealFor: "Professionals handling FoxPro-based database and enterprise software systems.",
+    idealFor: "Professionals maintaining FoxPro database systems.",
     highlights: [
-      "FoxPro environment and database operations",
-      "Querying, reporting, and data handling",
-      "Legacy system navigation and maintenance",
-      "Practical exercises for enterprise workflows",
-      "Troubleshooting support with mentor guidance",
+      "FoxPro database operations",
+      "Queries & reporting",
+      "Legacy system maintenance",
+      "Guided troubleshooting",
     ],
     outcomes: [
       "Operate FoxPro systems with greater confidence",
@@ -458,13 +439,12 @@ export const programDetails: Record<string, ProgramDetailContent> = {
     ],
   },
   "Industrial Automation Software Training": {
-    idealFor: "Learners and professionals working with automation software in industrial settings.",
+    idealFor: "Learners working with industrial automation software.",
     highlights: [
-      "Automation software concepts and workflows",
-      "System operation and process-oriented tasks",
-      "Practical industrial use-case exercises",
-      "Tool familiarity for operational environments",
-      "Mentor-led clarity for real-world application",
+      "Automation concepts & workflows",
+      "System operation tasks",
+      "Industrial use-case practice",
+      "Tool familiarity",
     ],
     outcomes: [
       "Understand automation software usage in context",
@@ -473,13 +453,12 @@ export const programDetails: Record<string, ProgramDetailContent> = {
     ],
   },
   "SAP Business Objects Training": {
-    idealFor: "Professionals who need reporting and analytics skills in enterprise environments.",
+    idealFor: "Professionals who need enterprise reporting skills.",
     highlights: [
-      "Business Objects reporting fundamentals",
-      "Data interpretation and dashboard thinking",
-      "Enterprise reporting workflow practice",
-      "Analytics assignments with business context",
-      "Structured support for tool-based reporting",
+      "Business Objects reporting",
+      "Dashboards & data interpretation",
+      "Enterprise reporting workflows",
+      "Business analytics practice",
     ],
     outcomes: [
       "Create and interpret business reports more effectively",
@@ -492,11 +471,11 @@ export const programDetails: Record<string, ProgramDetailContent> = {
 export function getProgramDetails(program: ProgramCard) {
   const meta = getCatalogMeta(program);
   const details = programDetails[program.title] ?? {
-    idealFor: "Students looking for guided, practical learning in this track.",
+    idealFor: "Students looking for guided, practical learning.",
     highlights: [
-      program.description,
-      `Focused practice through ${program.meta.toLowerCase()} assignments`,
-      "Step-by-step mentor support throughout the learning path",
+      "Core concepts of the track",
+      "Guided practical assignments",
+      "Step-by-step mentor support",
     ],
     outcomes: [
       "Stronger understanding of core concepts",

@@ -6,6 +6,12 @@ import {
   isAdminReadOnlyMode,
   withReadOnlyHeaders,
 } from "@/lib/admin/static-fallback";
+import {
+  isOccasionLabel,
+  normalizeGalleryImages,
+  OCCASION_LABEL,
+  validateOccasion,
+} from "@/lib/content/gallery-occasions";
 
 function parsePhotos(value: unknown): string[] {
   if (Array.isArray(value)) {
@@ -20,18 +26,52 @@ function parsePhotos(value: unknown): string[] {
   return [];
 }
 
-function toDbEvent(body: Record<string, unknown>) {
+function toDbOccasion(body: Record<string, unknown>) {
+  const title = String(body.title ?? "").trim();
+  const year = String(body.year ?? "").trim();
+  const images = normalizeGalleryImages(body.images ?? body.photos);
+
+  const error = validateOccasion({ title, year, images });
+  if (error) {
+    return { error };
+  }
+
   return {
-    title: body.title,
-    label: body.label,
-    description: body.description,
-    photos: parsePhotos(body.photos),
-    date: body.date,
-    location: body.location ?? null,
-    students: body.students,
-    sort_order: body.sort_order ?? 0,
-    published: body.published ?? true,
-    updated_at: new Date().toISOString(),
+    row: {
+      title,
+      label: OCCASION_LABEL,
+      description: "",
+      photos: images.map((image) => image.url),
+      images,
+      year,
+      date: year,
+      location: null,
+      students: "",
+      sort_order: body.sort_order ?? 0,
+      published: body.published ?? true,
+      updated_at: new Date().toISOString(),
+    },
+  };
+}
+
+function toDbEvent(body: Record<string, unknown>) {
+  if (isOccasionLabel(typeof body.label === "string" ? body.label : null)) {
+    return toDbOccasion(body);
+  }
+
+  return {
+    row: {
+      title: body.title,
+      label: body.label,
+      description: body.description,
+      photos: parsePhotos(body.photos),
+      date: body.date,
+      location: body.location ?? null,
+      students: body.students,
+      sort_order: body.sort_order ?? 0,
+      published: body.published ?? true,
+      updated_at: new Date().toISOString(),
+    },
   };
 }
 
@@ -61,9 +101,14 @@ export async function POST(request: Request) {
   if (auth.response) return auth.response;
 
   const body = await request.json();
+  const parsed = toDbEvent(body);
+  if ("error" in parsed) {
+    return NextResponse.json({ error: parsed.error }, { status: 400 });
+  }
+
   const { data, error } = await auth.supabase
     .from("gallery_events")
-    .insert(toDbEvent(body))
+    .insert(parsed.row)
     .select()
     .single();
 
@@ -83,9 +128,14 @@ export async function PATCH(request: Request) {
     return NextResponse.json({ error: "id is required." }, { status: 400 });
   }
 
+  const parsed = toDbEvent(body);
+  if ("error" in parsed) {
+    return NextResponse.json({ error: parsed.error }, { status: 400 });
+  }
+
   const { data, error } = await auth.supabase
     .from("gallery_events")
-    .update(toDbEvent(body))
+    .update(parsed.row)
     .eq("id", body.id)
     .select()
     .single();

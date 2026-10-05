@@ -19,7 +19,7 @@ import {
 import { useMemo, useState } from "react";
 
 import ProgramsCatalog from "./ProgramsCatalog";
-import { categoryId, groupedPrograms as defaultGroupedPrograms } from "./programs-data";
+import { groupedPrograms as defaultGroupedPrograms } from "./programs-data";
 import type { ProgramGroup } from "@/lib/content/program-groups";
 import { pageContainerClass, pageGutterClass } from "./section-layout";
 
@@ -29,6 +29,18 @@ type CoursesProps = {
 };
 
 const PREVIEW_PROGRAM_LIMIT = 4;
+
+const programsPreviewIntro =
+  "Support layers that connect learning with preparation, exposure, and confidence.";
+
+function categoryChipLabel(title: string) {
+  const shortLabels: Record<string, string> = {
+    "Technical Modules": "Technical",
+    "Projects & Certifications": "Projects & Certs",
+    "Corporate & Advanced Courses": "Corporate",
+  };
+  return shortLabels[title] ?? title;
+}
 
 const programHighlights = [
   {
@@ -131,26 +143,33 @@ function ProgramsPreview({ groups }: { groups: readonly ProgramGroup[] }) {
   }, [activeCategory, groups]);
 
   return (
-    <section id="programs" className={`bg-[#fdfbf7] pb-20 pt-14 ${pageGutterClass}`}>
+    <section id="programs" className={`bg-[#fdfbf7] pb-14 pt-10 sm:pb-20 sm:pt-14 ${pageGutterClass}`}>
       <div className={pageContainerClass}>
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.35fr)] lg:items-start lg:gap-12">
+        <div className="grid gap-6 sm:gap-10 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.35fr)] lg:items-start lg:gap-12">
           <div className="max-w-[420px]">
             <p className="inline-flex items-center gap-2.5 text-[12px] font-bold uppercase tracking-[0.22em] text-[#1b4d3e]">
               <span className="h-2 w-2 rounded-full bg-[#f39c12]" />
               Programs
             </p>
 
-            <h2 className="mt-5 text-[40px] font-bold leading-[1.08] tracking-[-0.03em] text-[#1b4d3e] sm:text-[48px] lg:text-[56px]">
-              Programs arranged with more clarity and less{" "}
-              <span className="inline-block whitespace-nowrap">friction.</span>
+            <h2 className="mt-4 text-[34px] font-bold leading-[1.12] tracking-[-0.03em] text-[#1b4d3e] sm:mt-5 sm:text-[48px] sm:leading-[1.08] lg:text-[56px]">
+              Programs arranged{" "}
+              <br className="sm:hidden" />
+              with more clarity{" "}
+              <br className="sm:hidden" />
+              and less friction.
             </h2>
 
-            <p className="mt-6 text-[15px] leading-[1.75] text-[#5f6f82]">
+            <p className="mt-4 text-base leading-[1.7] text-[#5f6f82] lg:hidden">
+              {programsPreviewIntro}
+            </p>
+
+            <p className="mt-4 hidden text-[15px] leading-[1.75] text-[#5f6f82] lg:mt-6 lg:block">
               {activeGroup?.description ??
                 "The same structured categories from the full Programs page are shown here in a concise preview."}
             </p>
 
-            <div className="mt-8 rounded-[18px] border border-[#ebe5db] bg-white p-2 shadow-[0_4px_18px_rgba(0,0,0,0.04)]">
+            <div className="mt-6 hidden rounded-[18px] border border-[#ebe5db] bg-white p-2 shadow-[0_4px_18px_rgba(0,0,0,0.04)] sm:mt-8 lg:block">
               <p className="px-4 pt-3 text-[11px] font-bold uppercase tracking-[0.16em] text-[#6b7c8f]">
                 Explore Categories
               </p>
@@ -179,7 +198,7 @@ function ProgramsPreview({ groups }: { groups: readonly ProgramGroup[] }) {
                             <Icon className="h-4 w-4" strokeWidth={2.1} />
                           </span>
                           <span
-                            className={`text-[14px] font-semibold ${
+                            className={`text-[15px] font-semibold sm:text-[14px] ${
                               isActive ? "text-[#1b4d3e]" : "text-[#3f4f61]"
                             }`}
                           >
@@ -198,15 +217,47 @@ function ProgramsPreview({ groups }: { groups: readonly ProgramGroup[] }) {
 
             <Link
               href="/programs"
-              className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#1b4d3e] px-7 py-3.5 text-[14px] font-semibold !text-white transition-colors hover:bg-[#164032] cta-pulse"
+              className="mt-5 hidden w-full items-center justify-center gap-2 rounded-xl bg-[#1b4d3e] px-7 py-3.5 text-[14px] font-semibold !text-white transition-colors hover:bg-[#164032] cta-pulse lg:inline-flex"
             >
               Open Full Programs Page
               <ArrowRight className="h-4 w-4 text-white" strokeWidth={2.25} />
             </Link>
           </div>
 
-          <div>
-            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="min-w-0">
+            <div className="mb-6 lg:hidden">
+              <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#6b7c8f]">
+                Explore Categories
+              </p>
+              <div
+                className="-mx-4 mt-3 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                role="tablist"
+                aria-label="Program categories"
+              >
+                {programCategories.map((category) => {
+                  const isActive = activeCategory === category.title;
+                  return (
+                    <button
+                      key={category.title}
+                      type="button"
+                      role="tab"
+                      aria-selected={isActive}
+                      onClick={() => setActiveCategory(category.title)}
+                      className={`inline-flex min-h-11 shrink-0 items-center whitespace-nowrap rounded-full px-4 py-2 text-[13px] font-semibold transition-colors ${
+                        isActive
+                          ? "bg-[#1b4d3e] text-white shadow-sm"
+                          : "border border-[#e8e2d8] bg-white text-[#3f4f61]"
+                      }`}
+                    >
+                      {categoryChipLabel(category.title)}
+                    </button>
+                  );
+                })}
+              </div>
+              <div className="mt-6 border-t border-[#ebe5db]" aria-hidden />
+            </div>
+
+            <div className="mb-5 hidden gap-3 sm:grid sm:grid-cols-2 xl:grid-cols-4">
               {programHighlights.map((highlight) => {
                 const Icon = highlight.icon;
 
@@ -228,7 +279,7 @@ function ProgramsPreview({ groups }: { groups: readonly ProgramGroup[] }) {
               })}
             </div>
 
-            <div key={activeCategory} className="mt-5 grid gap-5 md:grid-cols-2">
+            <div key={activeCategory} className="grid gap-5 md:grid-cols-2">
               {activePrograms.length === 0 ? (
                 <p className="col-span-full rounded-[20px] border border-dashed border-[#d6dde5] bg-white px-6 py-10 text-center text-[14px] text-[#5f6f82]">
                   No programs are listed in this category yet. Open the full Programs page to
@@ -252,12 +303,12 @@ function ProgramsPreview({ groups }: { groups: readonly ProgramGroup[] }) {
                           alt={program.title}
                           fill
                           className="object-cover"
-                          sizes="(min-width: 1024px) 280px, 50vw"
+                          sizes="(min-width: 1024px) 280px, (min-width: 768px) 50vw, 100vw"
                         />
                       ) : null}
                       <div className="absolute inset-0 bg-gradient-to-t from-[#0f1a28]/35 via-transparent to-transparent" />
 
-                      <span className="absolute left-4 top-4 rounded-full border border-white/30 bg-white/95 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-[#1b4d3e] shadow-sm">
+                      <span className="absolute left-4 top-4 rounded-full border border-white/30 bg-white/95 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-[#1b4d3e] shadow-sm sm:text-[10px]">
                         {program.meta.toUpperCase()}
                       </span>
 
@@ -291,13 +342,13 @@ function ProgramsPreview({ groups }: { groups: readonly ProgramGroup[] }) {
                       <h3 className="text-[22px] font-bold leading-tight tracking-[-0.02em] text-[#1b4d3e]">
                         {program.title}
                       </h3>
-                      <p className="mt-2.5 text-[14px] leading-[1.65] text-[#5f6f82] [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden">
+                      <p className="mt-2.5 text-[15px] leading-[1.6] sm:text-[14px] sm:leading-[1.65] text-[#5f6f82] [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden">
                         {program.description}
                       </p>
                       <div className="mt-4 flex justify-end">
                         <Link
                           href="/programs"
-                          className="inline-flex items-center gap-1.5 rounded-full border border-[#e5e9ef] bg-[#f7f9fb] px-4 py-2 text-[13px] font-semibold text-[#1b6b66] transition-colors hover:bg-[#eef6f5]"
+                          className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-[#e5e9ef] bg-[#f7f9fb] px-4 py-2 text-[14px] font-semibold sm:min-h-0 sm:text-[13px] text-[#1b6b66] transition-colors hover:bg-[#eef6f5]"
                         >
                           More Details
                           <ArrowRight className="h-3.5 w-3.5" strokeWidth={2.25} />
@@ -308,10 +359,18 @@ function ProgramsPreview({ groups }: { groups: readonly ProgramGroup[] }) {
                 );
               })}
             </div>
+
+            <Link
+              href="/programs"
+              className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#1b4d3e] px-7 py-3.5 text-[14px] font-semibold !text-white transition-colors hover:bg-[#164032] cta-pulse lg:hidden"
+            >
+              Open Full Programs Page
+              <ArrowRight className="h-4 w-4 text-white" strokeWidth={2.25} />
+            </Link>
           </div>
         </div>
 
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="mt-10 grid grid-cols-2 gap-3 sm:mt-12 sm:gap-4 xl:grid-cols-4">
           {programStats.map((stat) => {
             const Icon = stat.icon;
             const isTeal = stat.tone === "teal";
@@ -319,7 +378,7 @@ function ProgramsPreview({ groups }: { groups: readonly ProgramGroup[] }) {
             return (
               <div
                 key={stat.value}
-                className="group relative overflow-hidden rounded-[22px] border border-[#ebe5db] bg-white px-5 py-6 shadow-[0_6px_20px_rgba(15,23,42,0.04)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_28px_rgba(15,23,42,0.08)]"
+                className="group relative overflow-hidden rounded-[22px] border border-[#ebe5db] bg-white px-4 py-5 shadow-[0_6px_20px_rgba(15,23,42,0.04)] sm:px-5 sm:py-6 transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_28px_rgba(15,23,42,0.08)]"
               >
                 <div
                   className={`pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full opacity-70 blur-2xl transition group-hover:opacity-100 ${
@@ -336,7 +395,7 @@ function ProgramsPreview({ groups }: { groups: readonly ProgramGroup[] }) {
                   <Icon className="h-5 w-5" strokeWidth={2.1} />
                 </span>
                 <p
-                  className={`relative mt-5 text-[22px] font-bold leading-tight tracking-[-0.02em] ${
+                  className={`relative mt-4 text-[18px] font-bold leading-tight sm:mt-5 sm:text-[22px] tracking-[-0.02em] ${
                     isTeal ? "text-[#1b4d3e]" : "text-[#b86a1f]"
                   }`}
                 >
@@ -347,7 +406,7 @@ function ProgramsPreview({ groups }: { groups: readonly ProgramGroup[] }) {
                     isTeal ? "bg-[#1b6b66]" : "bg-[#e8942f]"
                   }`}
                 />
-                <p className="relative mt-3 text-[13px] leading-relaxed text-[#5f6f82]">
+                <p className="relative mt-3 text-[14px] leading-snug text-[#5f6f82] sm:text-[13px] sm:leading-relaxed">
                   {stat.label}
                 </p>
               </div>

@@ -12,10 +12,10 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
   }
 
   return (
-    <div className="min-h-screen bg-[#f8f5ef] px-4 py-6 lg:px-6">
-      <div className="mx-auto flex max-w-7xl flex-col gap-6 lg:flex-row">
+    <div className="min-h-screen bg-[#f8f5ef] px-4 py-4 lg:px-6 lg:py-6">
+      <div className="mx-auto flex max-w-7xl flex-col gap-4 lg:flex-row lg:gap-6">
         <AdminNav />
-        <main className="flex-1">{children}</main>
+        <main className="min-w-0 flex-1">{children}</main>
       </div>
     </div>
   );

@@ -116,6 +116,29 @@ create policy "admin_manage_gallery_events"
   using (auth.role() = 'authenticated')
   with check (auth.role() = 'authenticated');
 
+-- Institute Occasion albums: label = 'Occasions', 1–5 images of shape
+-- { "url": text, "publicId"?: text, "alt"?: text }. Safe to re-run.
+alter table gallery_events add column if not exists year text;
+alter table gallery_events add column if not exists images jsonb not null default '[]'::jsonb;
+
+do $$
+begin
+  if not exists (
+    select 1 from pg_constraint where conname = 'gallery_events_occasion_photo_limit'
+  ) then
+    alter table gallery_events
+      add constraint gallery_events_occasion_photo_limit
+      check (
+        label <> 'Occasions'
+        or (
+          jsonb_typeof(images) = 'array'
+          and jsonb_array_length(images) between 1 and 5
+          and cardinality(photos) between 1 and 5
+        )
+      );
+  end if;
+end $$;
+
 create table if not exists student_outcomes (
   id uuid primary key default gen_random_uuid(),
   title text not null,
